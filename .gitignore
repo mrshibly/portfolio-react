@@ -32,3 +32,10 @@ dist-ssr
 server/.env
 # Render
 render_*.json
+
+# Personal Info
+Md_Mahmudur_Rahman_Full_Info.txt
+current_portfolio.json
+
+# Scratch
+scratch/

@@ -37,5 +37,9 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  console.log('Environment Check:');
+  console.log(`- MONGO_URI: ${process.env.MONGO_URI ? 'LOADED' : 'MISSING'}`);
+  console.log(`- GROQ_API_KEY: ${process.env.GROQ_API_KEY ? 'LOADED' : 'MISSING'}`);
+  console.log(`- ADMIN_PASSWORD: ${process.env.ADMIN_PASSWORD ? 'LOADED' : 'MISSING'}`);
 });
 

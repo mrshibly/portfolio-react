@@ -125,13 +125,23 @@ const defaultData = {
 // GET portfolio data
 router.get('/', async (req, res) => {
   try {
-    let portfolio = await Portfolio.findOne();
+    // Attempt to fetch from DB with a timeout
+    const portfolio = await Portfolio.findOne().maxTimeMS(2000);
     if (!portfolio) {
-      portfolio = await Portfolio.create(defaultData);
+      // If no document exists, try to create it, but if that fails, return defaultData
+      try {
+        const newPortfolio = await Portfolio.create(defaultData);
+        return res.json(newPortfolio);
+      } catch (createError) {
+        console.warn("Could not create portfolio in DB, using default data:", createError.message);
+        return res.json(defaultData);
+      }
     }
     res.json(portfolio);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Database fetch failed, serving default data:", error.message);
+    // Return defaultData as a fallback instead of 500
+    res.json(defaultData);
   }
 });
 
