@@ -154,13 +154,16 @@ const Hero = () => {
               <Link to="/archive" className="btn-primary flex items-center gap-2">
                 View Archive
               </Link>
-              <a 
-                href="/resume.pdf" 
-                download
-                className="px-8 py-3 border border-white/20 rounded-full hover:bg-white/5 transition-all duration-300 flex items-center gap-2"
-              >
-                Download Resume
-              </a>
+              {data.resumeUrl && (
+                <a 
+                  href={data.resumeUrl} 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-8 py-3 border border-white/20 rounded-full hover:bg-white/5 transition-all duration-300 flex items-center gap-2"
+                >
+                  Download Resume
+                </a>
+              )}
             </div>
           </div>
         </div>

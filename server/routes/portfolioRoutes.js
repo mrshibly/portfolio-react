@@ -57,15 +57,45 @@ const defaultData = {
     { label: "Data Processed", value: "12TB" },
     { label: "Global Hackathons", value: "05" }
   ],
-  affiliations: [
-    { name: "Cyber Security Club", logo: "" },
-    { name: "BASIS Student Forum", logo: "" },
-    { name: "Team Apex", logo: "" }, 
-    { name: "Creative IT Institute", logo: "" },
-    { name: "Daffodil University", logo: "" },
-    { name: "Red Crescent", logo: "" },
-    { name: "GM Organization", logo: "" },
-    { name: "SETU Founder", logo: "" }
+  resumeUrl: "https://example.com/resume.pdf",
+  experience: [
+    {
+      title: "Senior AI Engineer",
+      company: "Tech Innovators Inc.",
+      duration: "2023 - Present",
+      desc: "Lead the development of autonomous multi-agent systems and architected high-performance backend microservices.",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
+    },
+    {
+      title: "Backend Developer",
+      company: "DataWorks",
+      duration: "2021 - 2023",
+      desc: "Developed and maintained Python-based APIs and RAG pipelines for enterprise document processing.",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg"
+    }
+  ],
+  leadership: [
+    { 
+      title: "President",
+      org: "Cyber Security Club", 
+      duration: "2022 - 2023",
+      desc: "Organized nationwide hackathons and led weekly workshops on ethical hacking.",
+      logo: "" 
+    },
+    { 
+      title: "Executive Member",
+      org: "BASIS Student Forum", 
+      duration: "2021 - 2022",
+      desc: "Coordinated tech seminars and bridged the gap between students and the IT industry.",
+      logo: "" 
+    },
+    { 
+      title: "Team Lead",
+      org: "Team Apex", 
+      duration: "2021",
+      desc: "Led a cross-functional team of 5 to win the NASA Space Apps Global hackathon.",
+      logo: "" 
+    }
   ],
   competencies: [
     {

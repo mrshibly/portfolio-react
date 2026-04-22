@@ -22,7 +22,21 @@ const PortfolioSchema = new mongoose.Schema({
     value: String,
     sub: String
   }],
-  affiliations: [mongoose.Schema.Types.Mixed],
+  experience: [{
+    title: String,
+    company: String,
+    duration: String,
+    desc: String,
+    logo: String
+  }],
+  leadership: [{
+    title: String,
+    org: String,
+    duration: String,
+    desc: String,
+    logo: String
+  }],
+  resumeUrl: String,
   competencies: [{
     title: String,
     desc: String,

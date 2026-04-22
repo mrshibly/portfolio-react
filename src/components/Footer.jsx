@@ -1,4 +1,4 @@
-import React from 'react'
+import { Linkedin, Github, Twitter, ExternalLink } from 'lucide-react'
 
 const Footer = () => {
   const year = new Date().getFullYear()
@@ -27,10 +27,10 @@ const Footer = () => {
             <div>
               <p className="text-[10px] uppercase tracking-widest text-white/40 mb-6 font-mono">Social</p>
               <ul className="space-y-4 text-sm font-medium">
-                <li><a href="https://linkedin.com/in/mrshibly" target="_blank" rel="noopener noreferrer" className="hover:text-electric transition-colors">LinkedIn</a></li>
-                <li><a href="https://github.com/mrshibly" target="_blank" rel="noopener noreferrer" className="hover:text-electric transition-colors">GitHub</a></li>
-                <li><a href="https://twitter.com/mr_shibly" target="_blank" rel="noopener noreferrer" className="hover:text-electric transition-colors">Twitter</a></li>
-                <li><a href="https://medium.com/@mrshibly" target="_blank" rel="noopener noreferrer" className="hover:text-electric transition-colors">Medium</a></li>
+                <li><a href="https://linkedin.com/in/mrshibly" target="_blank" rel="noopener noreferrer" className="hover:text-electric transition-colors flex items-center gap-2"><Linkedin size={16}/> LinkedIn</a></li>
+                <li><a href="https://github.com/mrshibly" target="_blank" rel="noopener noreferrer" className="hover:text-electric transition-colors flex items-center gap-2"><Github size={16}/> GitHub</a></li>
+                <li><a href="https://twitter.com/mr_shibly" target="_blank" rel="noopener noreferrer" className="hover:text-electric transition-colors flex items-center gap-2"><Twitter size={16}/> Twitter</a></li>
+                <li><a href="https://medium.com/@mrshibly" target="_blank" rel="noopener noreferrer" className="hover:text-electric transition-colors flex items-center gap-2"><ExternalLink size={16}/> Medium</a></li>
               </ul>
             </div>
             <div className="hidden md:block">

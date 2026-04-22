@@ -52,10 +52,45 @@ export const portfolioData = {
     { label: "Data Processed", value: "12TB" },
     { label: "Global Hackathons", value: "05" }
   ],
-  affiliations: [
-    "Cyber Security Club", "BASIS Student Forum", "Team Apex", 
-    "Creative IT Institute", "Daffodil University", "Red Crescent",
-    "GM Organization", "SETU Founder"
+  resumeUrl: "https://example.com/resume.pdf",
+  experience: [
+    {
+      title: "Senior AI Engineer",
+      company: "Tech Innovators Inc.",
+      duration: "2023 - Present",
+      desc: "Lead the development of autonomous multi-agent systems and architected high-performance backend microservices.",
+      logo: ""
+    },
+    {
+      title: "Backend Developer",
+      company: "DataWorks",
+      duration: "2021 - 2023",
+      desc: "Developed and maintained Python-based APIs and RAG pipelines for enterprise document processing.",
+      logo: ""
+    }
+  ],
+  leadership: [
+    { 
+      title: "President",
+      org: "Cyber Security Club", 
+      duration: "2022 - 2023",
+      desc: "Organized nationwide hackathons and led weekly workshops on ethical hacking.",
+      logo: "" 
+    },
+    { 
+      title: "Executive Member",
+      org: "BASIS Student Forum", 
+      duration: "2021 - 2022",
+      desc: "Coordinated tech seminars and bridged the gap between students and the IT industry.",
+      logo: "" 
+    },
+    { 
+      title: "Team Lead",
+      org: "Team Apex", 
+      duration: "2021",
+      desc: "Led a cross-functional team of 5 to win the NASA Space Apps Global hackathon.",
+      logo: "" 
+    }
   ],
   competencies: [
     {

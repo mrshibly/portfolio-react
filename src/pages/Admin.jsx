@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Lock, Save, Plus, Trash2, Eye, LayoutDashboard, Settings, Copy, Check, LogOut, ChevronRight, User, BookOpen, Mail, Star } from 'lucide-react'
+import { Lock, Save, Plus, Trash2, Eye, LayoutDashboard, Settings, Copy, Check, LogOut, ChevronRight, User, BookOpen, Mail, Star, Briefcase, Award, FileText } from 'lucide-react'
 import { usePortfolioData } from '../hooks/usePortfolioData'
 
 const Admin = () => {
@@ -12,6 +12,8 @@ const Admin = () => {
   
   const [editingProject, setEditingProject] = useState(null)
   const [editingCompetency, setEditingCompetency] = useState(null)
+  const [editingExperience, setEditingExperience] = useState(null)
+  const [editingLeadership, setEditingLeadership] = useState(null)
 
   useEffect(() => {
     const checkToken = async () => {
@@ -99,6 +101,42 @@ const Admin = () => {
     setEditingCompetency(null)
   }
 
+  // Experience CRUD
+  const deleteExperience = (index) => {
+    if (window.confirm('Remove this experience entry?')) {
+      updateData({ ...data, experience: data.experience.filter((_, i) => i !== index) })
+    }
+  }
+
+  const saveExperience = (exp, originalIndex) => {
+    const newExps = [...(data.experience || [])]
+    if (originalIndex !== null && originalIndex !== undefined) {
+      newExps[originalIndex] = exp
+    } else {
+      newExps.push(exp)
+    }
+    updateData({ ...data, experience: newExps })
+    setEditingExperience(null)
+  }
+
+  // Leadership CRUD
+  const deleteLeadership = (index) => {
+    if (window.confirm('Remove this leadership entry?')) {
+      updateData({ ...data, leadership: data.leadership.filter((_, i) => i !== index) })
+    }
+  }
+
+  const saveLeadership = (item, originalIndex) => {
+    const newItems = [...(data.leadership || [])]
+    if (originalIndex !== null && originalIndex !== undefined) {
+      newItems[originalIndex] = item
+    } else {
+      newItems.push(item)
+    }
+    updateData({ ...data, leadership: newItems })
+    setEditingLeadership(null)
+  }
+
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-obsidian px-6">
@@ -146,9 +184,10 @@ const Admin = () => {
           {[
             { id: 'hero', label: 'Identity', icon: User },
             { id: 'projects', label: 'Work Archive', icon: LayoutDashboard },
+            { id: 'experience', label: 'Experience', icon: Briefcase },
+            { id: 'leadership', label: 'Leadership', icon: Award },
             { id: 'competencies', label: 'Competencies', icon: Star },
             { id: 'stats', label: 'Performance', icon: Settings },
-            { id: 'affiliations', label: 'Network', icon: Eye },
             { id: 'manifesto', label: 'Manifesto', icon: BookOpen },
             { id: 'contact', label: 'Contact', icon: Mail },
             { id: 'config', label: 'System Export', icon: Copy }
@@ -247,6 +286,18 @@ const Admin = () => {
                 onChange={(e) => updateHero('bio', e.target.value)}
                 className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric transition-all resize-none leading-relaxed text-lg"
               />
+            </div>
+
+            <div className="space-y-4 pt-8 border-t border-white/10">
+              <label className="text-xs uppercase font-mono text-slate tracking-widest flex items-center gap-2"><FileText size={14} className="text-electric" /> Resume URL</label>
+              <input 
+                type="text" 
+                value={data.resumeUrl || ''}
+                onChange={(e) => updateData({ ...data, resumeUrl: e.target.value })}
+                className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric transition-all font-mono"
+                placeholder="https://drive.google.com/your-resume.pdf"
+              />
+              <p className="text-[10px] text-slate/50">This link will be used for the "Download Resume" button on the homepage.</p>
             </div>
           </div>
         )}
@@ -566,83 +617,258 @@ const Admin = () => {
           </div>
         )}
 
-        {activeTab === 'affiliations' && (
+        {activeTab === 'experience' && (
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8">
-              <div className="flex justify-between items-center mb-8">
-                 <h3 className="text-xl font-bold uppercase tracking-widest">Network Nodes</h3>
-                 <button 
-                   onClick={() => {
-                     const name = prompt('Enter affiliation name:')
-                     if (name) updateData({ ...data, affiliations: [...(data.affiliations || []), { name, logo: '' }] })
-                   }}
-                   className="p-3 bg-electric/10 text-electric hover:bg-electric/20 rounded-xl transition-colors flex items-center gap-2"
-                 >
-                   <Plus size={18} /> Add Affiliation
-                 </button>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {data.affiliations?.map((org, idx) => {
-                  const isString = typeof org === 'string'
-                  const name = isString ? org : org.name
-                  const logo = isString ? '' : org.logo
-                  
-                  return (
-                    <div key={idx} className="flex flex-col p-5 bg-black/40 border border-white/5 rounded-2xl group hover:border-electric/30 transition-all gap-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                          <div className="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center font-mono text-xs text-slate">
-                            {idx + 1}
-                          </div>
-                          <span className="font-bold tracking-tight">{name}</span>
+            {!editingExperience ? (
+              <>
+                <button 
+                  onClick={() => setEditingExperience({ title: '', company: '', duration: '', desc: '', logo: '', originalIndex: null })}
+                  className="flex items-center gap-2 px-6 py-4 bg-white/5 border border-dashed border-white/20 rounded-2xl hover:border-electric/50 hover:bg-electric/5 transition-all w-full justify-center group"
+                >
+                  <Plus size={20} className="group-hover:rotate-90 transition-transform" /> 
+                  <span className="font-bold uppercase tracking-widest text-sm">Add Experience Entry</span>
+                </button>
+                
+                <div className="grid grid-cols-1 gap-6">
+                  {data.experience?.map((exp, idx) => (
+                    <div key={idx} className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex items-center justify-between group hover:bg-white/[0.04] transition-all" style={{ borderLeftColor: '#00E5FF', borderLeftWidth: '3px' }}>
+                      <div className="flex items-center gap-6">
+                        <div className="w-14 h-14 rounded-2xl overflow-hidden border border-white/10 bg-black flex items-center justify-center shrink-0">
+                          {exp.logo ? (
+                            <img src={exp.logo} alt="" className="w-8 h-8 object-contain" />
+                          ) : (
+                            <Briefcase className="text-electric" size={22} />
+                          )}
                         </div>
+                        <div>
+                          <h3 className="text-xl font-bold mb-1">{exp.title}</h3>
+                          <p className="text-xs text-electric font-mono uppercase tracking-widest">{exp.company}</p>
+                          <p className="text-xs text-slate/50 font-mono mt-1">{exp.duration}</p>
+                        </div>
+                      </div>
+                      <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
                         <button 
-                          onClick={() => {
-                            if (window.confirm('Remove this node?')) {
-                              updateData({ ...data, affiliations: data.affiliations.filter((_, i) => i !== idx) })
-                            }
-                          }}
-                          className="p-2 text-drama hover:bg-drama/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                          onClick={() => setEditingExperience({ ...exp, originalIndex: idx })}
+                          className="p-3 bg-white/5 hover:bg-white/10 rounded-xl transition-colors"
                         >
-                          <Trash2 size={18} />
+                          <Settings size={20} />
+                        </button>
+                        <button 
+                          onClick={() => deleteExperience(idx)}
+                          className="p-3 bg-drama/10 text-drama hover:bg-drama/20 rounded-xl transition-colors"
+                        >
+                          <Trash2 size={20} />
                         </button>
                       </div>
-                      
-                      <div className="space-y-3 pt-2 border-t border-white/5">
-                        <div className="space-y-1">
-                          <label className="text-[10px] uppercase font-mono text-slate">Name</label>
-                          <input 
-                            type="text" 
-                            value={name}
-                            onChange={(e) => {
-                              const newAffiliations = [...data.affiliations]
-                              newAffiliations[idx] = { name: e.target.value, logo }
-                              updateData({ ...data, affiliations: newAffiliations })
-                            }}
-                            className="w-full bg-black/50 border border-white/10 rounded-lg px-3 py-2 outline-none focus:border-electric text-sm"
-                          />
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 space-y-6">
+                <h3 className="text-2xl font-bold mb-8">Edit Experience Entry</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Job Title</label>
+                    <input 
+                      type="text" 
+                      value={editingExperience.title}
+                      onChange={(e) => setEditingExperience({...editingExperience, title: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
+                      placeholder="Senior AI Engineer"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Company</label>
+                    <input 
+                      type="text" 
+                      value={editingExperience.company}
+                      onChange={(e) => setEditingExperience({...editingExperience, company: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
+                      placeholder="Tech Innovators Inc."
+                    />
+                  </div>
+                </div>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Duration</label>
+                    <input 
+                      type="text" 
+                      value={editingExperience.duration}
+                      onChange={(e) => setEditingExperience({...editingExperience, duration: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
+                      placeholder="2023 - Present"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Company Logo URL (Optional)</label>
+                    <input 
+                      type="text" 
+                      value={editingExperience.logo || ''}
+                      onChange={(e) => setEditingExperience({...editingExperience, logo: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
+                      placeholder="https://..."
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase font-mono text-slate">Description</label>
+                  <textarea 
+                    rows="3"
+                    value={editingExperience.desc}
+                    onChange={(e) => setEditingExperience({...editingExperience, desc: e.target.value})}
+                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric resize-none"
+                    placeholder="Describe your role and achievements..."
+                  />
+                </div>
+                <div className="flex gap-4 pt-4">
+                  <button 
+                    onClick={() => {
+                      const { originalIndex, ...exp } = editingExperience;
+                      saveExperience(exp, originalIndex);
+                    }}
+                    className="flex-1 bg-electric text-black font-bold py-4 rounded-xl hover:scale-[1.02] transition-all"
+                  >
+                    Commit Changes
+                  </button>
+                  <button 
+                    onClick={() => setEditingExperience(null)}
+                    className="flex-1 bg-white/5 border border-white/10 font-bold py-4 rounded-xl hover:bg-white/10 transition-all"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {activeTab === 'leadership' && (
+          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            {!editingLeadership ? (
+              <>
+                <button 
+                  onClick={() => setEditingLeadership({ title: '', org: '', duration: '', desc: '', logo: '', originalIndex: null })}
+                  className="flex items-center gap-2 px-6 py-4 bg-white/5 border border-dashed border-white/20 rounded-2xl hover:border-electric/50 hover:bg-electric/5 transition-all w-full justify-center group"
+                >
+                  <Plus size={20} className="group-hover:rotate-90 transition-transform" /> 
+                  <span className="font-bold uppercase tracking-widest text-sm">Add Leadership Entry</span>
+                </button>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {data.leadership?.map((item, idx) => (
+                    <div key={idx} className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex flex-col gap-3 group hover:bg-white/[0.04] transition-all" style={{ borderLeftColor: '#FF2E63', borderLeftWidth: '3px' }}>
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-center gap-4">
+                          <div className="w-12 h-12 rounded-xl overflow-hidden border border-white/10 bg-black flex items-center justify-center shrink-0">
+                            {item.logo ? (
+                              <img src={item.logo} alt="" className="w-7 h-7 object-contain" />
+                            ) : (
+                              <Award className="text-drama" size={20} />
+                            )}
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-bold">{item.title}</h3>
+                            <p className="text-xs text-drama font-mono uppercase tracking-widest">{item.org}</p>
+                          </div>
                         </div>
-                        <div className="space-y-1">
-                          <label className="text-[10px] uppercase font-mono text-slate">Logo URL (Optional)</label>
-                          <input 
-                            type="text" 
-                            value={logo || ''}
-                            onChange={(e) => {
-                              const newAffiliations = [...data.affiliations]
-                              newAffiliations[idx] = { name, logo: e.target.value }
-                              updateData({ ...data, affiliations: newAffiliations })
-                            }}
-                            placeholder="https://..."
-                            className="w-full bg-black/50 border border-white/10 rounded-lg px-3 py-2 outline-none focus:border-electric text-sm"
-                          />
+                        <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <button 
+                            onClick={() => setEditingLeadership({ ...item, originalIndex: idx })}
+                            className="p-2 bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
+                          >
+                            <Settings size={16} />
+                          </button>
+                          <button 
+                            onClick={() => deleteLeadership(idx)}
+                            className="p-2 bg-drama/10 text-drama hover:bg-drama/20 rounded-lg transition-colors"
+                          >
+                            <Trash2 size={16} />
+                          </button>
                         </div>
                       </div>
+                      <p className="text-slate text-sm line-clamp-2">{item.desc}</p>
+                      <span className="text-slate/40 font-mono text-[10px] uppercase tracking-widest">{item.duration}</span>
                     </div>
-                  )
-                })}
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 space-y-6">
+                <h3 className="text-2xl font-bold mb-8">Edit Leadership Entry</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Position / Title</label>
+                    <input 
+                      type="text" 
+                      value={editingLeadership.title}
+                      onChange={(e) => setEditingLeadership({...editingLeadership, title: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
+                      placeholder="President"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Organization</label>
+                    <input 
+                      type="text" 
+                      value={editingLeadership.org}
+                      onChange={(e) => setEditingLeadership({...editingLeadership, org: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
+                      placeholder="Cyber Security Club"
+                    />
+                  </div>
+                </div>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Duration</label>
+                    <input 
+                      type="text" 
+                      value={editingLeadership.duration}
+                      onChange={(e) => setEditingLeadership({...editingLeadership, duration: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
+                      placeholder="2022 - 2023"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Logo URL (Optional)</label>
+                    <input 
+                      type="text" 
+                      value={editingLeadership.logo || ''}
+                      onChange={(e) => setEditingLeadership({...editingLeadership, logo: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
+                      placeholder="https://..."
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase font-mono text-slate">Description</label>
+                  <textarea 
+                    rows="3"
+                    value={editingLeadership.desc}
+                    onChange={(e) => setEditingLeadership({...editingLeadership, desc: e.target.value})}
+                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric resize-none"
+                    placeholder="Describe your contributions and impact..."
+                  />
+                </div>
+                <div className="flex gap-4 pt-4">
+                  <button 
+                    onClick={() => {
+                      const { originalIndex, ...item } = editingLeadership;
+                      saveLeadership(item, originalIndex);
+                    }}
+                    className="flex-1 bg-electric text-black font-bold py-4 rounded-xl hover:scale-[1.02] transition-all"
+                  >
+                    Commit Changes
+                  </button>
+                  <button 
+                    onClick={() => setEditingLeadership(null)}
+                    className="flex-1 bg-white/5 border border-white/10 font-bold py-4 rounded-xl hover:bg-white/10 transition-all"
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
 

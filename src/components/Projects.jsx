@@ -69,13 +69,24 @@ const Projects = () => {
                         ))}
                       </div>
                     </div>
-                    
-                    <Link 
-                      to={`/project/${project.id}`}
-                      className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white text-obsidian flex items-center justify-center group-hover:bg-electric group-hover:text-white transition-all duration-500 shrink-0"
-                    >
-                      <ArrowUpRight className="w-6 h-6 md:w-8 md:h-8" />
-                    </Link>
+                    <div className="flex items-center gap-4 shrink-0">
+                      {project.link && (
+                        <a 
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-4 py-2 text-xs font-mono tracking-widest uppercase border border-electric/30 text-electric hover:bg-electric hover:text-white rounded-full transition-colors"
+                        >
+                          Live
+                        </a>
+                      )}
+                      <Link 
+                        to={`/project/${project.id}`}
+                        className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white text-obsidian flex items-center justify-center group-hover:bg-electric group-hover:text-white transition-all duration-500"
+                      >
+                        <ArrowUpRight className="w-6 h-6 md:w-8 md:h-8" />
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>

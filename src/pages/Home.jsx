@@ -7,7 +7,8 @@ import Manifesto from '../components/Manifesto'
 import Projects from '../components/Projects'
 import Stats from '../components/Stats'
 import Contact from '../components/Contact'
-import Affiliations from '../components/Affiliations'
+import Experience from '../components/Experience'
+import Leadership from '../components/Leadership'
 
 const Home = () => {
   const location = useLocation()
@@ -33,8 +34,9 @@ const Home = () => {
       <Competencies />
       <Manifesto />
       <Projects />
+      <Experience />
       <Stats />
-      <Affiliations />
+      <Leadership />
       <Contact />
     </>
   )
