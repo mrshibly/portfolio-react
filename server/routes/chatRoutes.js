@@ -14,8 +14,17 @@ router.post('/', async (req, res) => {
       return res.status(400).json({ error: "Message is required" });
     }
 
-    const portfolio = await Portfolio.findOne();
-    const portfolioContext = portfolio ? JSON.stringify(portfolio) : "No data available";
+    let portfolioContext = "No data available";
+    try {
+      // Set a short timeout for the DB query to avoid hanging
+      const portfolio = await Portfolio.findOne().maxTimeMS(2000);
+      if (portfolio) {
+        portfolioContext = JSON.stringify(portfolio);
+      }
+    } catch (dbError) {
+      console.warn("Database context unavailable for chat:", dbError.message);
+      portfolioContext = "The AI assistant is currently operating with limited information because the database is unreachable.";
+    }
 
     const systemPrompt = `You are an AI assistant for Mahmudur Rahman's portfolio website. 
 Your goal is to answer questions *only* about Mahmudur Rahman based on the provided portfolio data.
