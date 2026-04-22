@@ -1,0 +1,175 @@
+Md. Mahmudur Rahman
+AI Engineer | Python & FastAPI Specialist | Agentic AI Systems Architect
+Dhaka, Bangladesh
+
+================================================================================
+CONTACT INFORMATION
+================================================================================
+Address: Hazi Afsar Uddin Lane, Zigatola, Dhanmondi, Dhaka – 1209
+Cell: +8801517835859
+Email (Primary): mahmudurrahman858@gmail.com
+Email (Academic): rahman15-5347@diu.edu.bd
+LinkedIn: https://linkedin.com/in/mrshibly
+GitHub: https://github.com/mrshibly
+Portfolio (Next.js): https://mrshibly.onrender.com (Current Status: Internal Server Error)
+Portfolio (Google Site): sites.google.com/diu.edu.bd/mrshibly
+HuggingFace: https://huggingface.co/mrshibly
+X/Twitter: https://x.com/mrshibly
+
+================================================================================
+CAREER OBJECTIVE
+================================================================================
+To leverage my expertise in Agentic AI workflows and Large Language Model (LLM) orchestration to architect state-of-the-art autonomous systems. I aim to bridge the gap between cutting-edge AI research and production-ready automation, driving organizational innovation through multi-agent architectures and high-impact business process optimizations.
+
+================================================================================
+PROFESSIONAL SUMMARY
+================================================================================
+Md. Mahmudur Rahman is an AI Engineer and Automation Specialist with a proven track record of architecting agentic AI systems and highly-scalable backend services. Expert in the Python/FastAPI ecosystem, he specializes in building autonomous multi-agent workflows, production-ready RAG pipelines, and intelligent document processing systems (e.g., LlamaOCR).
+
+Beyond core AI engineering, he is a seasoned automation architect utilizing n8n to streamline complex business operations, lead generation, and client-facing workflows. With over 7 years of diverse experience—ranging from international coordination and technical leadership to competitive hacking and a NASA Space Apps win—he offers a unique hybrid profile of deep technical expertise, client management mastery, and strategic vision.
+
+================================================================================
+TECHNICAL SKILLS & EXPERTISE
+================================================================================
+AI & Machine Learning (Top Skills):
+- Multi-agent Systems, Large Language Models (LLM), FastAPI
+- Agentic AI Workflows, LangChain, CrewAI, LangGraph, AutoGen
+- RAG Pipelines, Semantic Search, FAISS, ChromaDB
+- Transformers, PyTorch, SentenceTransformers, HuggingFace
+- Domains: Machine Learning, Data Science, Cyber Security, AI Research
+
+Automation & Client Management:
+- Workflow Automation: n8n (Expert), Make, Zapier
+- Lead Generation Automation: Social media scraping, CRM integration, email automation.
+- Client Handling: Requirement gathering, technical communication, and project delivery.
+
+Programming Languages:
+- Expert: Python, FastAPI
+- Proficient: C, C++, Java, C#, PHP, Dart, SQLite, MySQL
+- Other: SQL (PostgreSQL), NoSQL
+
+Tools & Dev Ops:
+- Docker, Linux (Kali, Parrot, Ubuntu), Git, WebSockets, Playwright
+- Windows 7, 10, 11
+- Cloud/Orchestration: Kubernetes (Beginner), Render
+
+Languages:
+- Bengali (Native or Bilingual)
+- English (Professional Working)
+- Hindi & Urdu (Good: Listening)
+
+================================================================================
+PROFESSIONAL EXPERIENCE
+================================================================================
+AI Developer | Betopia Group (associated with Softvence Agency)
+Dhaka, Bangladesh | Feb 2026 — Present
+- Develop and optimize AI/ML models for production use.
+- Work on NLP, Computer Vision, and LLM-based applications.
+- Prepare and analyze data for training and evaluation.
+- Integrate AI solutions with backend systems.
+- Collaborate with senior engineers on real-world AI projects.
+- Lead the development of AI-native platforms using FastAPI and multi-agent workflows.
+- Optimized inference for open-source LLMs using Groq and vLLM.
+
+IT Specialist & International Coordinator | GM Organization
+Dhaka, Bangladesh | Jan 2019 — Jan 2026 (7 years 1 month)
+- Served as International Coordinator (Jan 2022 - Jan 2026) managing global communications and international relations.
+- Served as IT Specialist providing technical support and managing digital assets.
+
+Founder | SETU
+- Founded a student freelance marketplace start-up aimed at bridging the gap between student talent and local opportunities.
+
+================================================================================
+LEADERSHIP & VOLUNTEERING
+================================================================================
+Lead Executive | Cyber Security Club, Daffodil International University
+Sept 2024 — Jan 2026 (1 year 5 months)
+- Previously Executive Member (Mar 2024 - Sept 2024).
+- Organized events and promoted cybersecurity awareness among students.
+
+Campus Ambassador | Creative IT Institute (CIT)
+Dhaka, Bangladesh | June 2023 — Jan 2026 (2 years 8 months)
+- Presenting CIT at campus and building relationships with students.
+- Arranging registration booths, workshops, seminars, and training.
+- Cooperating with CIT for promotion, branding, and creating awareness regarding skilled training.
+
+Executive | BASIS Student's Forum - DIU Chapter
+Nov 2024 — Jan 2026 (1 year 3 months)
+
+Executive Member | Team Apex
+May 2023 — Jan 2026 (2 years 9 months)
+
+Executive Member | DIU Computer & Programming Club (CPC)
+Mar 2024 — Mar 2025 (1 year 1 month)
+
+CTF Developer | Cyber Security Center - DIU
+Jan 2023 — Mar 2024 (1 year 3 months)
+- Previously General Member (Nov 2022 - Nov 2024).
+
+Former Member | Red Crescent Youth
+- Active volunteer at Government Laboratory High School unit; completed Lite Search & Rescue Training.
+
+================================================================================
+KEY PROJECTS
+================================================================================
+n8n Lead Generation & Workflow Automation
+- Tech: n8n, Webhooks, Google Sheets, SMTP, Playwright
+- Description: Developed several production-ready automation workflows for personal projects and business needs. Specifically focused on automated lead generation (scraping, filtering, and logging) and AI agent integration for business processes.
+
+PhantomAPI: ChatGPT to API
+- Tech: FastAPI, Playwright, Python
+- GitHub: https://github.com/mrshibly/PhantomAPI
+- Description: Turns ChatGPT's free web interface into an OpenAI-compatible API bridge, perfect for use in n8n and other free AI automation agents.
+
+Autonomous AI Research Agent
+- Tech: Python, LangChain, Multi-Agent Systems
+- GitHub: https://github.com/mrshibly/autonomous-research-agent
+- Description: Multi-agent system searching academic sources and analyzing PDFs to produce research reports with citations.
+
+LlamaOCR: Document Intelligence
+- Tech: Llama 3.3, OpenCV, Python
+- GitHub: https://github.com/mrshibly/LlamaOCR-Pipeline
+- Description: OCR pipeline for structured data extraction from handwritten and digital documents.
+
+BD-Insight (Bangla RAG System)
+- Tech: FAISS, Flan-T5, SentenceTransformers
+- Description: Domain-specific RAG system for Bangla language document analysis.
+
+================================================================================
+HONORS, AWARDS & CERTIFICATIONS
+================================================================================
+Honors & Awards:
+- NASA Space Apps Winner (2024): Regional Winner & Global Nominee (Rajshahi Zone).
+- NASA Space Apps Challenge (2023): Regional 2nd Runner-Up (Sylhet Zone).
+- Google Hacking Contest Champion: Two-time winner (2022, 2023).
+- DIU CPC Take-off Programming Contest: Ranked in Top 20 twice.
+- Grand Finalist: DIU Accelerator Cup-2023.
+- Galactic Problem Solver & Agent X (Global Nominee status recognitions).
+- Special Honor Award: Red Crescent Youth, Govt. Laboratory High School.
+
+Certifications:
+- Introduction to Cyber Security (Cisco/Networking Academy).
+- Microsoft AI Skills Fest | Festival participation.
+- Lite Search & Rescue Training (Bangladesh Red Crescent Society).
+
+Other Participations:
+- Flag Hunt BD 2023: Final Round.
+- ICPC Preliminary: 2021, 2022, 2024.
+- Google IO Extended: 2022, 2023.
+- Attended Startup Summit 2025 and Phoenix Summit 2025.
+
+================================================================================
+EDUCATION
+================================================================================
+Bachelor of Science (BS) in Computer Science and Engineering
+Daffodil International University (DIU) | Jan 2022 — Dec 2025
+- GPA: 3.63 / 4.00
+- Relevant Coursework: AI, Algorithms, Data Structures, DB Systems.
+
+Higher Secondary Certificate (HSC) in Science
+BirShreshtha Noor Mohammad Public College (BNMPC) | 2018 — 2020
+- GPA: 5.00 / 5.00 | Board: Dhaka
+
+Secondary School Certificate (SSC) in Science
+Government Laboratory High School | 2013 — 2018
+- GPA: 5.00 / 5.00 | Board: Dhaka

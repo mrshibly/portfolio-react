@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@theme {
+  --color-obsidian: #050505;
+  --color-electric: #3B82F6;
+  --color-drama: #FF2D55;
+  --color-slate: #8E8E93;
+  
+  --font-inter: "Inter", sans-serif;
+  --font-inter-tight: "Inter Tight", sans-serif;
+  --font-serif: "Instrument Serif", serif;
+
+  --radius-4xl: 2rem;
+  --radius-5xl: 3rem;
+
+  --animate-scroll: scroll 30s linear infinite;
+  --animate-pulse-slow: pulse-slow 4s ease-in-out infinite;
+  --animate-spin-slow: spin 8s linear infinite;
+  --animate-reverse-spin: spin 12s linear infinite reverse;
+
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.9); }
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+}
+
+@layer base {
+  html.lenis {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+
+  body {
+    @apply antialiased bg-obsidian text-white selection:bg-electric/30 selection:text-white;
+    font-family: var(--font-inter);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+    font-family: var(--font-inter-tight);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-electric text-white rounded-full font-medium transition-all duration-300 hover:scale-105 active:scale-95;
+  }
+  
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-4xl p-8 transition-all duration-500;
+  }
+}
+
+.text-drama {
+  font-family: var(--font-serif);
+  @apply italic;
+}
+
+.mask-ticker {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 10px;
+  border: 2px solid #050505;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3B82F6;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #222 #050505;
+}
+
