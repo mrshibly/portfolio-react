@@ -1,10 +1,15 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
+import 'dotenv/config';
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const portfolioRoutes = require('./routes/portfolioRoutes');
-const chatRoutes = require('./routes/chatRoutes');
+import portfolioRoutes from './routes/portfolioRoutes.js';
+import chatRoutes from './routes/chatRoutes.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -17,7 +22,6 @@ app.use(express.json());
 app.use('/api/portfolio', portfolioRoutes);
 app.use('/api/chat', chatRoutes);
 
-const path = require('path');
 // Serve static frontend files
 app.use(express.static(path.join(__dirname, '../dist')));
 
@@ -35,3 +39,4 @@ mongoose.connect(process.env.MONGO_URI)
   .catch((err) => {
     console.error('MongoDB connection error:', err);
   });
+

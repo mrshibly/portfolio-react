@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import Groq from 'groq-sdk';
+import Portfolio from '../models/Portfolio.js';
+
 const router = express.Router();
-const Groq = require('groq-sdk');
-const Portfolio = require('../models/Portfolio');
 
 // We'll initialize groq inside the route to ensure process.env.GROQ_API_KEY is loaded
 router.post('/', async (req, res) => {
@@ -42,4 +43,5 @@ ${portfolioContext}
   }
 });
 
-module.exports = router;
+export default router;
+

@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import Portfolio from '../models/Portfolio.js';
+
 const router = express.Router();
-const Portfolio = require('../models/Portfolio');
 
 const defaultData = {
   hero: {
@@ -172,4 +173,5 @@ router.put('/', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
+
