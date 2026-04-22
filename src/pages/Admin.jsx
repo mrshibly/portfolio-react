@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Lock, Save, Plus, Trash2, Eye, LayoutDashboard, Settings, Copy, Check, LogOut, ChevronRight, User, BookOpen, Mail, Star, Briefcase, Award, FileText } from 'lucide-react'
+import { Lock, Save, Plus, Trash2, Eye, LayoutDashboard, Settings, Copy, Check, LogOut, ChevronRight, User, BookOpen, Mail, Star, Briefcase, Award, FileText, GraduationCap } from 'lucide-react'
 import { usePortfolioData } from '../hooks/usePortfolioData'
 
 const Admin = () => {
@@ -14,6 +14,7 @@ const Admin = () => {
   const [editingCompetency, setEditingCompetency] = useState(null)
   const [editingExperience, setEditingExperience] = useState(null)
   const [editingLeadership, setEditingLeadership] = useState(null)
+  const [editingEducation, setEditingEducation] = useState(null)
 
   useEffect(() => {
     const checkToken = async () => {
@@ -137,6 +138,24 @@ const Admin = () => {
     setEditingLeadership(null)
   }
 
+  // Education CRUD
+  const deleteEducation = (index) => {
+    if (window.confirm('Remove this education entry?')) {
+      updateData({ ...data, education: data.education.filter((_, i) => i !== index) })
+    }
+  }
+
+  const saveEducation = (edu, originalIndex) => {
+    const newEdus = [...(data.education || [])]
+    if (originalIndex !== null && originalIndex !== undefined) {
+      newEdus[originalIndex] = edu
+    } else {
+      newEdus.push(edu)
+    }
+    updateData({ ...data, education: newEdus })
+    setEditingEducation(null)
+  }
+
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-obsidian px-6">
@@ -185,6 +204,7 @@ const Admin = () => {
             { id: 'hero', label: 'Identity', icon: User },
             { id: 'projects', label: 'Work Archive', icon: LayoutDashboard },
             { id: 'experience', label: 'Experience', icon: Briefcase },
+            { id: 'education', label: 'Education', icon: GraduationCap },
             { id: 'leadership', label: 'Leadership', icon: Award },
             { id: 'competencies', label: 'Competencies', icon: Star },
             { id: 'stats', label: 'Performance', icon: Settings },
@@ -862,6 +882,132 @@ const Admin = () => {
                   </button>
                   <button 
                     onClick={() => setEditingLeadership(null)}
+                    className="flex-1 bg-white/5 border border-white/10 font-bold py-4 rounded-xl hover:bg-white/10 transition-all"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {activeTab === 'education' && (
+          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            {!editingEducation ? (
+              <>
+                <button 
+                  onClick={() => setEditingEducation({ degree: '', institution: '', duration: '', desc: '', logo: '', originalIndex: null })}
+                  className="flex items-center gap-2 px-6 py-4 bg-white/5 border border-dashed border-white/20 rounded-2xl hover:border-electric/50 hover:bg-electric/5 transition-all w-full justify-center group"
+                >
+                  <Plus size={20} className="group-hover:rotate-90 transition-transform" /> 
+                  <span className="font-bold uppercase tracking-widest text-sm">Add Education Entry</span>
+                </button>
+                
+                <div className="grid grid-cols-1 gap-6">
+                  {data.education?.map((edu, idx) => (
+                    <div key={idx} className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex items-center justify-between group hover:bg-white/[0.04] transition-all" style={{ borderLeftColor: '#F59E0B', borderLeftWidth: '3px' }}>
+                      <div className="flex items-center gap-6">
+                        <div className="w-14 h-14 rounded-2xl overflow-hidden border border-white/10 bg-black flex items-center justify-center shrink-0">
+                          {edu.logo ? (
+                            <img src={edu.logo} alt="" className="w-8 h-8 object-contain" />
+                          ) : (
+                            <GraduationCap className="text-amber-400" size={22} />
+                          )}
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-bold mb-1">{edu.degree}</h3>
+                          <p className="text-xs text-amber-400 font-mono uppercase tracking-widest">{edu.institution}</p>
+                          <p className="text-xs text-slate/50 font-mono mt-1">{edu.duration}</p>
+                        </div>
+                      </div>
+                      <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button 
+                          onClick={() => setEditingEducation({ ...edu, originalIndex: idx })}
+                          className="p-3 bg-white/5 hover:bg-white/10 rounded-xl transition-colors"
+                        >
+                          <Settings size={20} />
+                        </button>
+                        <button 
+                          onClick={() => deleteEducation(idx)}
+                          className="p-3 bg-drama/10 text-drama hover:bg-drama/20 rounded-xl transition-colors"
+                        >
+                          <Trash2 size={20} />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 space-y-6">
+                <h3 className="text-2xl font-bold mb-8">Edit Education Entry</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Degree / Program</label>
+                    <input 
+                      type="text" 
+                      value={editingEducation.degree}
+                      onChange={(e) => setEditingEducation({...editingEducation, degree: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
+                      placeholder="B.Sc. in Computer Science"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Institution</label>
+                    <input 
+                      type="text" 
+                      value={editingEducation.institution}
+                      onChange={(e) => setEditingEducation({...editingEducation, institution: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
+                      placeholder="University Name"
+                    />
+                  </div>
+                </div>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Duration</label>
+                    <input 
+                      type="text" 
+                      value={editingEducation.duration}
+                      onChange={(e) => setEditingEducation({...editingEducation, duration: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
+                      placeholder="2020 - 2024"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Institution Logo URL (Optional)</label>
+                    <input 
+                      type="text" 
+                      value={editingEducation.logo || ''}
+                      onChange={(e) => setEditingEducation({...editingEducation, logo: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
+                      placeholder="https://..."
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase font-mono text-slate">Description</label>
+                  <textarea 
+                    rows="3"
+                    value={editingEducation.desc}
+                    onChange={(e) => setEditingEducation({...editingEducation, desc: e.target.value})}
+                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric resize-none"
+                    placeholder="Describe your studies, achievements, focus areas..."
+                  />
+                </div>
+                <div className="flex gap-4 pt-4">
+                  <button 
+                    onClick={() => {
+                      const { originalIndex, ...edu } = editingEducation;
+                      saveEducation(edu, originalIndex);
+                    }}
+                    className="flex-1 bg-electric text-black font-bold py-4 rounded-xl hover:scale-[1.02] transition-all"
+                  >
+                    Commit Changes
+                  </button>
+                  <button 
+                    onClick={() => setEditingEducation(null)}
                     className="flex-1 bg-white/5 border border-white/10 font-bold py-4 rounded-xl hover:bg-white/10 transition-all"
                   >
                     Cancel

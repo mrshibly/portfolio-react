@@ -97,6 +97,15 @@ const defaultData = {
       logo: "" 
     }
   ],
+  education: [
+    {
+      degree: "B.Sc. in Computer Science & Engineering",
+      institution: "Daffodil International University",
+      duration: "2020 - 2024",
+      desc: "Focused on Artificial Intelligence, Machine Learning, and Software Engineering. Graduated with distinction.",
+      logo: ""
+    }
+  ],
   competencies: [
     {
       title: "Agentic Workflows",

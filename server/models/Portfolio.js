@@ -36,6 +36,13 @@ const PortfolioSchema = new mongoose.Schema({
     desc: String,
     logo: String
   }],
+  education: [{
+    degree: String,
+    institution: String,
+    duration: String,
+    desc: String,
+    logo: String
+  }],
   resumeUrl: String,
   competencies: [{
     title: String,

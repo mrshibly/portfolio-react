@@ -8,6 +8,7 @@ import Projects from '../components/Projects'
 import Stats from '../components/Stats'
 import Contact from '../components/Contact'
 import Experience from '../components/Experience'
+import Education from '../components/Education'
 import Leadership from '../components/Leadership'
 
 const Home = () => {
@@ -35,6 +36,7 @@ const Home = () => {
       <Manifesto />
       <Projects />
       <Experience />
+      <Education />
       <Stats />
       <Leadership />
       <Contact />
