@@ -10,13 +10,14 @@ import Contact from '../components/Contact'
 import Experience from '../components/Experience'
 import Education from '../components/Education'
 import Leadership from '../components/Leadership'
+import Certifications from '../components/Certifications'
+import TechStack from '../components/TechStack'
 
 const Home = () => {
   const location = useLocation()
 
   useEffect(() => {
     if (location.hash) {
-      // Small timeout to ensure components are mounted
       setTimeout(() => {
         const element = document.querySelector(location.hash)
         if (element) {
@@ -37,7 +38,9 @@ const Home = () => {
       <Projects />
       <Experience />
       <Education />
+      <Certifications />
       <Stats />
+      <TechStack />
       <Leadership />
       <Contact />
     </>

@@ -15,6 +15,7 @@ const PortfolioSchema = new mongoose.Schema({
     tags: [String],
     image: String,
     link: String,
+    liveUrl: String,
     featured: Boolean
   }],
   stats: [{
@@ -42,6 +43,18 @@ const PortfolioSchema = new mongoose.Schema({
     duration: String,
     desc: String,
     logo: String
+  }],
+  certifications: [{
+    title: String,
+    issuer: String,
+    date: String,
+    link: String,
+    icon: String
+  }],
+  techStack: [{
+    name: String,
+    icon: String,
+    category: String
   }],
   resumeUrl: String,
   competencies: [{

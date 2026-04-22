@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, Terminal } from 'lucide-react'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState('')
   const location = useLocation()
 
   useEffect(() => {
@@ -13,31 +14,66 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Scroll spy — detect which section is currently in view
+  useEffect(() => {
+    if (location.pathname !== '/') return
+    const sectionIds = ['projects', 'experience', 'education', 'certifications', 'techstack', 'contact']
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id)
+          }
+        })
+      },
+      { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
+    )
+
+    // Observe after a delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      sectionIds.forEach(id => {
+        const el = document.getElementById(id)
+        if (el) observer.observe(el)
+      })
+    }, 500)
+
+    return () => {
+      clearTimeout(timer)
+      observer.disconnect()
+    }
+  }, [location.pathname])
+
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Archive", path: "/archive" },
-    { name: "Network", path: "/#affiliations" },
-    { name: "Labs", path: "/#projects" },
-    { name: "Contact", path: "/#contact" }
+    { name: "Home", path: "/", hash: null },
+    { name: "Projects", path: "/#projects", hash: "projects" },
+    { name: "Experience", path: "/#experience", hash: "experience" },
+    { name: "Awards", path: "/#certifications", hash: "certifications" },
+    { name: "Contact", path: "/#contact", hash: "contact" }
   ]
 
-  const handleNavClick = (e, path) => {
-    if (path.startsWith('/#')) {
-      const hash = path.substring(1) // gets '#affiliations'
+  const handleNavClick = (e, link) => {
+    if (link.hash) {
       if (location.pathname === '/') {
         e.preventDefault()
-        const element = document.querySelector(hash)
+        const element = document.getElementById(link.hash)
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' })
         }
-        window.history.pushState(null, '', path)
+        window.history.pushState(null, '', link.path)
       }
-    } else if (path === '/' && location.pathname === '/') {
+    } else if (link.path === '/' && location.pathname === '/') {
       e.preventDefault()
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
     setIsOpen(false)
   }
+
+  const isActive = useCallback((link) => {
+    if (location.pathname !== '/') return location.pathname === link.path
+    if (link.hash) return activeSection === link.hash
+    return !activeSection && link.path === '/'
+  }, [location.pathname, activeSection])
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'py-4 bg-obsidian/80 backdrop-blur-xl border-b border-white/5' : 'py-8 bg-transparent'}`}>
@@ -55,10 +91,13 @@ const Navbar = () => {
             <Link 
               key={link.name} 
               to={link.path}
-              onClick={(e) => handleNavClick(e, link.path)}
-              className={`text-sm font-medium tracking-widest uppercase transition-all duration-300 hover:text-electric ${(location.pathname === link.path || (location.pathname === '/' && location.hash === link.path.substring(1))) ? 'text-electric' : 'text-slate'}`}
+              onClick={(e) => handleNavClick(e, link)}
+              className={`text-sm font-medium tracking-widest uppercase transition-all duration-300 hover:text-electric relative ${isActive(link) ? 'text-electric' : 'text-slate'}`}
             >
               {link.name}
+              {isActive(link) && (
+                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-electric rounded-full" />
+              )}
             </Link>
           ))}
           <Link to="/admin" className="opacity-0 w-2 h-2 hover:opacity-100 transition-opacity bg-white/10 rounded-full" />
@@ -82,8 +121,8 @@ const Navbar = () => {
           <Link 
             key={link.name} 
             to={link.path}
-            className="text-3xl font-bold tracking-tighter hover:text-electric transition-colors"
-            onClick={(e) => handleNavClick(e, link.path)}
+            className={`text-3xl font-bold tracking-tighter transition-colors ${isActive(link) ? 'text-electric' : 'hover:text-electric'}`}
+            onClick={(e) => handleNavClick(e, link)}
           >
             {link.name}
           </Link>

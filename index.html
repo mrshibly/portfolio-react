@@ -13,6 +13,7 @@
     <meta name="twitter:title" content="Md. Mahmudur Rahman | AI Solutions Architect" />
     <meta name="twitter:description" content="Professional portfolio of Md. Mahmudur Rahman, AI Solutions Architect specializing in LLMs and agentic workflows." />
     <meta name="theme-color" content="#0A0A0A" />
+    <link rel="manifest" href="/manifest.json" />
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -73,5 +74,12 @@
     <div class="custom-cursor-dot" id="cursor-dot"></div>
     <div class="custom-cursor-ring" id="cursor-ring"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {})
+        })
+      }
+    </script>
   </body>
 </html>

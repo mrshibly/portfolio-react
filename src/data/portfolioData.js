@@ -92,6 +92,36 @@ export const portfolioData = {
       logo: "" 
     }
   ],
+  certifications: [
+    {
+      title: "NASA Space Apps Challenge — Global Winner",
+      issuer: "NASA",
+      date: "2021",
+      link: "",
+      icon: ""
+    },
+    {
+      title: "Google Hacking Contest — Participant",
+      issuer: "Google",
+      date: "2022",
+      link: "",
+      icon: ""
+    }
+  ],
+  techStack: [
+    { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", category: "AI / ML" },
+    { name: "LangChain", icon: "", category: "AI / ML" },
+    { name: "CrewAI", icon: "", category: "AI / ML" },
+    { name: "FAISS", icon: "", category: "AI / ML" },
+    { name: "FastAPI", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg", category: "Backend" },
+    { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", category: "Backend" },
+    { name: "Express", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg", category: "Backend" },
+    { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", category: "Frontend" },
+    { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", category: "Database" },
+    { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", category: "DevOps" },
+    { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", category: "Tools" },
+    { name: "n8n", icon: "", category: "Tools" }
+  ],
   education: [
     {
       degree: "B.Sc. in Computer Science & Engineering",

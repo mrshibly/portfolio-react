@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Lock, Save, Plus, Trash2, Eye, LayoutDashboard, Settings, Copy, Check, LogOut, ChevronRight, User, BookOpen, Mail, Star, Briefcase, Award, FileText, GraduationCap } from 'lucide-react'
+import { Lock, Save, Plus, Trash2, Eye, LayoutDashboard, Settings, Copy, Check, LogOut, ChevronRight, User, BookOpen, Mail, Star, Briefcase, Award, FileText, GraduationCap, Trophy, Cpu, ChevronUp, ChevronDown, Globe } from 'lucide-react'
 import { usePortfolioData } from '../hooks/usePortfolioData'
 
 const Admin = () => {
@@ -15,6 +15,8 @@ const Admin = () => {
   const [editingExperience, setEditingExperience] = useState(null)
   const [editingLeadership, setEditingLeadership] = useState(null)
   const [editingEducation, setEditingEducation] = useState(null)
+  const [editingCertification, setEditingCertification] = useState(null)
+  const [editingTechStack, setEditingTechStack] = useState(null)
 
   useEffect(() => {
     const checkToken = async () => {
@@ -156,6 +158,51 @@ const Admin = () => {
     setEditingEducation(null)
   }
 
+  // Certifications CRUD
+  const deleteCertification = (index) => {
+    if (window.confirm('Remove this certification?')) {
+      updateData({ ...data, certifications: data.certifications.filter((_, i) => i !== index) })
+    }
+  }
+
+  const saveCertification = (cert, originalIndex) => {
+    const newCerts = [...(data.certifications || [])]
+    if (originalIndex !== null && originalIndex !== undefined) {
+      newCerts[originalIndex] = cert
+    } else {
+      newCerts.push(cert)
+    }
+    updateData({ ...data, certifications: newCerts })
+    setEditingCertification(null)
+  }
+
+  // TechStack CRUD
+  const deleteTechStack = (index) => {
+    if (window.confirm('Remove this technology?')) {
+      updateData({ ...data, techStack: data.techStack.filter((_, i) => i !== index) })
+    }
+  }
+
+  const saveTechStack = (tech, originalIndex) => {
+    const newStack = [...(data.techStack || [])]
+    if (originalIndex !== null && originalIndex !== undefined) {
+      newStack[originalIndex] = tech
+    } else {
+      newStack.push(tech)
+    }
+    updateData({ ...data, techStack: newStack })
+    setEditingTechStack(null)
+  }
+
+  // Reorder helper
+  const moveItem = (arrayKey, index, direction) => {
+    const arr = [...(data[arrayKey] || [])]
+    const newIndex = index + direction
+    if (newIndex < 0 || newIndex >= arr.length) return
+    ;[arr[index], arr[newIndex]] = [arr[newIndex], arr[index]]
+    updateData({ ...data, [arrayKey]: arr })
+  }
+
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-obsidian px-6">
@@ -205,6 +252,8 @@ const Admin = () => {
             { id: 'projects', label: 'Work Archive', icon: LayoutDashboard },
             { id: 'experience', label: 'Experience', icon: Briefcase },
             { id: 'education', label: 'Education', icon: GraduationCap },
+            { id: 'certifications', label: 'Awards', icon: Trophy },
+            { id: 'techstack', label: 'Tech Stack', icon: Cpu },
             { id: 'leadership', label: 'Leadership', icon: Award },
             { id: 'competencies', label: 'Competencies', icon: Star },
             { id: 'stats', label: 'Performance', icon: Settings },
@@ -327,7 +376,7 @@ const Admin = () => {
             {!editingProject ? (
               <>
                 <button 
-                  onClick={() => setEditingProject({ id: Date.now().toString(), title: '', category: '', desc: '', tags: [], image: '', link: '', featured: true })}
+                  onClick={() => setEditingProject({ id: Date.now().toString(), title: '', category: '', desc: '', tags: [], image: '', link: '', liveUrl: '', featured: true })}
                   className="flex items-center gap-2 px-6 py-4 bg-white/5 border border-dashed border-white/20 rounded-2xl hover:border-electric/50 hover:bg-electric/5 transition-all w-full justify-center group"
                 >
                   <Plus size={20} className="group-hover:rotate-90 transition-transform" /> 
@@ -335,15 +384,20 @@ const Admin = () => {
                 </button>
                 
                 <div className="grid grid-cols-1 gap-6">
-                  {data.projects?.map((project) => (
+                  {data.projects?.map((project, idx) => (
                     <div key={project.id} className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex items-center justify-between group hover:bg-white/[0.04] transition-all">
                       <div className="flex items-center gap-6">
+                        <div className="flex flex-col gap-1">
+                          <button onClick={() => moveItem('projects', idx, -1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === 0}><ChevronUp size={14} /></button>
+                          <button onClick={() => moveItem('projects', idx, 1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === (data.projects?.length || 0) - 1}><ChevronDown size={14} /></button>
+                        </div>
                         <div className="w-20 h-20 rounded-2xl overflow-hidden border border-white/10 bg-black">
                           <img src={project.image} alt="" className="w-full h-full object-cover opacity-60" />
                         </div>
                         <div>
                           <h3 className="text-xl font-bold mb-1">{project.title}</h3>
                           <p className="text-xs text-electric font-mono uppercase tracking-widest">{project.category}</p>
+                          {project.liveUrl && <p className="text-xs text-green-400 font-mono mt-1 flex items-center gap-1"><Globe size={10} /> Live</p>}
                         </div>
                       </div>
                       <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -424,6 +478,16 @@ const Admin = () => {
                       className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
                     />
                   </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase font-mono text-slate flex items-center gap-2"><Globe size={12} className="text-green-400" /> Live Demo URL (Optional)</label>
+                  <input 
+                    type="text" 
+                    value={editingProject.liveUrl || ''}
+                    onChange={(e) => setEditingProject({...editingProject, liveUrl: e.target.value})}
+                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-green-400 font-mono"
+                    placeholder="https://your-live-demo.com"
+                  />
                 </div>
                 <div className="flex items-center gap-3 py-2">
                   <input 
@@ -1008,6 +1072,246 @@ const Admin = () => {
                   </button>
                   <button 
                     onClick={() => setEditingEducation(null)}
+                    className="flex-1 bg-white/5 border border-white/10 font-bold py-4 rounded-xl hover:bg-white/10 transition-all"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {activeTab === 'certifications' && (
+          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            {!editingCertification ? (
+              <>
+                <button 
+                  onClick={() => setEditingCertification({ title: '', issuer: '', date: '', link: '', icon: '', originalIndex: null })}
+                  className="flex items-center gap-2 px-6 py-4 bg-white/5 border border-dashed border-white/20 rounded-2xl hover:border-amber-400/50 hover:bg-amber-400/5 transition-all w-full justify-center group"
+                >
+                  <Plus size={20} className="group-hover:rotate-90 transition-transform" /> 
+                  <span className="font-bold uppercase tracking-widest text-sm">Add Award / Certification</span>
+                </button>
+                
+                <div className="grid grid-cols-1 gap-6">
+                  {data.certifications?.map((cert, idx) => (
+                    <div key={idx} className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex items-center justify-between group hover:bg-white/[0.04] transition-all" style={{ borderLeftColor: '#F59E0B', borderLeftWidth: '3px' }}>
+                      <div className="flex items-center gap-6">
+                        <div className="flex flex-col gap-1">
+                          <button onClick={() => moveItem('certifications', idx, -1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === 0}><ChevronUp size={14} /></button>
+                          <button onClick={() => moveItem('certifications', idx, 1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === (data.certifications?.length || 0) - 1}><ChevronDown size={14} /></button>
+                        </div>
+                        <div className="w-14 h-14 rounded-2xl overflow-hidden border border-white/10 bg-black flex items-center justify-center shrink-0">
+                          {cert.icon ? (
+                            <img src={cert.icon} alt="" className="w-8 h-8 object-contain" />
+                          ) : (
+                            <Trophy className="text-amber-400" size={22} />
+                          )}
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-bold mb-1">{cert.title}</h3>
+                          <p className="text-xs text-amber-400 font-mono uppercase tracking-widest">{cert.issuer}</p>
+                          <p className="text-xs text-slate/50 font-mono mt-1">{cert.date}</p>
+                        </div>
+                      </div>
+                      <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button 
+                          onClick={() => setEditingCertification({ ...cert, originalIndex: idx })}
+                          className="p-3 bg-white/5 hover:bg-white/10 rounded-xl transition-colors"
+                        >
+                          <Settings size={20} />
+                        </button>
+                        <button 
+                          onClick={() => deleteCertification(idx)}
+                          className="p-3 bg-drama/10 text-drama hover:bg-drama/20 rounded-xl transition-colors"
+                        >
+                          <Trash2 size={20} />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 space-y-6">
+                <h3 className="text-2xl font-bold mb-8">Edit Award / Certification</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Title</label>
+                    <input 
+                      type="text" 
+                      value={editingCertification.title}
+                      onChange={(e) => setEditingCertification({...editingCertification, title: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
+                      placeholder="NASA Space Apps Challenge — Winner"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Issuer / Organization</label>
+                    <input 
+                      type="text" 
+                      value={editingCertification.issuer}
+                      onChange={(e) => setEditingCertification({...editingCertification, issuer: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
+                      placeholder="NASA"
+                    />
+                  </div>
+                </div>
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Date / Year</label>
+                    <input 
+                      type="text" 
+                      value={editingCertification.date}
+                      onChange={(e) => setEditingCertification({...editingCertification, date: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
+                      placeholder="2021"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Credential URL (Optional)</label>
+                    <input 
+                      type="text" 
+                      value={editingCertification.link || ''}
+                      onChange={(e) => setEditingCertification({...editingCertification, link: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
+                      placeholder="https://..."
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Icon URL (Optional)</label>
+                    <input 
+                      type="text" 
+                      value={editingCertification.icon || ''}
+                      onChange={(e) => setEditingCertification({...editingCertification, icon: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
+                      placeholder="https://..."
+                    />
+                  </div>
+                </div>
+                <div className="flex gap-4 pt-4">
+                  <button 
+                    onClick={() => {
+                      const { originalIndex, ...cert } = editingCertification;
+                      saveCertification(cert, originalIndex);
+                    }}
+                    className="flex-1 bg-electric text-black font-bold py-4 rounded-xl hover:scale-[1.02] transition-all"
+                  >
+                    Commit Changes
+                  </button>
+                  <button 
+                    onClick={() => setEditingCertification(null)}
+                    className="flex-1 bg-white/5 border border-white/10 font-bold py-4 rounded-xl hover:bg-white/10 transition-all"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {activeTab === 'techstack' && (
+          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            {!editingTechStack ? (
+              <>
+                <button 
+                  onClick={() => setEditingTechStack({ name: '', icon: '', category: 'AI / ML', originalIndex: null })}
+                  className="flex items-center gap-2 px-6 py-4 bg-white/5 border border-dashed border-white/20 rounded-2xl hover:border-electric/50 hover:bg-electric/5 transition-all w-full justify-center group"
+                >
+                  <Plus size={20} className="group-hover:rotate-90 transition-transform" /> 
+                  <span className="font-bold uppercase tracking-widest text-sm">Add Technology</span>
+                </button>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {data.techStack?.map((tech, idx) => (
+                    <div key={idx} className="p-4 bg-white/[0.02] border border-white/5 rounded-2xl flex items-center justify-between group hover:bg-white/[0.04] transition-all">
+                      <div className="flex items-center gap-3">
+                        <div className="flex flex-col gap-0.5">
+                          <button onClick={() => moveItem('techStack', idx, -1)} className="p-0.5 text-slate/30 hover:text-white transition-colors" disabled={idx === 0}><ChevronUp size={12} /></button>
+                          <button onClick={() => moveItem('techStack', idx, 1)} className="p-0.5 text-slate/30 hover:text-white transition-colors" disabled={idx === (data.techStack?.length || 0) - 1}><ChevronDown size={12} /></button>
+                        </div>
+                        {tech.icon ? (
+                          <img src={tech.icon} alt="" className="w-7 h-7 object-contain" />
+                        ) : (
+                          <Cpu className="text-electric" size={18} />
+                        )}
+                        <div>
+                          <p className="font-bold text-sm">{tech.name}</p>
+                          <p className="text-[10px] text-slate font-mono uppercase tracking-widest">{tech.category}</p>
+                        </div>
+                      </div>
+                      <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button 
+                          onClick={() => setEditingTechStack({ ...tech, originalIndex: idx })}
+                          className="p-2 bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
+                        >
+                          <Settings size={14} />
+                        </button>
+                        <button 
+                          onClick={() => deleteTechStack(idx)}
+                          className="p-2 bg-drama/10 text-drama hover:bg-drama/20 rounded-lg transition-colors"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 space-y-6">
+                <h3 className="text-2xl font-bold mb-8">Edit Technology</h3>
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Name</label>
+                    <input 
+                      type="text" 
+                      value={editingTechStack.name}
+                      onChange={(e) => setEditingTechStack({...editingTechStack, name: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
+                      placeholder="Python"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Category</label>
+                    <select
+                      value={editingTechStack.category}
+                      onChange={(e) => setEditingTechStack({...editingTechStack, category: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
+                    >
+                      <option value="AI / ML">AI / ML</option>
+                      <option value="Backend">Backend</option>
+                      <option value="Frontend">Frontend</option>
+                      <option value="Database">Database</option>
+                      <option value="DevOps">DevOps</option>
+                      <option value="Tools">Tools</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-mono text-slate">Icon URL (Optional)</label>
+                    <input 
+                      type="text" 
+                      value={editingTechStack.icon || ''}
+                      onChange={(e) => setEditingTechStack({...editingTechStack, icon: e.target.value})}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
+                      placeholder="https://cdn.jsdelivr.net/gh/devicons/..."
+                    />
+                  </div>
+                </div>
+                <div className="flex gap-4 pt-4">
+                  <button 
+                    onClick={() => {
+                      const { originalIndex, ...tech } = editingTechStack;
+                      saveTechStack(tech, originalIndex);
+                    }}
+                    className="flex-1 bg-electric text-black font-bold py-4 rounded-xl hover:scale-[1.02] transition-all"
+                  >
+                    Commit Changes
+                  </button>
+                  <button 
+                    onClick={() => setEditingTechStack(null)}
                     className="flex-1 bg-white/5 border border-white/10 font-bold py-4 rounded-xl hover:bg-white/10 transition-all"
                   >
                     Cancel
