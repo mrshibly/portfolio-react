@@ -3,7 +3,7 @@ export const portfolioData = {
     name: "Md. Mahmudur Rahman",
     title: "Agentic AI Systems Architect",
     bio: "AI Engineer & Python Specialist. I architect autonomous multi-agent workflows, high-performance backend services, and production-ready RAG pipelines. NASA Space Apps Global Winner '21 & Google Hacking Participant.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2000&auto=format&fit=crop"
+    image: "https://69e928e119995cfcc32c5fd3.imgix.net/photo_2025-05-14_16-31-57.jpg"
   },
   projects: [
     {
