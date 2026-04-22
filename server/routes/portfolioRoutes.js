@@ -161,22 +161,17 @@ router.put('/', async (req, res) => {
       return res.status(401).json({ message: 'Unauthorized' });
     }
 
-    const portfolio = await Portfolio.findOne();
-    if (!portfolio) {
+    // Update all provided fields reliably
+    const updatedPortfolio = await Portfolio.findOneAndUpdate(
+      {},
+      { $set: req.body },
+      { new: true, runValidators: true }
+    );
+    
+    if (!updatedPortfolio) {
       return res.status(404).json({ message: 'Portfolio not found' });
     }
     
-    // Update all fields
-    portfolio.hero = req.body.hero || portfolio.hero;
-    portfolio.projects = req.body.projects || portfolio.projects;
-    portfolio.stats = req.body.stats || portfolio.stats;
-    portfolio.affiliations = req.body.affiliations || portfolio.affiliations;
-    portfolio.competencies = req.body.competencies || portfolio.competencies;
-    portfolio.contact = req.body.contact || portfolio.contact;
-    portfolio.manifesto = req.body.manifesto || portfolio.manifesto;
-
-    portfolio.markModified('affiliations');
-    const updatedPortfolio = await portfolio.save();
     res.json(updatedPortfolio);
   } catch (error) {
     res.status(500).json({ message: error.message });
