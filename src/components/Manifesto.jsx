@@ -26,26 +26,23 @@ const Manifesto = () => {
   }, [])
 
   return (
-    <section id="manifesto" ref={sectionRef} className="py-60 bg-white text-obsidian rounded-[3rem] md:rounded-[6rem] relative z-20">
-      <div className="container mx-auto px-6">
-        <p className="font-mono text-xs tracking-widest uppercase mb-12 text-center text-slate">
+    <section id="manifesto" ref={sectionRef} className="py-60 bg-obsidian text-white relative z-20 overflow-hidden border-y border-white/5">
+      <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+      <div className="absolute inset-0 bg-gradient-to-b from-obsidian via-transparent to-obsidian pointer-events-none" />
+      
+      <div className="container mx-auto px-6 relative z-10">
+        <p className="font-mono text-xs tracking-[0.8em] uppercase mb-16 text-center text-electric">
           The AI Manifesto v1.0
         </p>
         
-        <div ref={textRef} className="max-w-5xl mx-auto space-y-8">
+        <div ref={textRef} className="max-w-5xl mx-auto space-y-12">
           {lines.map((line, index) => (
             <h2 
               key={index} 
-              className="manifesto-line text-4xl md:text-7xl font-bold tracking-tighter text-center leading-[1.1]"
+              className="manifesto-line text-5xl md:text-8xl font-black tracking-[-0.04em] text-center leading-[0.95] uppercase italic drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]"
               dangerouslySetInnerHTML={{ __html: line }}
             />
           ))}
-        </div>
-
-        <div className="mt-20 flex justify-center">
-          <div className="w-20 h-20 rounded-full border border-obsidian/10 flex items-center justify-center animate-pulse-slow">
-            <div className="w-2 h-2 rounded-full bg-electric" />
-          </div>
         </div>
       </div>
     </section>

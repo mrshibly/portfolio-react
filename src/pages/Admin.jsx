@@ -533,9 +533,15 @@ const Admin = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {data.competencies?.map((comp, idx) => (
                     <div key={idx} className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex items-center justify-between group hover:bg-white/[0.04] transition-all" style={{ borderLeftColor: comp.accent, borderLeftWidth: '4px' }}>
-                      <div className="flex flex-col gap-1">
-                        <h3 className="text-xl font-bold">{comp.title}</h3>
-                        <p className="text-xs text-slate font-mono uppercase tracking-widest truncate max-w-[200px]">{comp.desc}</p>
+                      <div className="flex items-center gap-4">
+                        <div className="flex flex-col gap-1">
+                          <button onClick={() => moveItem('competencies', idx, -1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === 0}><ChevronUp size={14} /></button>
+                          <button onClick={() => moveItem('competencies', idx, 1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === (data.competencies?.length || 0) - 1}><ChevronDown size={14} /></button>
+                        </div>
+                        <div className="flex flex-col gap-1">
+                          <h3 className="text-xl font-bold">{comp.title}</h3>
+                          <p className="text-xs text-slate font-mono uppercase tracking-widest truncate max-w-[200px]">{comp.desc}</p>
+                        </div>
                       </div>
                       <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
                         <button 
@@ -717,6 +723,10 @@ const Admin = () => {
                   {data.experience?.map((exp, idx) => (
                     <div key={idx} className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex items-center justify-between group hover:bg-white/[0.04] transition-all" style={{ borderLeftColor: '#00E5FF', borderLeftWidth: '3px' }}>
                       <div className="flex items-center gap-6">
+                        <div className="flex flex-col gap-1">
+                          <button onClick={() => moveItem('experience', idx, -1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === 0}><ChevronUp size={14} /></button>
+                          <button onClick={() => moveItem('experience', idx, 1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === (data.experience?.length || 0) - 1}><ChevronDown size={14} /></button>
+                        </div>
                         <div className="w-14 h-14 rounded-2xl overflow-hidden border border-white/10 bg-black flex items-center justify-center shrink-0">
                           {exp.logo ? (
                             <img src={exp.logo} alt="" className="w-8 h-8 object-contain" />
@@ -844,6 +854,10 @@ const Admin = () => {
                     <div key={idx} className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex flex-col gap-3 group hover:bg-white/[0.04] transition-all" style={{ borderLeftColor: '#FF2E63', borderLeftWidth: '3px' }}>
                       <div className="flex items-start justify-between">
                         <div className="flex items-center gap-4">
+                          <div className="flex flex-col gap-1">
+                            <button onClick={() => moveItem('leadership', idx, -1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === 0}><ChevronUp size={14} /></button>
+                            <button onClick={() => moveItem('leadership', idx, 1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === (data.leadership?.length || 0) - 1}><ChevronDown size={14} /></button>
+                          </div>
                           <div className="w-12 h-12 rounded-xl overflow-hidden border border-white/10 bg-black flex items-center justify-center shrink-0">
                             {item.logo ? (
                               <img src={item.logo} alt="" className="w-7 h-7 object-contain" />
@@ -972,6 +986,10 @@ const Admin = () => {
                   {data.education?.map((edu, idx) => (
                     <div key={idx} className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex items-center justify-between group hover:bg-white/[0.04] transition-all" style={{ borderLeftColor: '#F59E0B', borderLeftWidth: '3px' }}>
                       <div className="flex items-center gap-6">
+                        <div className="flex flex-col gap-1">
+                          <button onClick={() => moveItem('education', idx, -1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === 0}><ChevronUp size={14} /></button>
+                          <button onClick={() => moveItem('education', idx, 1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === (data.education?.length || 0) - 1}><ChevronDown size={14} /></button>
+                        </div>
                         <div className="w-14 h-14 rounded-2xl overflow-hidden border border-white/10 bg-black flex items-center justify-center shrink-0">
                           {edu.logo ? (
                             <img src={edu.logo} alt="" className="w-8 h-8 object-contain" />
@@ -1430,6 +1448,15 @@ const Admin = () => {
                     type="url" 
                     value={data.contact?.twitter || ''}
                     onChange={(e) => updateContact('twitter', e.target.value)}
+                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase font-mono text-slate">Medium URL</label>
+                  <input 
+                    type="url" 
+                    value={data.contact?.medium || ''}
+                    onChange={(e) => updateContact('medium', e.target.value)}
                     className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
                   />
                 </div>

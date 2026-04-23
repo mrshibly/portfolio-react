@@ -35,7 +35,7 @@ const Certifications = () => {
     <section id="certifications" ref={sectionRef} className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-2xl mb-16">
-          <p className="text-amber-400 font-mono text-xs uppercase tracking-widest mb-4">Recognition & Credentials</p>
+          <p className="text-electric font-mono text-xs uppercase tracking-widest mb-4">Recognition & Credentials</p>
           <h2 className="text-4xl md:text-6xl font-bold tracking-tighter">
             Awards & <span className="text-drama italic">Certifications</span>
           </h2>
@@ -44,16 +44,16 @@ const Certifications = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {certs.map((cert, index) => (
             <div key={index} className="cert-card group relative">
-              <div className="relative bg-white/[0.03] border border-white/10 rounded-3xl p-8 hover:bg-white/[0.06] transition-all duration-500 hover:border-amber-400/30 h-full flex flex-col">
+              <div className="relative bg-white/[0.03] border border-white/10 rounded-3xl p-8 hover:bg-white/[0.06] transition-all duration-500 hover:border-electric/30 h-full flex flex-col">
                 {/* Badge glow */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-amber-400/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-amber-400/10 transition-all" />
+                <div className="absolute top-0 right-0 w-32 h-32 bg-electric/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-electric/10 transition-all" />
                 
                 <div className="flex items-start gap-4 mb-6 relative">
-                  <div className="w-14 h-14 rounded-2xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <div className="w-14 h-14 rounded-2xl bg-electric/10 border border-electric/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                     {cert.icon ? (
                       <img src={cert.icon} alt="" className="w-8 h-8 object-contain" />
                     ) : (
-                      <Trophy className="text-amber-400" size={24} />
+                      <Trophy className="text-electric" size={24} />
                     )}
                   </div>
                   {cert.link && (
@@ -61,7 +61,7 @@ const Certifications = () => {
                       href={cert.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="absolute top-0 right-0 p-2 text-slate/40 hover:text-amber-400 transition-colors"
+                      className="absolute top-0 right-0 p-2 text-slate/40 hover:text-electric transition-colors"
                     >
                       <ExternalLink size={16} />
                     </a>
@@ -69,7 +69,7 @@ const Certifications = () => {
                 </div>
 
                 <h3 className="text-xl font-bold mb-2 tracking-tight">{cert.title}</h3>
-                <p className="text-amber-400/80 font-mono text-xs uppercase tracking-widest mb-3">{cert.issuer}</p>
+                <p className="text-electric/80 font-mono text-xs uppercase tracking-widest mb-3">{cert.issuer}</p>
                 
                 <div className="mt-auto pt-4 border-t border-white/5">
                   <span className="text-slate/40 font-mono text-[10px] uppercase tracking-widest">{cert.date}</span>
@@ -81,7 +81,7 @@ const Certifications = () => {
       </div>
 
       {/* Background elements */}
-      <div className="absolute top-1/2 right-0 w-96 h-96 bg-amber-400/3 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 right-0 w-96 h-96 bg-electric/3 blur-[150px] rounded-full pointer-events-none" />
     </section>
   )
 }

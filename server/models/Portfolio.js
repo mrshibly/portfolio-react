@@ -74,7 +74,8 @@ const PortfolioSchema = new mongoose.Schema({
   },
   manifesto: {
     lines: [String]
-  }
+  },
+  affiliations: [String]
 }, { timestamps: true });
 
 export default mongoose.model('Portfolio', PortfolioSchema);

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const AIAssistant = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: 'SYSTEM ONLINE: I am Mahmudur\'s AI core. How can I assist with your inquiry today?' }
+    { role: 'assistant', content: "SYSTEM ONLINE: I am Mahmudur's Cognitive Core. I can provide details on his Agentic AI research, RAG pipeline architectures, or full-stack automation expertise. How may I assist?" }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -40,10 +40,18 @@ const AIAssistant = () => {
       });
 
       const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Connection to AI core lost.');
+      }
+      
       setMessages(prev => [...prev, { role: 'assistant', content: data.reply }]);
     } catch (error) {
       console.error('Chat error:', error);
-      setMessages(prev => [...prev, { role: 'assistant', content: 'CRITICAL ERROR: Connection to AI core lost. Please re-initialize.' }]);
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: `CRITICAL ERROR: ${error.message}. Please re-initialize or contact the administrator.` 
+      }]);
     } finally {
       setIsLoading(false);
     }

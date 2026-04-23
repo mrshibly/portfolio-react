@@ -7,9 +7,20 @@ const defaultData = {
   hero: {
     name: "Md. Mahmudur Rahman",
     title: "Agentic AI Systems Architect",
-    bio: "AI Engineer & Python Specialist. I architect autonomous multi-agent workflows, high-performance backend services, and production-ready RAG pipelines. NASA Space Apps Global Winner '21 & Google Hacking Participant.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2000&auto=format&fit=crop"
+    bio: "AI Engineer specializing in autonomous multi-agent workflows, production-ready RAG pipelines, and highly-scalable backend services. NASA Space Apps Global Winner & Google Hacking Champion.",
+    image: "https://69e928e119995cfcc32c5fd3.imgix.net/photo_2025-05-14_16-31-57.jpg"
   },
+  affiliations: [
+    "NASA Space Apps",
+    "Google",
+    "BASIS",
+    "Daffodil International University",
+    "Softvence Agency",
+    "Betopia Group",
+    "GM Organization",
+    "Creative IT Institute",
+    "Red Crescent Youth"
+  ],
   projects: [
     {
       id: "llamaocr",
@@ -54,70 +65,54 @@ const defaultData = {
   stats: [
     { label: "Systems Built", value: "24+" },
     { label: "Agentic Workflows", value: "150+" },
-    { label: "Data Processed", value: "12TB" },
-    { label: "Global Hackathons", value: "05" }
+    { label: "Professional Experience", value: "07 Years" },
+    { label: "Global Nominee", value: "03 Times" }
   ],
   resumeUrl: "https://example.com/resume.pdf",
   experience: [
     {
-      title: "Senior AI Engineer",
-      company: "Tech Innovators Inc.",
-      duration: "2023 - Present",
-      desc: "Lead the development of autonomous multi-agent systems and architected high-performance backend microservices.",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
+      title: "AI Developer",
+      company: "Betopia Group",
+      duration: "Feb 2026 - Present",
+      desc: "Architecting AI-native platforms using FastAPI and multi-agent workflows. Optimizing LLM inference using Groq and vLLM.",
+      logo: ""
     },
     {
-      title: "Backend Developer",
-      company: "DataWorks",
-      duration: "2021 - 2023",
-      desc: "Developed and maintained Python-based APIs and RAG pipelines for enterprise document processing.",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg"
+      title: "IT Specialist & International Coordinator",
+      company: "GM Organization",
+      duration: "2019 - 2026",
+      desc: "Managed global communications and managed digital assets for 7+ years.",
+      logo: ""
     }
   ],
   leadership: [
     { 
-      title: "President",
+      title: "Lead Executive",
       org: "Cyber Security Club", 
-      duration: "2022 - 2023",
-      desc: "Organized nationwide hackathons and led weekly workshops on ethical hacking.",
+      duration: "2024 - 2026",
+      desc: "Organized events and promoted cybersecurity awareness among students.",
       logo: "" 
     },
     { 
-      title: "Executive Member",
-      org: "BASIS Student Forum", 
-      duration: "2021 - 2022",
-      desc: "Coordinated tech seminars and bridged the gap between students and the IT industry.",
+      title: "Campus Ambassador",
+      org: "Creative IT Institute", 
+      duration: "2023 - 2026",
+      desc: "Coordinated tech seminars and created awareness regarding skilled training.",
       logo: "" 
-    },
-    { 
-      title: "Team Lead",
-      org: "Team Apex", 
-      duration: "2021",
-      desc: "Led a cross-functional team of 5 to win the NASA Space Apps Global hackathon.",
-      logo: "" 
-    }
-  ],
-  education: [
-    {
-      degree: "B.Sc. in Computer Science & Engineering",
-      institution: "Daffodil International University",
-      duration: "2020 - 2024",
-      desc: "Focused on Artificial Intelligence, Machine Learning, and Software Engineering. Graduated with distinction.",
-      logo: ""
     }
   ],
   certifications: [
     {
-      title: "NASA Space Apps Challenge — Global Winner",
+      title: "NASA Space Apps Challenge — Winner",
       issuer: "NASA",
-      date: "2021",
+      date: "2024",
       link: "",
       icon: ""
     },
     {
-      title: "Google Hacking Contest — Participant",
+      title: "Google Hacking Contest — Champion",
       issuer: "Google",
-      date: "2022",
+      date: "2023",
       link: "",
       icon: ""
     }
@@ -126,15 +121,22 @@ const defaultData = {
     { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", category: "AI / ML" },
     { name: "LangChain", icon: "", category: "AI / ML" },
     { name: "CrewAI", icon: "", category: "AI / ML" },
-    { name: "FAISS", icon: "", category: "AI / ML" },
+    { name: "LangGraph", icon: "", category: "AI / ML" },
     { name: "FastAPI", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg", category: "Backend" },
-    { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", category: "Backend" },
-    { name: "Express", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg", category: "Backend" },
-    { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", category: "Frontend" },
-    { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", category: "Database" },
+    { name: "n8n", icon: "", category: "Automation" },
+    { name: "Playwright", icon: "", category: "Automation" },
     { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", category: "DevOps" },
-    { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", category: "Tools" },
-    { name: "n8n", icon: "", category: "Tools" }
+    { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", category: "Database" },
+    { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", category: "Frontend" }
+  ],
+  education: [
+    {
+      degree: "B.Sc. in Computer Science & Engineering",
+      institution: "Daffodil International University",
+      duration: "2022 - 2025",
+      desc: "Focused on AI, Algorithms, and Software Engineering. GPA: 3.63/4.00",
+      logo: ""
+    }
   ],
   competencies: [
     {
@@ -163,13 +165,13 @@ const defaultData = {
     },
     {
       title: "Cyber Security",
-      desc: "Strategic technical leadership and competitive hacking (Google Hacking Contest Champion).",
+      desc: "Champion hacker with deep expertise in ethical hacking and strategic technical leadership.",
       icon: "Shield",
       accent: "#EF4444"
     },
     {
       title: "Document AI",
-      desc: "Intelligent document processing and OCR using Llama 3.3 and advanced computer vision.",
+      desc: "Intelligent document processing and structured extraction using Llama 3.3 and computer vision.",
       icon: "Brain",
       accent: "#F59E0B"
     }
@@ -180,13 +182,13 @@ const defaultData = {
     subtext: "I'm currently open to architectural consultations, specialized AI engineering roles, and high-impact technical partnerships.",
     linkedin: "https://linkedin.com/in/mrshibly",
     github: "https://github.com/mrshibly",
-    twitter: "https://twitter.com/mr_shibly"
+    twitter: "https://twitter.com/mrshibly"
   },
   manifesto: {
     lines: [
-      "I believe code is not just instructions, but a medium for digital evolution.",
-      "Intelligence should be decentralized and autonomous.",
-      "Simplicity is the ultimate sophistication in architectural design."
+      "AI is not a tool, it's a <span class='text-electric'>paradigm</span> shift.",
+      "I bridge the gap between <span class='text-drama'>research</span> and production automation.",
+      "Building the <span class='text-electric'>infrastructure</span> of digital reasoning."
     ]
   }
 };

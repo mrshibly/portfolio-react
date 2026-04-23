@@ -46,9 +46,9 @@ const Leadership = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div className="max-w-2xl">
-            <p className="text-electric font-mono text-xs uppercase tracking-widest mb-4">Leadership & Network</p>
+            <p className="text-electric font-mono text-xs uppercase tracking-widest mb-4">Professional Influence</p>
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter">
-              Trusted Leadership & <span className="text-drama italic">Affiliations</span>
+              Leadership <span className="text-drama italic">Experience</span>
             </h2>
           </div>
           <p className="text-slate/60 text-sm font-mono max-w-xs text-right hidden md:block">

@@ -31,15 +31,19 @@ app.use((req, res) => {
 });
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.error('MongoDB connection error:', err));
+if (process.env.MONGO_URI) {
+  mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((err) => console.error('MongoDB connection error:', err));
+} else {
+  console.warn('MONGO_URI is missing. Server will run with local data fallback only.');
+}
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log('Environment Check:');
-  console.log(`- MONGO_URI: ${process.env.MONGO_URI ? 'LOADED' : 'MISSING'}`);
-  console.log(`- GROQ_API_KEY: ${process.env.GROQ_API_KEY ? 'LOADED' : 'MISSING'}`);
-  console.log(`- ADMIN_PASSWORD: ${process.env.ADMIN_PASSWORD ? 'LOADED' : 'MISSING'}`);
+  console.log(`- MONGO_URI: ${process.env.MONGO_URI ? 'LOADED' : 'MISSING (Backend will use defaults)'}`);
+  console.log(`- GROQ_API_KEY: ${process.env.GROQ_API_KEY ? 'LOADED' : 'MISSING (AI Assistant will be disabled)'}`);
+  console.log(`- ADMIN_PASSWORD: ${process.env.ADMIN_PASSWORD ? 'LOADED' : 'MISSING (Admin panel will be locked)'}`);
 });
 
