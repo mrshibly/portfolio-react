@@ -19,8 +19,6 @@ const TechStack = () => {
   const { data } = usePortfolioData()
   const stack = data.techStack || []
 
-  if (stack.length === 0) return null
-
   // Group by category
   const grouped = stack.reduce((acc, tech) => {
     const cat = tech.category || 'Other'
@@ -30,6 +28,8 @@ const TechStack = () => {
   }, {})
 
   useEffect(() => {
+    if (stack.length === 0) return
+
     const ctx = gsap.context(() => {
       gsap.from('.tech-item', {
         scrollTrigger: {
@@ -57,6 +57,8 @@ const TechStack = () => {
     }, sectionRef)
     return () => ctx.revert()
   }, [stack])
+
+  if (stack.length === 0) return null
 
   return (
     <section id="techstack" ref={sectionRef} className="py-24 relative overflow-hidden">

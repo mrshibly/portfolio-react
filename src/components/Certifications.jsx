@@ -11,9 +11,9 @@ const Certifications = () => {
   const { data } = usePortfolioData()
   const certs = data.certifications || []
 
-  if (certs.length === 0) return null
-
   useEffect(() => {
+    if (certs.length === 0) return
+
     const ctx = gsap.context(() => {
       gsap.from('.cert-card', {
         scrollTrigger: {
@@ -30,6 +30,8 @@ const Certifications = () => {
     }, sectionRef)
     return () => ctx.revert()
   }, [certs])
+
+  if (certs.length === 0) return null
 
   return (
     <section id="certifications" ref={sectionRef} className="py-24 relative overflow-hidden">

@@ -22,9 +22,9 @@ const Leadership = () => {
   const { data } = usePortfolioData()
   const leadership = data.leadership || []
 
-  if (leadership.length === 0) return null
-
   useEffect(() => {
+    if (leadership.length === 0) return
+
     const ctx = gsap.context(() => {
       gsap.from('.leadership-item', {
         scrollTrigger: {
@@ -40,6 +40,8 @@ const Leadership = () => {
     }, sectionRef)
     return () => ctx.revert()
   }, [leadership])
+
+  if (leadership.length === 0) return null
 
   return (
     <section id="leadership" ref={sectionRef} className="py-24 bg-obsidian relative overflow-hidden">

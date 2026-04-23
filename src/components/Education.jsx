@@ -11,9 +11,9 @@ const Education = () => {
   const { data } = usePortfolioData()
   const education = data.education || []
 
-  if (education.length === 0) return null
-
   useEffect(() => {
+    if (education.length === 0) return
+
     const ctx = gsap.context(() => {
       gsap.from('.edu-item', {
         scrollTrigger: {
@@ -29,6 +29,8 @@ const Education = () => {
     }, sectionRef)
     return () => ctx.revert()
   }, [education])
+
+  if (education.length === 0) return null
 
   return (
     <section id="education" ref={sectionRef} className="py-24 relative overflow-hidden">
