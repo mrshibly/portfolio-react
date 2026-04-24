@@ -1,3 +1,4 @@
+<img width="1919" height="949" alt="image" src="https://github.com/user-attachments/assets/a93b38f4-6c9d-4b92-95c3-73227753e76f" />
 <!-- 
   SYSTEM_STATUS: PROFILING MD. MAHMUDUR RAHMAN... 
   ESTABLISHING NEURAL LINK... [CONNECTED]
