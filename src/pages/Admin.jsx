@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Lock, Save, Plus, Trash2, Eye, LayoutDashboard, Settings, Copy, Check, LogOut, ChevronRight, User, BookOpen, Mail, Star, Briefcase, Award, FileText, GraduationCap, Trophy, Cpu, ChevronUp, ChevronDown, Globe } from 'lucide-react'
+import { 
+  Lock, Save, Plus, Trash2, LayoutDashboard, Settings, LogOut, 
+  ChevronRight, User, BookOpen, Mail, Star, Briefcase, Award, 
+  FileText, GraduationCap, Trophy, Cpu, ChevronUp, ChevronDown, Globe 
+} from 'lucide-react'
 import { usePortfolioData } from '../hooks/usePortfolioData'
 
 const Admin = () => {
@@ -8,7 +12,6 @@ const Admin = () => {
   const [password, setPassword] = useState('')
   const { data, updateData, resetData } = usePortfolioData()
   const [activeTab, setActiveTab] = useState('hero')
-  const [copied, setCopied] = useState(false)
   
   const [editingProject, setEditingProject] = useState(null)
   const [editingCompetency, setEditingCompetency] = useState(null)
@@ -37,9 +40,7 @@ const Admin = () => {
     e.preventDefault()
     try {
       const response = await fetch('/api/portfolio/verify', {
-        headers: {
-          'Authorization': password
-        }
+        headers: { 'Authorization': password }
       });
       if (response.ok) {
         localStorage.setItem('admin_token', password);
@@ -65,1438 +66,1193 @@ const Admin = () => {
     updateData({ ...data, contact: { ...data.contact, [field]: value } })
   }
 
-  const deleteProject = (id) => {
-    if (window.confirm('Erase this project from records?')) {
-      updateData({ ...data, projects: data.projects.filter(p => p.id !== id) })
-    }
-  }
-
-  const saveProject = (project) => {
-    const exists = data.projects.find(p => p.id === project.id)
-    if (exists) {
-      updateData({
-        ...data,
-        projects: data.projects.map(p => p.id === project.id ? project : p)
-      })
-    } else {
-      updateData({
-        ...data,
-        projects: [...data.projects, project]
-      })
-    }
-    setEditingProject(null)
-  }
-
-  const deleteCompetency = (index) => {
-    if (window.confirm('Erase this competency?')) {
-      updateData({ ...data, competencies: data.competencies.filter((_, i) => i !== index) })
-    }
-  }
-
-  const saveCompetency = (competency, originalIndex) => {
-    const newComps = [...data.competencies]
-    if (originalIndex !== null && originalIndex !== undefined) {
-      newComps[originalIndex] = competency
-    } else {
-      newComps.push(competency)
-    }
-    updateData({ ...data, competencies: newComps })
-    setEditingCompetency(null)
-  }
-
-  // Experience CRUD
-  const deleteExperience = (index) => {
-    if (window.confirm('Remove this experience entry?')) {
-      updateData({ ...data, experience: data.experience.filter((_, i) => i !== index) })
-    }
-  }
-
-  const saveExperience = (exp, originalIndex) => {
-    const newExps = [...(data.experience || [])]
-    if (originalIndex !== null && originalIndex !== undefined) {
-      newExps[originalIndex] = exp
-    } else {
-      newExps.push(exp)
-    }
-    updateData({ ...data, experience: newExps })
-    setEditingExperience(null)
-  }
-
-  // Leadership CRUD
-  const deleteLeadership = (index) => {
-    if (window.confirm('Remove this leadership entry?')) {
-      updateData({ ...data, leadership: data.leadership.filter((_, i) => i !== index) })
-    }
-  }
-
-  const saveLeadership = (item, originalIndex) => {
-    const newItems = [...(data.leadership || [])]
-    if (originalIndex !== null && originalIndex !== undefined) {
-      newItems[originalIndex] = item
-    } else {
-      newItems.push(item)
-    }
-    updateData({ ...data, leadership: newItems })
-    setEditingLeadership(null)
-  }
-
-  // Education CRUD
-  const deleteEducation = (index) => {
-    if (window.confirm('Remove this education entry?')) {
-      updateData({ ...data, education: data.education.filter((_, i) => i !== index) })
-    }
-  }
-
-  const saveEducation = (edu, originalIndex) => {
-    const newEdus = [...(data.education || [])]
-    if (originalIndex !== null && originalIndex !== undefined) {
-      newEdus[originalIndex] = edu
-    } else {
-      newEdus.push(edu)
-    }
-    updateData({ ...data, education: newEdus })
-    setEditingEducation(null)
-  }
-
-  // Certifications CRUD
-  const deleteCertification = (index) => {
-    if (window.confirm('Remove this certification?')) {
-      updateData({ ...data, certifications: data.certifications.filter((_, i) => i !== index) })
-    }
-  }
-
-  const saveCertification = (cert, originalIndex) => {
-    const newCerts = [...(data.certifications || [])]
-    if (originalIndex !== null && originalIndex !== undefined) {
-      newCerts[originalIndex] = cert
-    } else {
-      newCerts.push(cert)
-    }
-    updateData({ ...data, certifications: newCerts })
-    setEditingCertification(null)
-  }
-
-  // TechStack CRUD
-  const deleteTechStack = (index) => {
-    if (window.confirm('Remove this technology?')) {
-      updateData({ ...data, techStack: data.techStack.filter((_, i) => i !== index) })
-    }
-  }
-
-  const saveTechStack = (tech, originalIndex) => {
-    const newStack = [...(data.techStack || [])]
-    if (originalIndex !== null && originalIndex !== undefined) {
-      newStack[originalIndex] = tech
-    } else {
-      newStack.push(tech)
-    }
-    updateData({ ...data, techStack: newStack })
-    setEditingTechStack(null)
-  }
-
-  // Reorder helper
   const moveItem = (arrayKey, index, direction) => {
     const arr = [...(data[arrayKey] || [])]
     const newIndex = index + direction
-    if (newIndex < 0 || newIndex >= arr.length) return
-    ;[arr[index], arr[newIndex]] = [arr[newIndex], arr[index]]
-    updateData({ ...data, [arrayKey]: arr })
+    if (newIndex >= 0 && newIndex < arr.length) {
+      [arr[index], arr[newIndex]] = [arr[newIndex], arr[index]]
+      updateData({ ...data, [arrayKey]: arr })
+    }
+  }
+
+  // Generic CRUD helpers
+  const deleteItem = (key, index) => {
+    if (window.confirm(`Permanently delete this entry from ${key}?`)) {
+      updateData({ ...data, [key]: data[key].filter((_, i) => i !== index) })
+    }
+  }
+
+  const saveItem = (key, item, originalIndex, setEditor) => {
+    const arr = [...(data[key] || [])]
+    if (originalIndex !== null && originalIndex !== undefined) {
+      arr[originalIndex] = item
+    } else {
+      arr.push(item)
+    }
+    updateData({ ...data, [key]: arr })
+    setEditor(null)
   }
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-obsidian px-6">
-        <div className="w-full max-w-md p-8 bg-white/[0.03] border border-white/10 rounded-2xl backdrop-blur-xl">
-          <div className="flex justify-center mb-8">
-            <div className="w-16 h-16 bg-electric/20 rounded-full flex items-center justify-center border border-electric/40">
-              <Lock className="text-electric" size={28} />
+      <div className="min-h-screen bg-[#080808] flex items-center justify-center p-6 font-inter">
+        <div className="w-full max-w-md bg-white/[0.02] border border-white/10 p-12 rounded-[2.5rem] backdrop-blur-3xl shadow-2xl relative overflow-hidden group">
+          <div className="absolute -top-24 -right-24 w-48 h-48 bg-electric/10 rounded-full blur-3xl group-hover:bg-electric/20 transition-all duration-1000" />
+          <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-drama/10 rounded-full blur-3xl group-hover:bg-drama/20 transition-all duration-1000" />
+          
+          <div className="relative z-10">
+            <div className="w-20 h-20 bg-electric/10 rounded-3xl flex items-center justify-center mx-auto mb-10 border border-electric/20 shadow-[0_0_30px_rgba(0,229,255,0.1)]">
+              <Lock className="text-electric" size={32} />
             </div>
+            <h2 className="text-4xl font-black text-center mb-2 tracking-tighter uppercase italic">Access <span className="text-electric">Protocol</span></h2>
+            <p className="text-slate/40 text-center mb-10 text-[10px] uppercase font-mono tracking-[0.4em]">Secure Terminal Connection</p>
+            
+            <form onSubmit={handleLogin} className="space-y-6">
+              <div className="space-y-2">
+                <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest ml-1">Entry_Key</label>
+                <input 
+                  type="password" 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-5 outline-none focus:border-electric/50 transition-all font-mono text-center tracking-[0.5em] text-lg"
+                  placeholder="••••••••"
+                />
+              </div>
+              <button className="w-full py-5 bg-white text-black rounded-full font-black hover:bg-electric hover:text-white transition-all duration-500 uppercase tracking-widest text-[10px] shadow-[0_10px_30px_rgba(255,255,255,0.1)] hover:shadow-[0_10px_30px_rgba(0,229,255,0.3)]">
+                Initialize_Auth_Sequence
+              </button>
+            </form>
+            
+            <Link to="/" className="block text-center mt-10 text-[10px] text-slate/30 hover:text-white transition-colors uppercase tracking-[0.3em] font-mono">
+              [ Abort_Mission ]
+            </Link>
           </div>
-          <h2 className="text-2xl font-bold text-center mb-2">Core Access Protocol</h2>
-          <p className="text-slate text-center mb-8 text-sm uppercase tracking-widest opacity-50">Authorized Personnel Only</p>
-          <form onSubmit={handleLogin} className="space-y-6">
-            <input 
-              type="password" 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-black border border-white/10 rounded-lg px-4 py-3 focus:border-electric outline-none transition-colors font-mono"
-              placeholder="ENTER ACCESS KEY"
-            />
-            <button type="submit" className="w-full btn-primary uppercase tracking-widest text-sm font-bold">
-              Initialize Session
-            </button>
-          </form>
-          <Link to="/" className="block text-center mt-6 text-sm text-slate hover:text-white transition-colors uppercase tracking-widest">
-            Return to Surface
-          </Link>
         </div>
       </div>
     )
   }
 
-  // Handle case where data might still be loading
-  if (!data) return <div className="min-h-screen bg-obsidian flex items-center justify-center text-electric">LOADING ADMIN OS...</div>
+  const tabs = [
+    { id: 'hero', label: 'Identity', icon: User },
+    { id: 'projects', label: 'Projects', icon: LayoutDashboard },
+    { id: 'experience', label: 'Experience', icon: Briefcase },
+    { id: 'leadership', label: 'Leadership', icon: Star },
+    { id: 'education', label: 'Education', icon: GraduationCap },
+    { id: 'certifications', label: 'Awards', icon: Trophy },
+    { id: 'techstack', label: 'Stack', icon: Cpu },
+    { id: 'competencies', label: 'Core', icon: Award },
+    { id: 'manifesto', label: 'Manifesto', icon: BookOpen },
+    { id: 'contact', label: 'Access', icon: Mail },
+    { id: 'config', label: 'System', icon: Settings },
+  ]
 
   return (
-    <div className="min-h-screen bg-[#080808] text-white flex pt-20 font-inter">
+    <div className="min-h-screen bg-obsidian text-white flex flex-col lg:flex-row font-inter selection:bg-electric/30">
       {/* Sidebar */}
-      <aside className="w-72 border-r border-white/5 p-8 hidden lg:block bg-black/20">
-        <div className="flex items-center gap-3 mb-12">
-          <div className="w-8 h-8 bg-electric rounded-lg shadow-[0_0_15px_rgba(0,229,255,0.4)]" />
-          <span className="font-black tracking-tighter text-xl">ADMIN.OS</span>
-        </div>
-        
-        <nav className="space-y-3">
-          {[
-            { id: 'hero', label: 'Identity', icon: User },
-            { id: 'projects', label: 'Work Archive', icon: LayoutDashboard },
-            { id: 'experience', label: 'Experience', icon: Briefcase },
-            { id: 'education', label: 'Education', icon: GraduationCap },
-            { id: 'certifications', label: 'Awards', icon: Trophy },
-            { id: 'techstack', label: 'Tech Stack', icon: Cpu },
-            { id: 'leadership', label: 'Leadership', icon: Award },
-            { id: 'competencies', label: 'Competencies', icon: Star },
-            { id: 'stats', label: 'Performance', icon: Settings },
-            { id: 'manifesto', label: 'Manifesto', icon: BookOpen },
-            { id: 'contact', label: 'Contact', icon: Mail },
-            { id: 'config', label: 'System Export', icon: Copy }
-          ].map(item => (
-            <button 
-              key={item.id}
-              onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center justify-between px-5 py-4 rounded-xl transition-all duration-300 ${activeTab === item.id ? 'bg-electric text-black font-bold scale-105' : 'hover:bg-white/5 text-slate'}`}
-            >
-              <div className="flex items-center gap-3">
-                <item.icon size={18} /> {item.label}
-              </div>
-              <ChevronRight size={14} className={activeTab === item.id ? 'opacity-100' : 'opacity-0'} />
-            </button>
-          ))}
-        </nav>
+      <aside className="w-full lg:w-80 border-r border-white/5 bg-black/40 backdrop-blur-3xl sticky top-0 h-fit lg:h-screen z-50 overflow-y-auto custom-scrollbar">
+        <div className="p-10">
+          <div className="flex items-center gap-4 mb-12 group">
+            <div className="w-10 h-10 bg-electric rounded-2xl shadow-[0_0_20px_rgba(0,229,255,0.4)] flex items-center justify-center">
+              <Cpu size={20} className="text-black" />
+            </div>
+            <div>
+              <span className="font-black tracking-tighter text-2xl block leading-none">ADMIN<span className="text-drama italic">.OS</span></span>
+              <span className="text-[8px] font-mono text-electric uppercase tracking-[0.3em] mt-1 block">Root_Session::Active</span>
+            </div>
+          </div>
+          
+          <nav className="space-y-2">
+            {tabs.map(item => (
+              <button 
+                key={item.id}
+                onClick={() => setActiveTab(item.id)}
+                className={`w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all duration-500 group ${
+                  activeTab === item.id 
+                    ? 'bg-electric text-black font-black shadow-[0_10px_20px_rgba(0,229,255,0.2)]' 
+                    : 'hover:bg-white/5 text-slate/60 hover:text-white'
+                }`}
+              >
+                <div className="flex items-center gap-4">
+                  <item.icon size={18} className={activeTab === item.id ? 'text-black' : 'text-slate group-hover:text-electric transition-colors'} /> 
+                  <span className="text-[10px] uppercase font-mono tracking-widest">{item.label}</span>
+                </div>
+                <ChevronRight size={12} className={activeTab === item.id ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2 transition-all'} />
+              </button>
+            ))}
+          </nav>
 
-        <div className="mt-auto pt-12">
-          <button onClick={() => {
-            localStorage.removeItem('admin_token')
-            setIsAuthenticated(false)
-          }} className="flex items-center gap-2 text-drama hover:opacity-80 transition-opacity uppercase text-xs font-bold tracking-widest">
-            <LogOut size={16} /> Terminate Session
-          </button>
+          <div className="mt-12 pt-10 border-t border-white/5">
+            <button 
+              onClick={() => {
+                localStorage.removeItem('admin_token')
+                setIsAuthenticated(false)
+              }} 
+              className="flex items-center gap-3 text-drama/60 hover:text-drama transition-all uppercase text-[10px] font-mono tracking-[0.2em] group"
+            >
+              <LogOut size={16} className="group-hover:-translate-x-1 transition-transform" /> 
+              Terminate_Session
+            </button>
+          </div>
         </div>
       </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 p-8 lg:p-16 overflow-y-auto max-w-6xl">
-        <div className="flex justify-between items-end mb-16">
-          <div>
-            <p className="text-electric font-mono text-xs uppercase tracking-widest mb-2">Section Management</p>
-            <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">
-              {activeTab} <span className="text-white/20 italic">Layer</span>
-            </h1>
-          </div>
-          <div className="flex gap-4">
-            <button 
-              onClick={handleSave}
-              className="flex items-center gap-2 px-8 py-3 bg-electric text-black rounded-full font-bold hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,229,255,0.2)]"
-            >
-              <Save size={18} /> Save Changes
-            </button>
-          </div>
-        </div>
-
-        {activeTab === 'hero' && (
-          <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              <div className="space-y-4">
-                <label className="text-xs uppercase font-mono text-slate tracking-widest">Public Alias</label>
-                <input 
-                  type="text" 
-                  value={data.hero?.name || ''}
-                  onChange={(e) => updateHero('name', e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric transition-all text-xl font-bold"
-                />
+      {/* Main Workspace */}
+      <main className="flex-1 min-h-screen bg-[#080808] relative overflow-hidden">
+        {/* Background Grids */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{
+          backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
+          backgroundSize: '50px 50px'
+        }} />
+        
+        <div className="max-w-6xl mx-auto p-8 lg:p-20 relative z-10">
+          <header className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8">
+            <div className="animate-in fade-in slide-in-from-left-8 duration-700">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-[1px] bg-electric/50" />
+                <p className="text-electric font-mono text-[10px] uppercase tracking-[0.4em]">Kernel_Management::v4.0.2</p>
               </div>
-              <div className="space-y-4">
-                <label className="text-xs uppercase font-mono text-slate tracking-widest">Operational Title</label>
-                <input 
-                  type="text" 
-                  value={data.hero?.title || ''}
-                  onChange={(e) => updateHero('title', e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric transition-all text-xl font-bold"
-                />
-              </div>
+              <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none">
+                {activeTab} <span className="text-white/10 italic">{activeTab === 'hero' ? 'Identity' : 'Module'}</span>
+              </h1>
             </div>
             
-            <div className="space-y-4">
-              <label className="text-xs uppercase font-mono text-slate tracking-widest">Visual Asset (Profile Image URL)</label>
-              <div className="flex items-start gap-6">
-                {data.hero?.image && (
-                  <div className="w-24 h-24 rounded-2xl overflow-hidden bg-white/5 border border-white/10 shrink-0">
-                    <img src={data.hero.image} alt="Profile Preview" className="w-full h-full object-cover" />
+            <button 
+              onClick={handleSave}
+              className="group relative px-10 py-5 bg-white text-black rounded-full font-black hover:bg-electric hover:text-white transition-all duration-500 shadow-[0_15px_30px_rgba(255,255,255,0.05)] hover:shadow-[0_15px_30px_rgba(0,229,255,0.2)] overflow-hidden animate-in fade-in slide-in-from-right-8 duration-700"
+            >
+              <span className="relative z-10 flex items-center gap-3 uppercase tracking-widest text-[10px]">
+                <Save size={18} />
+                Sync_to_Database
+              </span>
+            </button>
+          </header>
+
+          <div className="animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
+            {activeTab === 'hero' && (
+              <div className="space-y-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                  <div className="space-y-4">
+                    <label className="text-[10px] uppercase font-mono text-slate/40 tracking-[0.3em]">Operational_Alias</label>
+                    <input 
+                      type="text" 
+                      value={data.hero?.name || ''}
+                      onChange={(e) => updateHero('name', e.target.value)}
+                      className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-8 py-5 outline-none focus:border-electric transition-all text-xl font-bold tracking-tight"
+                    />
+                  </div>
+                  <div className="space-y-4">
+                    <label className="text-[10px] uppercase font-mono text-slate/40 tracking-[0.3em]">System_Role</label>
+                    <input 
+                      type="text" 
+                      value={data.hero?.title || ''}
+                      onChange={(e) => updateHero('title', e.target.value)}
+                      className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-8 py-5 outline-none focus:border-electric transition-all text-xl font-bold tracking-tight"
+                    />
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <label className="text-[10px] uppercase font-mono text-slate/40 tracking-[0.3em]">Biometric_Link (Avatar URL)</label>
+                  <div className="flex flex-col md:flex-row items-center gap-8 p-8 bg-white/[0.02] border border-white/5 rounded-[2rem]">
+                    <div className="w-32 h-32 rounded-3xl overflow-hidden bg-white/5 border border-white/10 shrink-0 shadow-2xl">
+                      <img src={data.hero?.image} alt="Biometric Preview" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+                    </div>
+                    <div className="flex-1 space-y-4 w-full">
+                      <input 
+                        type="text" 
+                        value={data.hero?.image || ''}
+                        onChange={(e) => updateHero('image', e.target.value)}
+                        className="w-full bg-black/40 border border-white/10 rounded-xl px-6 py-4 outline-none focus:border-electric transition-all font-mono text-sm"
+                        placeholder="/public/identity/avatar.jpg"
+                      />
+                      <p className="text-[9px] text-slate/30 uppercase tracking-widest italic flex items-center gap-2">
+                        <Globe size={10} /> Local assets should reside in the /public directory for resolution
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <label className="text-[10px] uppercase font-mono text-slate/40 tracking-[0.3em]">Core_Narrative</label>
+                  <textarea 
+                    rows="8"
+                    value={data.hero?.bio || ''}
+                    onChange={(e) => updateHero('bio', e.target.value)}
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-[2rem] px-8 py-8 outline-none focus:border-electric transition-all resize-none leading-relaxed text-lg italic text-slate/80"
+                  />
+                </div>
+
+                <div className="pt-12 border-t border-white/5">
+                  <label className="text-[10px] uppercase font-mono text-slate/40 tracking-[0.3em] mb-4 block">Dossier_Export (Resume URL)</label>
+                  <div className="flex items-center gap-4 bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-5">
+                    <FileText className="text-electric" size={20} />
+                    <input 
+                      type="text" 
+                      value={data.resumeUrl || ''}
+                      onChange={(e) => updateData({ ...data, resumeUrl: e.target.value })}
+                      className="flex-1 bg-transparent outline-none font-mono text-sm text-electric"
+                      placeholder="https://storage.provider.com/resume.pdf"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'projects' && (
+              <div className="space-y-12">
+                {!editingProject ? (
+                  <>
+                    <button 
+                      onClick={() => setEditingProject({ id: Date.now().toString(), title: '', category: '', desc: '', tags: [], image: '', link: '', liveUrl: '', featured: true })}
+                      className="w-full group p-10 bg-white/[0.02] border border-dashed border-white/10 rounded-[2.5rem] hover:bg-electric/5 hover:border-electric/30 transition-all duration-700 flex flex-col items-center justify-center gap-4"
+                    >
+                      <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-90 transition-all duration-700">
+                        <Plus size={32} className="text-slate group-hover:text-electric" />
+                      </div>
+                      <span className="font-black uppercase tracking-[0.4em] text-[10px] text-slate/40 group-hover:text-electric">Initialize_New_Project_Entry</span>
+                    </button>
+                    
+                    <div className="grid grid-cols-1 gap-6">
+                      {data.projects?.map((project, idx) => (
+                        <div key={project.id} className="group p-8 bg-white/[0.01] border border-white/5 rounded-[2rem] hover:bg-white/[0.03] hover:border-white/10 transition-all duration-500 flex flex-col md:flex-row items-center justify-between gap-8">
+                          <div className="flex items-center gap-8 w-full">
+                            <div className="flex flex-col gap-2">
+                              <button onClick={() => moveItem('projects', idx, -1)} className="p-2 text-slate/20 hover:text-electric transition-colors" disabled={idx === 0}><ChevronUp size={16} /></button>
+                              <button onClick={() => moveItem('projects', idx, 1)} className="p-2 text-slate/20 hover:text-electric transition-colors" disabled={idx === (data.projects?.length || 0) - 1}><ChevronDown size={16} /></button>
+                            </div>
+                            <div className="w-24 h-24 rounded-2xl overflow-hidden border border-white/10 bg-black shrink-0 relative">
+                              <img src={project.image} alt="" className="w-full h-full object-cover opacity-40 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000" />
+                              {project.featured && <div className="absolute top-2 right-2 w-2 h-2 bg-electric rounded-full shadow-[0_0_10px_rgba(0,229,255,0.8)]" />}
+                            </div>
+                            <div className="flex-1">
+                              <h3 className="text-2xl font-black mb-1 group-hover:text-electric transition-colors uppercase tracking-tighter">{project.title}</h3>
+                              <div className="flex flex-wrap gap-4 items-center">
+                                <span className="text-[10px] font-mono text-electric/60 uppercase tracking-[0.2em]">{project.category}</span>
+                                <div className="w-1 h-1 bg-white/10 rounded-full" />
+                                <span className="text-[10px] font-mono text-slate/40 uppercase tracking-[0.2em]">{project.tags?.length || 0} Components</span>
+                                {project.liveUrl && <span className="text-[10px] font-mono text-green-500/60 uppercase tracking-[0.2em] flex items-center gap-1.5"><Globe size={10} /> Online</span>}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex gap-4 w-full md:w-auto">
+                            <button 
+                              onClick={() => setEditingProject(project)}
+                              className="flex-1 md:flex-none px-6 py-4 bg-white/5 hover:bg-white/10 rounded-xl transition-all flex items-center justify-center gap-2"
+                            >
+                              <Settings size={18} />
+                              <span className="uppercase text-[10px] font-bold tracking-widest md:hidden">Edit</span>
+                            </button>
+                            <button 
+                              onClick={() => deleteItem('projects', idx)}
+                              className="flex-1 md:flex-none px-6 py-4 bg-drama/10 text-drama hover:bg-drama/20 rounded-xl transition-all flex items-center justify-center gap-2"
+                            >
+                              <Trash2 size={18} />
+                              <span className="uppercase text-[10px] font-bold tracking-widest md:hidden">Wipe</span>
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <div className="bg-white/[0.02] border border-white/10 rounded-[3rem] p-12 space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-500">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-3xl font-black uppercase tracking-tighter italic">Edit <span className="text-electric">Component</span></h3>
+                      <button onClick={() => setEditingProject(null)} className="text-[10px] font-mono uppercase text-slate/40 hover:text-white transition-colors tracking-widest">[ Abort_Edit ]</button>
+                    </div>
+                    
+                    <div className="grid md:grid-cols-2 gap-10">
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Descriptor_Title</label>
+                        <input 
+                          type="text" 
+                          value={editingProject.title}
+                          onChange={(e) => setEditingProject({...editingProject, title: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric transition-all"
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Category_Tag</label>
+                        <input 
+                          type="text" 
+                          value={editingProject.category}
+                          onChange={(e) => setEditingProject({...editingProject, category: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric transition-all"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Project_Brief</label>
+                      <textarea 
+                        rows="4"
+                        value={editingProject.desc}
+                        onChange={(e) => setEditingProject({...editingProject, desc: e.target.value})}
+                        className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric transition-all resize-none italic"
+                      />
+                    </div>
+
+                    <div className="space-y-3">
+                      <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Technology_Stack (Comma-Separated)</label>
+                      <input 
+                        type="text" 
+                        value={editingProject.tags?.join(', ') || ''}
+                        onChange={(e) => setEditingProject({...editingProject, tags: e.target.value.split(',').map(t => t.trim())})}
+                        className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric transition-all font-mono text-xs text-electric"
+                      />
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-10">
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Visual_Asset_Path</label>
+                        <input 
+                          type="text" 
+                          value={editingProject.image}
+                          onChange={(e) => setEditingProject({...editingProject, image: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric transition-all font-mono text-xs"
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Repository_Link</label>
+                        <input 
+                          type="text" 
+                          value={editingProject.link || ''}
+                          onChange={(e) => setEditingProject({...editingProject, link: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric transition-all font-mono text-xs"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Live_Production_Endpoint</label>
+                      <input 
+                        type="text" 
+                        value={editingProject.liveUrl || ''}
+                        onChange={(e) => setEditingProject({...editingProject, liveUrl: e.target.value})}
+                        className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-green-500/50 transition-all font-mono text-xs text-green-500"
+                        placeholder="https://production-ready-app.com"
+                      />
+                    </div>
+
+                    <div className="flex items-center gap-4 p-6 bg-white/[0.03] border border-white/5 rounded-2xl">
+                      <input 
+                        type="checkbox" 
+                        id="featured"
+                        checked={editingProject.featured}
+                        onChange={(e) => setEditingProject({...editingProject, featured: e.target.checked})}
+                        className="w-6 h-6 rounded-lg accent-electric cursor-pointer"
+                      />
+                      <label htmlFor="featured" className="text-xs font-bold uppercase tracking-[0.2em] cursor-pointer">Promote_to_Featured_State</label>
+                    </div>
+
+                    <div className="flex gap-6 pt-6">
+                      <button 
+                        onClick={() => saveItem('projects', editingProject, data.projects.findIndex(p => p.id === editingProject.id) !== -1 ? data.projects.findIndex(p => p.id === editingProject.id) : null, setEditingProject)}
+                        className="flex-1 bg-white text-black font-black py-5 rounded-full hover:bg-electric hover:text-white transition-all duration-500 uppercase tracking-widest text-[10px] shadow-xl"
+                      >
+                        Commit_Changes
+                      </button>
+                      <button 
+                        onClick={() => setEditingProject(null)}
+                        className="flex-1 bg-white/5 border border-white/10 font-black py-5 rounded-full hover:bg-white/10 transition-all uppercase tracking-widest text-[10px]"
+                      >
+                        Abort_Sequence
+                      </button>
+                    </div>
                   </div>
                 )}
-                <div className="flex-1 space-y-2">
-                  <input 
-                    type="text" 
-                    value={data.hero?.image || ''}
-                    onChange={(e) => updateHero('image', e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric transition-all font-mono"
-                    placeholder="/my-picture.jpg"
-                  />
-                  <p className="text-[10px] text-slate/50">Pro Tip: Place your image in the /public folder and use the relative path.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <label className="text-xs uppercase font-mono text-slate tracking-widest">Biography Context</label>
-              <textarea 
-                rows="6"
-                value={data.hero?.bio || ''}
-                onChange={(e) => updateHero('bio', e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric transition-all resize-none leading-relaxed text-lg"
-              />
-            </div>
-
-            <div className="space-y-4 pt-8 border-t border-white/10">
-              <label className="text-xs uppercase font-mono text-slate tracking-widest flex items-center gap-2"><FileText size={14} className="text-electric" /> Resume URL</label>
-              <input 
-                type="text" 
-                value={data.resumeUrl || ''}
-                onChange={(e) => updateData({ ...data, resumeUrl: e.target.value })}
-                className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric transition-all font-mono"
-                placeholder="https://drive.google.com/your-resume.pdf"
-              />
-              <p className="text-[10px] text-slate/50">This link will be used for the "Download Resume" button on the homepage.</p>
-            </div>
-          </div>
-        )}
-
-        {activeTab === 'projects' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            {!editingProject ? (
-              <>
-                <button 
-                  onClick={() => setEditingProject({ id: Date.now().toString(), title: '', category: '', desc: '', tags: [], image: '', link: '', liveUrl: '', featured: true })}
-                  className="flex items-center gap-2 px-6 py-4 bg-white/5 border border-dashed border-white/20 rounded-2xl hover:border-electric/50 hover:bg-electric/5 transition-all w-full justify-center group"
-                >
-                  <Plus size={20} className="group-hover:rotate-90 transition-transform" /> 
-                  <span className="font-bold uppercase tracking-widest text-sm">Deploy New Project Record</span>
-                </button>
-                
-                <div className="grid grid-cols-1 gap-6">
-                  {data.projects?.map((project, idx) => (
-                    <div key={project.id} className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex items-center justify-between group hover:bg-white/[0.04] transition-all">
-                      <div className="flex items-center gap-6">
-                        <div className="flex flex-col gap-1">
-                          <button onClick={() => moveItem('projects', idx, -1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === 0}><ChevronUp size={14} /></button>
-                          <button onClick={() => moveItem('projects', idx, 1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === (data.projects?.length || 0) - 1}><ChevronDown size={14} /></button>
-                        </div>
-                        <div className="w-20 h-20 rounded-2xl overflow-hidden border border-white/10 bg-black">
-                          <img src={project.image} alt="" className="w-full h-full object-cover opacity-60" />
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-bold mb-1">{project.title}</h3>
-                          <p className="text-xs text-electric font-mono uppercase tracking-widest">{project.category}</p>
-                          {project.liveUrl && <p className="text-xs text-green-400 font-mono mt-1 flex items-center gap-1"><Globe size={10} /> Live</p>}
-                        </div>
-                      </div>
-                      <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button 
-                          onClick={() => setEditingProject(project)}
-                          className="p-3 bg-white/5 hover:bg-white/10 rounded-xl transition-colors"
-                        >
-                          <Settings size={20} />
-                        </button>
-                        <button 
-                          onClick={() => deleteProject(project.id)}
-                          className="p-3 bg-drama/10 text-drama hover:bg-drama/20 rounded-xl transition-colors"
-                        >
-                          <Trash2 size={20} />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </>
-            ) : (
-              <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 space-y-6">
-                <h3 className="text-2xl font-bold mb-8">Edit Project Entry</h3>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Project Title</label>
-                    <input 
-                      type="text" 
-                      value={editingProject.title}
-                      onChange={(e) => setEditingProject({...editingProject, title: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Category</label>
-                    <input 
-                      type="text" 
-                      value={editingProject.category}
-                      onChange={(e) => setEditingProject({...editingProject, category: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-mono text-slate">Description</label>
-                  <textarea 
-                    rows="3"
-                    value={editingProject.desc}
-                    onChange={(e) => setEditingProject({...editingProject, desc: e.target.value})}
-                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric resize-none"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-mono text-slate">Tags (comma separated)</label>
-                  <input 
-                    type="text" 
-                    value={editingProject.tags?.join(', ') || ''}
-                    onChange={(e) => setEditingProject({...editingProject, tags: e.target.value.split(',').map(t => t.trim())})}
-                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
-                  />
-                </div>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Thumbnail URL</label>
-                    <input 
-                      type="text" 
-                      value={editingProject.image}
-                      onChange={(e) => setEditingProject({...editingProject, image: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Source Link</label>
-                    <input 
-                      type="text" 
-                      value={editingProject.link || ''}
-                      onChange={(e) => setEditingProject({...editingProject, link: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-mono text-slate flex items-center gap-2"><Globe size={12} className="text-green-400" /> Live Demo URL (Optional)</label>
-                  <input 
-                    type="text" 
-                    value={editingProject.liveUrl || ''}
-                    onChange={(e) => setEditingProject({...editingProject, liveUrl: e.target.value})}
-                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-green-400 font-mono"
-                    placeholder="https://your-live-demo.com"
-                  />
-                </div>
-                <div className="flex items-center gap-3 py-2">
-                  <input 
-                    type="checkbox" 
-                    id="featured"
-                    checked={editingProject.featured}
-                    onChange={(e) => setEditingProject({...editingProject, featured: e.target.checked})}
-                    className="w-5 h-5 accent-electric"
-                  />
-                  <label htmlFor="featured" className="text-sm font-bold uppercase tracking-widest">Featured Project</label>
-                </div>
-                <div className="flex gap-4 pt-4">
-                  <button 
-                    onClick={() => saveProject(editingProject)}
-                    className="flex-1 bg-electric text-black font-bold py-4 rounded-xl hover:scale-[1.02] transition-all"
-                  >
-                    Commit Changes
-                  </button>
-                  <button 
-                    onClick={() => setEditingProject(null)}
-                    className="flex-1 bg-white/5 border border-white/10 font-bold py-4 rounded-xl hover:bg-white/10 transition-all"
-                  >
-                    Cancel
-                  </button>
-                </div>
               </div>
             )}
-          </div>
-        )}
 
-        {activeTab === 'competencies' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            {!editingCompetency ? (
-              <>
-                <button 
-                  onClick={() => setEditingCompetency({ title: '', desc: '', icon: 'Zap', accent: '#3B82F6', originalIndex: null })}
-                  className="flex items-center gap-2 px-6 py-4 bg-white/5 border border-dashed border-white/20 rounded-2xl hover:border-electric/50 hover:bg-electric/5 transition-all w-full justify-center group"
-                >
-                  <Plus size={20} className="group-hover:rotate-90 transition-transform" /> 
-                  <span className="font-bold uppercase tracking-widest text-sm">Add New Competency</span>
-                </button>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {data.competencies?.map((comp, idx) => (
-                    <div key={idx} className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex items-center justify-between group hover:bg-white/[0.04] transition-all" style={{ borderLeftColor: comp.accent, borderLeftWidth: '4px' }}>
-                      <div className="flex items-center gap-4">
-                        <div className="flex flex-col gap-1">
-                          <button onClick={() => moveItem('competencies', idx, -1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === 0}><ChevronUp size={14} /></button>
-                          <button onClick={() => moveItem('competencies', idx, 1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === (data.competencies?.length || 0) - 1}><ChevronDown size={14} /></button>
-                        </div>
-                        <div className="flex flex-col gap-1">
-                          <h3 className="text-xl font-bold">{comp.title}</h3>
-                          <p className="text-xs text-slate font-mono uppercase tracking-widest truncate max-w-[200px]">{comp.desc}</p>
-                        </div>
+            {activeTab === 'experience' && (
+              <div className="space-y-12">
+                {!editingExperience ? (
+                  <>
+                    <button 
+                      onClick={() => setEditingExperience({ title: '', company: '', duration: '', desc: '', logo: '', originalIndex: null })}
+                      className="w-full group p-10 bg-white/[0.02] border border-dashed border-white/10 rounded-[2.5rem] hover:bg-electric/5 hover:border-electric/30 transition-all duration-700 flex flex-col items-center justify-center gap-4"
+                    >
+                      <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center group-hover:scale-110 transition-all">
+                        <Plus size={32} className="text-slate group-hover:text-electric" />
                       </div>
-                      <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button 
-                          onClick={() => setEditingCompetency({ ...comp, originalIndex: idx })}
-                          className="p-3 bg-white/5 hover:bg-white/10 rounded-xl transition-colors"
-                        >
-                          <Settings size={20} />
-                        </button>
-                        <button 
-                          onClick={() => deleteCompetency(idx)}
-                          className="p-3 bg-drama/10 text-drama hover:bg-drama/20 rounded-xl transition-colors"
-                        >
-                          <Trash2 size={20} />
-                        </button>
+                      <span className="font-black uppercase tracking-[0.4em] text-[10px] text-slate/40 group-hover:text-electric">Append_Experience_Log</span>
+                    </button>
+                    
+                    <div className="grid grid-cols-1 gap-6">
+                      {data.experience?.map((exp, idx) => (
+                        <div key={idx} className="group p-8 bg-white/[0.01] border border-white/5 rounded-[2rem] hover:bg-white/[0.03] hover:border-white/10 transition-all duration-500 flex flex-col md:flex-row items-center justify-between gap-8 border-l-[3px] border-l-electric">
+                          <div className="flex items-center gap-8 flex-1">
+                            <div className="flex flex-col gap-2">
+                              <button onClick={() => moveItem('experience', idx, -1)} className="p-2 text-slate/20 hover:text-electric transition-colors" disabled={idx === 0}><ChevronUp size={16} /></button>
+                              <button onClick={() => moveItem('experience', idx, 1)} className="p-2 text-slate/20 hover:text-electric transition-colors" disabled={idx === (data.experience?.length || 0) - 1}><ChevronDown size={16} /></button>
+                            </div>
+                            <div className="w-20 h-20 rounded-2xl bg-black border border-white/5 flex items-center justify-center p-4">
+                              {exp.logo ? <img src={exp.logo} alt="" className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all" /> : <Briefcase className="text-electric/40" size={32} />}
+                            </div>
+                            <div>
+                              <h3 className="text-2xl font-black mb-1 uppercase tracking-tighter">{exp.title}</h3>
+                              <p className="text-[10px] font-mono text-electric uppercase tracking-[0.3em] mb-2">{exp.company}</p>
+                              <span className="text-[10px] font-mono text-slate/30 uppercase tracking-widest">{exp.duration}</span>
+                            </div>
+                          </div>
+                          <div className="flex gap-4">
+                            <button onClick={() => setEditingExperience({...exp, originalIndex: idx})} className="p-4 bg-white/5 hover:bg-white/10 rounded-xl transition-all"><Settings size={18} /></button>
+                            <button onClick={() => deleteItem('experience', idx)} className="p-4 bg-drama/10 text-drama hover:bg-drama/20 rounded-xl transition-all"><Trash2 size={18} /></button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <div className="bg-white/[0.02] border border-white/10 rounded-[3rem] p-12 space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-500">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-3xl font-black uppercase tracking-tighter italic">Update <span className="text-electric">Tenure</span></h3>
+                      <button onClick={() => setEditingExperience(null)} className="text-[10px] font-mono uppercase text-slate/40 hover:text-white transition-colors tracking-widest">[ Cancel ]</button>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-10">
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Role_Title</label>
+                        <input 
+                          type="text" 
+                          value={editingExperience.title}
+                          onChange={(e) => setEditingExperience({...editingExperience, title: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric"
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Organization</label>
+                        <input 
+                          type="text" 
+                          value={editingExperience.company}
+                          onChange={(e) => setEditingExperience({...editingExperience, company: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric"
+                        />
                       </div>
                     </div>
-                  ))}
-                </div>
-              </>
-            ) : (
-              <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 space-y-6">
-                <h3 className="text-2xl font-bold mb-8">Edit Competency</h3>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Title</label>
-                    <input 
-                      type="text" 
-                      value={editingCompetency.title}
-                      onChange={(e) => setEditingCompetency({...editingCompetency, title: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
-                    />
+                    <div className="grid md:grid-cols-2 gap-10">
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Duration_Period</label>
+                        <input 
+                          type="text" 
+                          value={editingExperience.duration}
+                          onChange={(e) => setEditingExperience({...editingExperience, duration: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric"
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Corporate_Asset_Logo</label>
+                        <input 
+                          type="text" 
+                          value={editingExperience.logo || ''}
+                          onChange={(e) => setEditingExperience({...editingExperience, logo: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric font-mono text-xs"
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Mission_Objectives</label>
+                      <textarea 
+                        rows="4"
+                        value={editingExperience.desc}
+                        onChange={(e) => setEditingExperience({...editingExperience, desc: e.target.value})}
+                        className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric resize-none italic"
+                      />
+                    </div>
+                    <div className="flex gap-6 pt-6">
+                      <button 
+                        onClick={() => {
+                          const { originalIndex, ...exp } = editingExperience;
+                          saveItem('experience', exp, originalIndex, setEditingExperience);
+                        }}
+                        className="flex-1 bg-white text-black font-black py-5 rounded-full hover:bg-electric hover:text-white transition-all duration-500 uppercase tracking-widest text-[10px]"
+                      >
+                        Commit_to_History
+                      </button>
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Icon (Lucide Name)</label>
-                    <input 
-                      type="text" 
-                      value={editingCompetency.icon}
-                      onChange={(e) => setEditingCompetency({...editingCompetency, icon: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-mono text-slate">Description</label>
-                  <textarea 
-                    rows="3"
-                    value={editingCompetency.desc}
-                    onChange={(e) => setEditingCompetency({...editingCompetency, desc: e.target.value})}
-                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric resize-none"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-mono text-slate">Accent Color (Hex)</label>
-                  <div className="flex gap-4">
-                    <input 
-                      type="color" 
-                      value={editingCompetency.accent}
-                      onChange={(e) => setEditingCompetency({...editingCompetency, accent: e.target.value})}
-                      className="h-12 w-20 bg-transparent cursor-pointer"
-                    />
-                    <input 
-                      type="text" 
-                      value={editingCompetency.accent}
-                      onChange={(e) => setEditingCompetency({...editingCompetency, accent: e.target.value})}
-                      className="flex-1 bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
-                    />
-                  </div>
-                </div>
-                <div className="flex gap-4 pt-4">
-                  <button 
-                    onClick={() => {
-                      const { originalIndex, ...comp } = editingCompetency;
-                      saveCompetency(comp, originalIndex);
-                    }}
-                    className="flex-1 bg-electric text-black font-bold py-4 rounded-xl hover:scale-[1.02] transition-all"
-                  >
-                    Commit Changes
-                  </button>
-                  <button 
-                    onClick={() => setEditingCompetency(null)}
-                    className="flex-1 bg-white/5 border border-white/10 font-bold py-4 rounded-xl hover:bg-white/10 transition-all"
-                  >
-                    Cancel
-                  </button>
-                </div>
+                )}
               </div>
             )}
-          </div>
-        )}
 
-        {activeTab === 'stats' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {data.stats?.map((stat, idx) => (
-                <div key={idx} className="p-8 bg-white/[0.02] border border-white/10 rounded-3xl space-y-6 group">
-                  <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-mono text-electric uppercase tracking-[0.2em]">Data Point #{idx + 1}</span>
+            {activeTab === 'leadership' && (
+              <div className="space-y-12">
+                {!editingLeadership ? (
+                  <>
+                    <button 
+                      onClick={() => setEditingLeadership({ title: '', org: '', duration: '', desc: '', logo: '', originalIndex: null })}
+                      className="w-full group p-10 bg-white/[0.02] border border-dashed border-white/10 rounded-[2.5rem] hover:bg-drama/5 hover:border-drama/30 transition-all duration-700 flex flex-col items-center justify-center gap-4"
+                    >
+                      <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center group-hover:scale-110 transition-all">
+                        <Plus size={32} className="text-slate group-hover:text-drama" />
+                      </div>
+                      <span className="font-black uppercase tracking-[0.4em] text-[10px] text-slate/40 group-hover:text-drama">Record_Leadership_Influence</span>
+                    </button>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      {data.leadership?.map((item, idx) => (
+                        <div key={idx} className="group p-10 bg-white/[0.01] border border-white/5 rounded-[2.5rem] hover:bg-white/[0.03] hover:border-white/10 transition-all duration-500 flex flex-col gap-6 border-l-[3px] border-l-drama">
+                          <div className="flex justify-between items-start">
+                            <div className="flex items-center gap-5">
+                              <div className="w-16 h-16 rounded-2xl bg-black border border-white/5 flex items-center justify-center p-3">
+                                {item.logo ? <img src={item.logo} alt="" className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all" /> : <Award className="text-drama/40" size={24} />}
+                              </div>
+                              <div>
+                                <h3 className="text-xl font-black uppercase tracking-tighter leading-tight">{item.title}</h3>
+                                <p className="text-[9px] font-mono text-drama uppercase tracking-[0.2em]">{item.org}</p>
+                              </div>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                              <button onClick={() => moveItem('leadership', idx, -1)} className="p-1 text-slate/20 hover:text-drama transition-colors" disabled={idx === 0}><ChevronUp size={14} /></button>
+                              <button onClick={() => moveItem('leadership', idx, 1)} className="p-1 text-slate/20 hover:text-drama transition-colors" disabled={idx === (data.leadership?.length || 0) - 1}><ChevronDown size={14} /></button>
+                            </div>
+                          </div>
+                          <p className="text-slate/60 text-sm italic line-clamp-3 leading-relaxed">{item.desc}</p>
+                          <div className="flex justify-between items-center mt-auto pt-6 border-t border-white/5">
+                            <span className="text-[9px] font-mono text-slate/30 uppercase tracking-[0.2em]">{item.duration}</span>
+                            <div className="flex gap-2">
+                              <button onClick={() => setEditingLeadership({...item, originalIndex: idx})} className="p-3 bg-white/5 hover:bg-white/10 rounded-xl transition-all"><Settings size={14} /></button>
+                              <button onClick={() => deleteItem('leadership', idx)} className="p-3 bg-drama/10 text-drama hover:bg-drama/20 rounded-xl transition-all"><Trash2 size={14} /></button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <div className="bg-white/[0.02] border border-white/10 rounded-[3rem] p-12 space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-500">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-3xl font-black uppercase tracking-tighter italic">Refine <span className="text-drama">Influence</span></h3>
+                      <button onClick={() => setEditingLeadership(null)} className="text-[10px] font-mono uppercase text-slate/40 hover:text-white transition-colors tracking-widest">[ Discard ]</button>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-10">
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Leadership_Title</label>
+                        <input 
+                          type="text" 
+                          value={editingLeadership.title}
+                          onChange={(e) => setEditingLeadership({...editingLeadership, title: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-drama"
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Organization_Entity</label>
+                        <input 
+                          type="text" 
+                          value={editingLeadership.org}
+                          onChange={(e) => setEditingLeadership({...editingLeadership, org: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-drama"
+                        />
+                      </div>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-10">
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Active_Phase</label>
+                        <input 
+                          type="text" 
+                          value={editingLeadership.duration}
+                          onChange={(e) => setEditingLeadership({...editingLeadership, duration: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-drama"
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Symbolic_Asset_URL</label>
+                        <input 
+                          type="text" 
+                          value={editingLeadership.logo || ''}
+                          onChange={(e) => setEditingLeadership({...editingLeadership, logo: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-drama font-mono text-xs"
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Contribution_Manifest</label>
+                      <textarea 
+                        rows="4"
+                        value={editingLeadership.desc}
+                        onChange={(e) => setEditingLeadership({...editingLeadership, desc: e.target.value})}
+                        className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-drama resize-none italic"
+                      />
+                    </div>
                     <button 
                       onClick={() => {
-                        if (window.confirm('Erase this data point?')) {
-                          const newStats = data.stats.filter((_, i) => i !== idx)
-                          updateData({ ...data, stats: newStats })
-                        }
+                        const { originalIndex, ...item } = editingLeadership;
+                        saveItem('leadership', item, originalIndex, setEditingLeadership);
                       }}
-                      className="p-2 text-drama hover:bg-drama/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="w-full bg-white text-black font-black py-5 rounded-full hover:bg-drama hover:text-white transition-all duration-500 uppercase tracking-widest text-[10px]"
                     >
-                      <Trash2 size={18} />
+                      Commit_Influence_Log
                     </button>
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase font-mono text-slate">Value</label>
-                      <input 
-                        type="text" 
-                        value={stat.value}
-                        onChange={(e) => {
-                          const newStats = [...data.stats]
-                          newStats[idx].value = e.target.value
-                          updateData({ ...data, stats: newStats })
-                        }}
-                        className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-black text-2xl"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase font-mono text-slate">Label</label>
-                      <input 
-                        type="text" 
-                        value={stat.label}
-                        onChange={(e) => {
-                          const newStats = [...data.stats]
-                          newStats[idx].label = e.target.value
-                          updateData({ ...data, stats: newStats })
-                        }}
-                        className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-bold"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Subtext / Detail</label>
-                    <input 
-                      type="text" 
-                      value={stat.sub || ''}
-                      onChange={(e) => {
-                        const newStats = [...data.stats]
-                        newStats[idx].sub = e.target.value
-                        updateData({ ...data, stats: newStats })
-                      }}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric text-slate"
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-            <button 
-              onClick={() => {
-                updateData({ ...data, stats: [...(data.stats || []), { label: 'New Stat', value: '0', sub: '' }] })
-              }}
-              className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-white/5 border border-dashed border-white/20 rounded-2xl hover:border-electric/50 hover:bg-electric/5 transition-all group"
-            >
-              <Plus size={20} className="group-hover:rotate-90 transition-transform" /> 
-              <span className="font-bold uppercase tracking-widest text-sm">Add New Data Point</span>
-            </button>
-          </div>
-        )}
-
-        {activeTab === 'experience' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            {!editingExperience ? (
-              <>
-                <button 
-                  onClick={() => setEditingExperience({ title: '', company: '', duration: '', desc: '', logo: '', originalIndex: null })}
-                  className="flex items-center gap-2 px-6 py-4 bg-white/5 border border-dashed border-white/20 rounded-2xl hover:border-electric/50 hover:bg-electric/5 transition-all w-full justify-center group"
-                >
-                  <Plus size={20} className="group-hover:rotate-90 transition-transform" /> 
-                  <span className="font-bold uppercase tracking-widest text-sm">Add Experience Entry</span>
-                </button>
-                
-                <div className="grid grid-cols-1 gap-6">
-                  {data.experience?.map((exp, idx) => (
-                    <div key={idx} className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex items-center justify-between group hover:bg-white/[0.04] transition-all" style={{ borderLeftColor: '#00E5FF', borderLeftWidth: '3px' }}>
-                      <div className="flex items-center gap-6">
-                        <div className="flex flex-col gap-1">
-                          <button onClick={() => moveItem('experience', idx, -1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === 0}><ChevronUp size={14} /></button>
-                          <button onClick={() => moveItem('experience', idx, 1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === (data.experience?.length || 0) - 1}><ChevronDown size={14} /></button>
-                        </div>
-                        <div className="w-14 h-14 rounded-2xl overflow-hidden border border-white/10 bg-black flex items-center justify-center shrink-0">
-                          {exp.logo ? (
-                            <img src={exp.logo} alt="" className="w-8 h-8 object-contain" />
-                          ) : (
-                            <Briefcase className="text-electric" size={22} />
-                          )}
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-bold mb-1">{exp.title}</h3>
-                          <p className="text-xs text-electric font-mono uppercase tracking-widest">{exp.company}</p>
-                          <p className="text-xs text-slate/50 font-mono mt-1">{exp.duration}</p>
-                        </div>
-                      </div>
-                      <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button 
-                          onClick={() => setEditingExperience({ ...exp, originalIndex: idx })}
-                          className="p-3 bg-white/5 hover:bg-white/10 rounded-xl transition-colors"
-                        >
-                          <Settings size={20} />
-                        </button>
-                        <button 
-                          onClick={() => deleteExperience(idx)}
-                          className="p-3 bg-drama/10 text-drama hover:bg-drama/20 rounded-xl transition-colors"
-                        >
-                          <Trash2 size={20} />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </>
-            ) : (
-              <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 space-y-6">
-                <h3 className="text-2xl font-bold mb-8">Edit Experience Entry</h3>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Job Title</label>
-                    <input 
-                      type="text" 
-                      value={editingExperience.title}
-                      onChange={(e) => setEditingExperience({...editingExperience, title: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
-                      placeholder="Senior AI Engineer"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Company</label>
-                    <input 
-                      type="text" 
-                      value={editingExperience.company}
-                      onChange={(e) => setEditingExperience({...editingExperience, company: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
-                      placeholder="Tech Innovators Inc."
-                    />
-                  </div>
-                </div>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Duration</label>
-                    <input 
-                      type="text" 
-                      value={editingExperience.duration}
-                      onChange={(e) => setEditingExperience({...editingExperience, duration: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
-                      placeholder="2023 - Present"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Company Logo URL (Optional)</label>
-                    <input 
-                      type="text" 
-                      value={editingExperience.logo || ''}
-                      onChange={(e) => setEditingExperience({...editingExperience, logo: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
-                      placeholder="https://..."
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-mono text-slate">Description</label>
-                  <textarea 
-                    rows="3"
-                    value={editingExperience.desc}
-                    onChange={(e) => setEditingExperience({...editingExperience, desc: e.target.value})}
-                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric resize-none"
-                    placeholder="Describe your role and achievements..."
-                  />
-                </div>
-                <div className="flex gap-4 pt-4">
-                  <button 
-                    onClick={() => {
-                      const { originalIndex, ...exp } = editingExperience;
-                      saveExperience(exp, originalIndex);
-                    }}
-                    className="flex-1 bg-electric text-black font-bold py-4 rounded-xl hover:scale-[1.02] transition-all"
-                  >
-                    Commit Changes
-                  </button>
-                  <button 
-                    onClick={() => setEditingExperience(null)}
-                    className="flex-1 bg-white/5 border border-white/10 font-bold py-4 rounded-xl hover:bg-white/10 transition-all"
-                  >
-                    Cancel
-                  </button>
-                </div>
+                )}
               </div>
             )}
-          </div>
-        )}
 
-        {activeTab === 'leadership' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            {!editingLeadership ? (
-              <>
-                <button 
-                  onClick={() => setEditingLeadership({ title: '', org: '', duration: '', desc: '', logo: '', originalIndex: null })}
-                  className="flex items-center gap-2 px-6 py-4 bg-white/5 border border-dashed border-white/20 rounded-2xl hover:border-electric/50 hover:bg-electric/5 transition-all w-full justify-center group"
-                >
-                  <Plus size={20} className="group-hover:rotate-90 transition-transform" /> 
-                  <span className="font-bold uppercase tracking-widest text-sm">Add Leadership Entry</span>
-                </button>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {data.leadership?.map((item, idx) => (
-                    <div key={idx} className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex flex-col gap-3 group hover:bg-white/[0.04] transition-all" style={{ borderLeftColor: '#FF2E63', borderLeftWidth: '3px' }}>
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-center gap-4">
-                          <div className="flex flex-col gap-1">
-                            <button onClick={() => moveItem('leadership', idx, -1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === 0}><ChevronUp size={14} /></button>
-                            <button onClick={() => moveItem('leadership', idx, 1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === (data.leadership?.length || 0) - 1}><ChevronDown size={14} /></button>
+            {activeTab === 'education' && (
+              <div className="space-y-12">
+                {!editingEducation ? (
+                  <>
+                    <button 
+                      onClick={() => setEditingEducation({ degree: '', institution: '', duration: '', desc: '', logo: '', originalIndex: null })}
+                      className="w-full group p-10 bg-white/[0.02] border border-dashed border-white/10 rounded-[2.5rem] hover:bg-amber-400/5 hover:border-amber-400/30 transition-all duration-700 flex flex-col items-center justify-center gap-4"
+                    >
+                      <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center group-hover:scale-110 transition-all">
+                        <Plus size={32} className="text-slate group-hover:text-amber-400" />
+                      </div>
+                      <span className="font-black uppercase tracking-[0.4em] text-[10px] text-slate/40 group-hover:text-amber-400">Register_Academic_Dossier</span>
+                    </button>
+                    
+                    <div className="grid grid-cols-1 gap-6">
+                      {data.education?.map((edu, idx) => (
+                        <div key={idx} className="group p-8 bg-white/[0.01] border border-white/5 rounded-[2rem] hover:bg-white/[0.03] hover:border-white/10 transition-all duration-500 flex flex-col md:flex-row items-center justify-between gap-8 border-l-[3px] border-l-amber-500">
+                          <div className="flex items-center gap-8 flex-1">
+                            <div className="flex flex-col gap-2">
+                              <button onClick={() => moveItem('education', idx, -1)} className="p-2 text-slate/20 hover:text-amber-400 transition-colors" disabled={idx === 0}><ChevronUp size={16} /></button>
+                              <button onClick={() => moveItem('education', idx, 1)} className="p-2 text-slate/20 hover:text-amber-400 transition-colors" disabled={idx === (data.education?.length || 0) - 1}><ChevronDown size={16} /></button>
+                            </div>
+                            <div className="w-20 h-20 rounded-2xl bg-black border border-white/5 flex items-center justify-center p-4">
+                              {edu.logo ? <img src={edu.logo} alt="" className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all" /> : <GraduationCap className="text-amber-400/40" size={32} />}
+                            </div>
+                            <div>
+                              <h3 className="text-2xl font-black mb-1 uppercase tracking-tighter">{edu.degree}</h3>
+                              <p className="text-[10px] font-mono text-amber-500 uppercase tracking-[0.3em] mb-2">{edu.institution}</p>
+                              <span className="text-[10px] font-mono text-slate/30 uppercase tracking-widest">{edu.duration}</span>
+                            </div>
                           </div>
-                          <div className="w-12 h-12 rounded-xl overflow-hidden border border-white/10 bg-black flex items-center justify-center shrink-0">
-                            {item.logo ? (
-                              <img src={item.logo} alt="" className="w-7 h-7 object-contain" />
-                            ) : (
-                              <Award className="text-drama" size={20} />
-                            )}
+                          <div className="flex gap-4">
+                            <button onClick={() => setEditingEducation({...edu, originalIndex: idx})} className="p-4 bg-white/5 hover:bg-white/10 rounded-xl transition-all"><Settings size={18} /></button>
+                            <button onClick={() => deleteItem('education', idx)} className="p-4 bg-drama/10 text-drama hover:bg-drama/20 rounded-xl transition-all"><Trash2 size={18} /></button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <div className="bg-white/[0.02] border border-white/10 rounded-[3rem] p-12 space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-500">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-3xl font-black uppercase tracking-tighter italic">Record <span className="text-amber-400">Academy</span></h3>
+                      <button onClick={() => setEditingEducation(null)} className="text-[10px] font-mono uppercase text-slate/40 hover:text-white transition-colors tracking-widest">[ Abort ]</button>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-10">
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Program_Manifest</label>
+                        <input 
+                          type="text" 
+                          value={editingEducation.degree}
+                          onChange={(e) => setEditingEducation({...editingEducation, degree: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-amber-400"
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Institution_Core</label>
+                        <input 
+                          type="text" 
+                          value={editingEducation.institution}
+                          onChange={(e) => setEditingEducation({...editingEducation, institution: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-amber-400"
+                        />
+                      </div>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-10">
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Cycle_Duration</label>
+                        <input 
+                          type="text" 
+                          value={editingEducation.duration}
+                          onChange={(e) => setEditingEducation({...editingEducation, duration: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-amber-400"
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Institute_Asset_URL</label>
+                        <input 
+                          type="text" 
+                          value={editingEducation.logo || ''}
+                          onChange={(e) => setEditingEducation({...editingEducation, logo: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-amber-400 font-mono text-xs"
+                        />
+                      </div>
+                    </div>
+                    <button 
+                      onClick={() => {
+                        const { originalIndex, ...edu } = editingEducation;
+                        saveItem('education', edu, originalIndex, setEditingEducation);
+                      }}
+                      className="w-full bg-white text-black font-black py-5 rounded-full hover:bg-amber-400 hover:text-white transition-all duration-500 uppercase tracking-widest text-[10px]"
+                    >
+                      Commit_to_Academy_Log
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {activeTab === 'certifications' && (
+              <div className="space-y-12">
+                {!editingCertification ? (
+                  <>
+                    <button 
+                      onClick={() => setEditingCertification({ title: '', issuer: '', date: '', link: '', icon: '', originalIndex: null })}
+                      className="w-full group p-10 bg-white/[0.02] border border-dashed border-white/10 rounded-[2.5rem] hover:bg-electric/5 hover:border-electric/30 transition-all duration-700 flex flex-col items-center justify-center gap-4"
+                    >
+                      <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center group-hover:scale-110 transition-all">
+                        <Plus size={32} className="text-slate group-hover:text-electric" />
+                      </div>
+                      <span className="font-black uppercase tracking-[0.4em] text-[10px] text-slate/40 group-hover:text-electric">Log_Merit_Acknowledgement</span>
+                    </button>
+                    
+                    <div className="grid grid-cols-1 gap-6">
+                      {data.certifications?.map((cert, idx) => (
+                        <div key={idx} className="group p-8 bg-white/[0.01] border border-white/5 rounded-[2rem] hover:bg-white/[0.03] hover:border-white/10 transition-all duration-500 flex flex-col md:flex-row items-center justify-between gap-8">
+                          <div className="flex items-center gap-8 flex-1">
+                            <div className="flex flex-col gap-2">
+                              <button onClick={() => moveItem('certifications', idx, -1)} className="p-2 text-slate/20 hover:text-electric transition-colors" disabled={idx === 0}><ChevronUp size={16} /></button>
+                              <button onClick={() => moveItem('certifications', idx, 1)} className="p-2 text-slate/20 hover:text-electric transition-colors" disabled={idx === (data.certifications?.length || 0) - 1}><ChevronDown size={16} /></button>
+                            </div>
+                            <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-electric/30 transition-all">
+                              {cert.icon ? <img src={cert.icon} alt="" className="w-8 h-8 object-contain" /> : <Trophy className="text-electric/40" size={24} />}
+                            </div>
+                            <div>
+                              <h3 className="text-xl font-black mb-1 uppercase tracking-tighter">{cert.title}</h3>
+                              <p className="text-[10px] font-mono text-electric uppercase tracking-[0.2em]">{cert.issuer}</p>
+                              <span className="text-[9px] font-mono text-slate/30 uppercase tracking-widest mt-1 block">{cert.date}</span>
+                            </div>
+                          </div>
+                          <div className="flex gap-4">
+                            <button onClick={() => setEditingCertification({...cert, originalIndex: idx})} className="p-4 bg-white/5 hover:bg-white/10 rounded-xl transition-all"><Settings size={18} /></button>
+                            <button onClick={() => deleteItem('certifications', idx)} className="p-4 bg-drama/10 text-drama hover:bg-drama/20 rounded-xl transition-all"><Trash2 size={18} /></button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <div className="bg-white/[0.02] border border-white/10 rounded-[3rem] p-12 space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-500">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-3xl font-black uppercase tracking-tighter italic">Acknowledge <span className="text-electric">Merit</span></h3>
+                      <button onClick={() => setEditingCertification(null)} className="text-[10px] font-mono uppercase text-slate/40 hover:text-white transition-colors tracking-widest">[ Disconnect ]</button>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-10">
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Recognition_Title</label>
+                        <input 
+                          type="text" 
+                          value={editingCertification.title}
+                          onChange={(e) => setEditingCertification({...editingCertification, title: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric"
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Issuing_Authority</label>
+                        <input 
+                          type="text" 
+                          value={editingCertification.issuer}
+                          onChange={(e) => setEditingCertification({...editingCertification, issuer: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric"
+                        />
+                      </div>
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-10">
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Acknowledgement_Cycle</label>
+                        <input 
+                          type="text" 
+                          value={editingCertification.date}
+                          onChange={(e) => setEditingCertification({...editingCertification, date: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric"
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Verification_Link</label>
+                        <input 
+                          type="text" 
+                          value={editingCertification.link || ''}
+                          onChange={(e) => setEditingCertification({...editingCertification, link: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric font-mono text-xs"
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Visual_Identity_Icon</label>
+                        <input 
+                          type="text" 
+                          value={editingCertification.icon || ''}
+                          onChange={(e) => setEditingCertification({...editingCertification, icon: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric font-mono text-xs"
+                        />
+                      </div>
+                    </div>
+                    <button 
+                      onClick={() => {
+                        const { originalIndex, ...cert } = editingCertification;
+                        saveItem('certifications', cert, originalIndex, setEditingCertification);
+                      }}
+                      className="w-full bg-white text-black font-black py-5 rounded-full hover:bg-electric hover:text-white transition-all duration-500 uppercase tracking-widest text-[10px]"
+                    >
+                      Commit_Merit_Acknowledgement
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {activeTab === 'techstack' && (
+              <div className="space-y-12">
+                {!editingTechStack ? (
+                  <>
+                    <button 
+                      onClick={() => setEditingTechStack({ name: '', icon: '', category: 'AI / ML', originalIndex: null })}
+                      className="w-full group p-10 bg-white/[0.02] border border-dashed border-white/10 rounded-[2.5rem] hover:bg-electric/5 hover:border-electric/30 transition-all duration-700 flex flex-col items-center justify-center gap-4"
+                    >
+                      <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center group-hover:scale-110 transition-all">
+                        <Plus size={32} className="text-slate group-hover:text-electric" />
+                      </div>
+                      <span className="font-black uppercase tracking-[0.4em] text-[10px] text-slate/40 group-hover:text-electric">Add_to_System_Arsenal</span>
+                    </button>
+                    
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                      {data.techStack?.map((tech, idx) => (
+                        <div key={idx} className="group p-6 bg-white/[0.01] border border-white/5 rounded-[1.5rem] hover:bg-white/[0.03] hover:border-white/10 transition-all duration-500 flex flex-col items-center text-center gap-4 relative overflow-hidden">
+                          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col gap-1">
+                            <button onClick={() => moveItem('techStack', idx, -1)} className="p-1 text-slate/20 hover:text-electric" disabled={idx === 0}><ChevronUp size={12} /></button>
+                            <button onClick={() => moveItem('techStack', idx, 1)} className="p-1 text-slate/20 hover:text-electric" disabled={idx === (data.techStack?.length || 0) - 1}><ChevronDown size={12} /></button>
+                          </div>
+                          <div className="w-12 h-12 rounded-xl bg-black border border-white/5 flex items-center justify-center p-2 group-hover:scale-110 transition-all duration-500">
+                            {tech.icon ? <img src={tech.icon} alt="" className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all" /> : <Cpu className="text-electric/40" size={24} />}
                           </div>
                           <div>
-                            <h3 className="text-lg font-bold">{item.title}</h3>
-                            <p className="text-xs text-drama font-mono uppercase tracking-widest">{item.org}</p>
+                            <p className="font-black text-xs uppercase tracking-tighter group-hover:text-electric transition-colors">{tech.name}</p>
+                            <p className="text-[8px] font-mono text-slate/40 uppercase tracking-widest mt-1">{tech.category}</p>
+                          </div>
+                          <div className="flex gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">
+                            <button onClick={() => setEditingTechStack({...tech, originalIndex: idx})} className="p-2 bg-white/5 hover:bg-white/10 rounded-lg"><Settings size={12} /></button>
+                            <button onClick={() => deleteItem('techStack', idx)} className="p-2 bg-drama/10 text-drama hover:bg-drama/20 rounded-lg"><Trash2 size={12} /></button>
                           </div>
                         </div>
-                        <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <button 
-                            onClick={() => setEditingLeadership({ ...item, originalIndex: idx })}
-                            className="p-2 bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
-                          >
-                            <Settings size={16} />
-                          </button>
-                          <button 
-                            onClick={() => deleteLeadership(idx)}
-                            className="p-2 bg-drama/10 text-drama hover:bg-drama/20 rounded-lg transition-colors"
-                          >
-                            <Trash2 size={16} />
-                          </button>
-                        </div>
-                      </div>
-                      <p className="text-slate text-sm line-clamp-2">{item.desc}</p>
-                      <span className="text-slate/40 font-mono text-[10px] uppercase tracking-widest">{item.duration}</span>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </>
-            ) : (
-              <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 space-y-6">
-                <h3 className="text-2xl font-bold mb-8">Edit Leadership Entry</h3>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Position / Title</label>
-                    <input 
-                      type="text" 
-                      value={editingLeadership.title}
-                      onChange={(e) => setEditingLeadership({...editingLeadership, title: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
-                      placeholder="President"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Organization</label>
-                    <input 
-                      type="text" 
-                      value={editingLeadership.org}
-                      onChange={(e) => setEditingLeadership({...editingLeadership, org: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
-                      placeholder="Cyber Security Club"
-                    />
-                  </div>
-                </div>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Duration</label>
-                    <input 
-                      type="text" 
-                      value={editingLeadership.duration}
-                      onChange={(e) => setEditingLeadership({...editingLeadership, duration: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
-                      placeholder="2022 - 2023"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Logo URL (Optional)</label>
-                    <input 
-                      type="text" 
-                      value={editingLeadership.logo || ''}
-                      onChange={(e) => setEditingLeadership({...editingLeadership, logo: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
-                      placeholder="https://..."
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-mono text-slate">Description</label>
-                  <textarea 
-                    rows="3"
-                    value={editingLeadership.desc}
-                    onChange={(e) => setEditingLeadership({...editingLeadership, desc: e.target.value})}
-                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric resize-none"
-                    placeholder="Describe your contributions and impact..."
-                  />
-                </div>
-                <div className="flex gap-4 pt-4">
-                  <button 
-                    onClick={() => {
-                      const { originalIndex, ...item } = editingLeadership;
-                      saveLeadership(item, originalIndex);
-                    }}
-                    className="flex-1 bg-electric text-black font-bold py-4 rounded-xl hover:scale-[1.02] transition-all"
-                  >
-                    Commit Changes
-                  </button>
-                  <button 
-                    onClick={() => setEditingLeadership(null)}
-                    className="flex-1 bg-white/5 border border-white/10 font-bold py-4 rounded-xl hover:bg-white/10 transition-all"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-
-        {activeTab === 'education' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            {!editingEducation ? (
-              <>
-                <button 
-                  onClick={() => setEditingEducation({ degree: '', institution: '', duration: '', desc: '', logo: '', originalIndex: null })}
-                  className="flex items-center gap-2 px-6 py-4 bg-white/5 border border-dashed border-white/20 rounded-2xl hover:border-electric/50 hover:bg-electric/5 transition-all w-full justify-center group"
-                >
-                  <Plus size={20} className="group-hover:rotate-90 transition-transform" /> 
-                  <span className="font-bold uppercase tracking-widest text-sm">Add Education Entry</span>
-                </button>
-                
-                <div className="grid grid-cols-1 gap-6">
-                  {data.education?.map((edu, idx) => (
-                    <div key={idx} className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex items-center justify-between group hover:bg-white/[0.04] transition-all" style={{ borderLeftColor: '#F59E0B', borderLeftWidth: '3px' }}>
-                      <div className="flex items-center gap-6">
-                        <div className="flex flex-col gap-1">
-                          <button onClick={() => moveItem('education', idx, -1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === 0}><ChevronUp size={14} /></button>
-                          <button onClick={() => moveItem('education', idx, 1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === (data.education?.length || 0) - 1}><ChevronDown size={14} /></button>
-                        </div>
-                        <div className="w-14 h-14 rounded-2xl overflow-hidden border border-white/10 bg-black flex items-center justify-center shrink-0">
-                          {edu.logo ? (
-                            <img src={edu.logo} alt="" className="w-8 h-8 object-contain" />
-                          ) : (
-                            <GraduationCap className="text-amber-400" size={22} />
-                          )}
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-bold mb-1">{edu.degree}</h3>
-                          <p className="text-xs text-amber-400 font-mono uppercase tracking-widest">{edu.institution}</p>
-                          <p className="text-xs text-slate/50 font-mono mt-1">{edu.duration}</p>
-                        </div>
+                  </>
+                ) : (
+                  <div className="bg-white/[0.02] border border-white/10 rounded-[3rem] p-12 space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-500 max-w-2xl mx-auto">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-3xl font-black uppercase tracking-tighter italic">Refine <span className="text-electric">System</span></h3>
+                      <button onClick={() => setEditingTechStack(null)} className="text-[10px] font-mono uppercase text-slate/40 hover:text-white transition-colors tracking-widest">[ Close ]</button>
+                    </div>
+                    <div className="space-y-6">
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Technology_Alias</label>
+                        <input 
+                          type="text" 
+                          value={editingTechStack.name}
+                          onChange={(e) => setEditingTechStack({...editingTechStack, name: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric"
+                        />
                       </div>
-                      <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button 
-                          onClick={() => setEditingEducation({ ...edu, originalIndex: idx })}
-                          className="p-3 bg-white/5 hover:bg-white/10 rounded-xl transition-colors"
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Classification</label>
+                        <select
+                          value={editingTechStack.category}
+                          onChange={(e) => setEditingTechStack({...editingTechStack, category: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric appearance-none text-slate"
                         >
-                          <Settings size={20} />
-                        </button>
-                        <button 
-                          onClick={() => deleteEducation(idx)}
-                          className="p-3 bg-drama/10 text-drama hover:bg-drama/20 rounded-xl transition-colors"
-                        >
-                          <Trash2 size={20} />
-                        </button>
+                          <option value="AI / ML">AI / ML</option>
+                          <option value="Backend">Backend</option>
+                          <option value="Frontend">Frontend</option>
+                          <option value="Database">Database</option>
+                          <option value="DevOps">DevOps</option>
+                          <option value="Tools">Tools</option>
+                        </select>
+                      </div>
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Symbolic_Link (Icon URL)</label>
+                        <input 
+                          type="text" 
+                          value={editingTechStack.icon || ''}
+                          onChange={(e) => setEditingTechStack({...editingTechStack, icon: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric font-mono text-xs"
+                          placeholder="https://devicons.com/api/python.svg"
+                        />
                       </div>
                     </div>
-                  ))}
-                </div>
-              </>
-            ) : (
-              <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 space-y-6">
-                <h3 className="text-2xl font-bold mb-8">Edit Education Entry</h3>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Degree / Program</label>
-                    <input 
-                      type="text" 
-                      value={editingEducation.degree}
-                      onChange={(e) => setEditingEducation({...editingEducation, degree: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
-                      placeholder="B.Sc. in Computer Science"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Institution</label>
-                    <input 
-                      type="text" 
-                      value={editingEducation.institution}
-                      onChange={(e) => setEditingEducation({...editingEducation, institution: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
-                      placeholder="University Name"
-                    />
-                  </div>
-                </div>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Duration</label>
-                    <input 
-                      type="text" 
-                      value={editingEducation.duration}
-                      onChange={(e) => setEditingEducation({...editingEducation, duration: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
-                      placeholder="2020 - 2024"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Institution Logo URL (Optional)</label>
-                    <input 
-                      type="text" 
-                      value={editingEducation.logo || ''}
-                      onChange={(e) => setEditingEducation({...editingEducation, logo: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
-                      placeholder="https://..."
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-mono text-slate">Description</label>
-                  <textarea 
-                    rows="3"
-                    value={editingEducation.desc}
-                    onChange={(e) => setEditingEducation({...editingEducation, desc: e.target.value})}
-                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric resize-none"
-                    placeholder="Describe your studies, achievements, focus areas..."
-                  />
-                </div>
-                <div className="flex gap-4 pt-4">
-                  <button 
-                    onClick={() => {
-                      const { originalIndex, ...edu } = editingEducation;
-                      saveEducation(edu, originalIndex);
-                    }}
-                    className="flex-1 bg-electric text-black font-bold py-4 rounded-xl hover:scale-[1.02] transition-all"
-                  >
-                    Commit Changes
-                  </button>
-                  <button 
-                    onClick={() => setEditingEducation(null)}
-                    className="flex-1 bg-white/5 border border-white/10 font-bold py-4 rounded-xl hover:bg-white/10 transition-all"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-
-        {activeTab === 'certifications' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            {!editingCertification ? (
-              <>
-                <button 
-                  onClick={() => setEditingCertification({ title: '', issuer: '', date: '', link: '', icon: '', originalIndex: null })}
-                  className="flex items-center gap-2 px-6 py-4 bg-white/5 border border-dashed border-white/20 rounded-2xl hover:border-amber-400/50 hover:bg-amber-400/5 transition-all w-full justify-center group"
-                >
-                  <Plus size={20} className="group-hover:rotate-90 transition-transform" /> 
-                  <span className="font-bold uppercase tracking-widest text-sm">Add Award / Certification</span>
-                </button>
-                
-                <div className="grid grid-cols-1 gap-6">
-                  {data.certifications?.map((cert, idx) => (
-                    <div key={idx} className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl flex items-center justify-between group hover:bg-white/[0.04] transition-all" style={{ borderLeftColor: '#F59E0B', borderLeftWidth: '3px' }}>
-                      <div className="flex items-center gap-6">
-                        <div className="flex flex-col gap-1">
-                          <button onClick={() => moveItem('certifications', idx, -1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === 0}><ChevronUp size={14} /></button>
-                          <button onClick={() => moveItem('certifications', idx, 1)} className="p-1 text-slate/30 hover:text-white transition-colors" disabled={idx === (data.certifications?.length || 0) - 1}><ChevronDown size={14} /></button>
-                        </div>
-                        <div className="w-14 h-14 rounded-2xl overflow-hidden border border-white/10 bg-black flex items-center justify-center shrink-0">
-                          {cert.icon ? (
-                            <img src={cert.icon} alt="" className="w-8 h-8 object-contain" />
-                          ) : (
-                            <Trophy className="text-amber-400" size={22} />
-                          )}
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-bold mb-1">{cert.title}</h3>
-                          <p className="text-xs text-amber-400 font-mono uppercase tracking-widest">{cert.issuer}</p>
-                          <p className="text-xs text-slate/50 font-mono mt-1">{cert.date}</p>
-                        </div>
-                      </div>
-                      <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button 
-                          onClick={() => setEditingCertification({ ...cert, originalIndex: idx })}
-                          className="p-3 bg-white/5 hover:bg-white/10 rounded-xl transition-colors"
-                        >
-                          <Settings size={20} />
-                        </button>
-                        <button 
-                          onClick={() => deleteCertification(idx)}
-                          className="p-3 bg-drama/10 text-drama hover:bg-drama/20 rounded-xl transition-colors"
-                        >
-                          <Trash2 size={20} />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </>
-            ) : (
-              <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 space-y-6">
-                <h3 className="text-2xl font-bold mb-8">Edit Award / Certification</h3>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Title</label>
-                    <input 
-                      type="text" 
-                      value={editingCertification.title}
-                      onChange={(e) => setEditingCertification({...editingCertification, title: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
-                      placeholder="NASA Space Apps Challenge — Winner"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Issuer / Organization</label>
-                    <input 
-                      type="text" 
-                      value={editingCertification.issuer}
-                      onChange={(e) => setEditingCertification({...editingCertification, issuer: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
-                      placeholder="NASA"
-                    />
-                  </div>
-                </div>
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Date / Year</label>
-                    <input 
-                      type="text" 
-                      value={editingCertification.date}
-                      onChange={(e) => setEditingCertification({...editingCertification, date: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
-                      placeholder="2021"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Credential URL (Optional)</label>
-                    <input 
-                      type="text" 
-                      value={editingCertification.link || ''}
-                      onChange={(e) => setEditingCertification({...editingCertification, link: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
-                      placeholder="https://..."
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Icon URL (Optional)</label>
-                    <input 
-                      type="text" 
-                      value={editingCertification.icon || ''}
-                      onChange={(e) => setEditingCertification({...editingCertification, icon: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
-                      placeholder="https://..."
-                    />
-                  </div>
-                </div>
-                <div className="flex gap-4 pt-4">
-                  <button 
-                    onClick={() => {
-                      const { originalIndex, ...cert } = editingCertification;
-                      saveCertification(cert, originalIndex);
-                    }}
-                    className="flex-1 bg-electric text-black font-bold py-4 rounded-xl hover:scale-[1.02] transition-all"
-                  >
-                    Commit Changes
-                  </button>
-                  <button 
-                    onClick={() => setEditingCertification(null)}
-                    className="flex-1 bg-white/5 border border-white/10 font-bold py-4 rounded-xl hover:bg-white/10 transition-all"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-
-        {activeTab === 'techstack' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            {!editingTechStack ? (
-              <>
-                <button 
-                  onClick={() => setEditingTechStack({ name: '', icon: '', category: 'AI / ML', originalIndex: null })}
-                  className="flex items-center gap-2 px-6 py-4 bg-white/5 border border-dashed border-white/20 rounded-2xl hover:border-electric/50 hover:bg-electric/5 transition-all w-full justify-center group"
-                >
-                  <Plus size={20} className="group-hover:rotate-90 transition-transform" /> 
-                  <span className="font-bold uppercase tracking-widest text-sm">Add Technology</span>
-                </button>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {data.techStack?.map((tech, idx) => (
-                    <div key={idx} className="p-4 bg-white/[0.02] border border-white/5 rounded-2xl flex items-center justify-between group hover:bg-white/[0.04] transition-all">
-                      <div className="flex items-center gap-3">
-                        <div className="flex flex-col gap-0.5">
-                          <button onClick={() => moveItem('techStack', idx, -1)} className="p-0.5 text-slate/30 hover:text-white transition-colors" disabled={idx === 0}><ChevronUp size={12} /></button>
-                          <button onClick={() => moveItem('techStack', idx, 1)} className="p-0.5 text-slate/30 hover:text-white transition-colors" disabled={idx === (data.techStack?.length || 0) - 1}><ChevronDown size={12} /></button>
-                        </div>
-                        {tech.icon ? (
-                          <img src={tech.icon} alt="" className="w-7 h-7 object-contain" />
-                        ) : (
-                          <Cpu className="text-electric" size={18} />
-                        )}
-                        <div>
-                          <p className="font-bold text-sm">{tech.name}</p>
-                          <p className="text-[10px] text-slate font-mono uppercase tracking-widest">{tech.category}</p>
-                        </div>
-                      </div>
-                      <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button 
-                          onClick={() => setEditingTechStack({ ...tech, originalIndex: idx })}
-                          className="p-2 bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
-                        >
-                          <Settings size={14} />
-                        </button>
-                        <button 
-                          onClick={() => deleteTechStack(idx)}
-                          className="p-2 bg-drama/10 text-drama hover:bg-drama/20 rounded-lg transition-colors"
-                        >
-                          <Trash2 size={14} />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </>
-            ) : (
-              <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 space-y-6">
-                <h3 className="text-2xl font-bold mb-8">Edit Technology</h3>
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Name</label>
-                    <input 
-                      type="text" 
-                      value={editingTechStack.name}
-                      onChange={(e) => setEditingTechStack({...editingTechStack, name: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
-                      placeholder="Python"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Category</label>
-                    <select
-                      value={editingTechStack.category}
-                      onChange={(e) => setEditingTechStack({...editingTechStack, category: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric"
-                    >
-                      <option value="AI / ML">AI / ML</option>
-                      <option value="Backend">Backend</option>
-                      <option value="Frontend">Frontend</option>
-                      <option value="Database">Database</option>
-                      <option value="DevOps">DevOps</option>
-                      <option value="Tools">Tools</option>
-                    </select>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-mono text-slate">Icon URL (Optional)</label>
-                    <input 
-                      type="text" 
-                      value={editingTechStack.icon || ''}
-                      onChange={(e) => setEditingTechStack({...editingTechStack, icon: e.target.value})}
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
-                      placeholder="https://cdn.jsdelivr.net/gh/devicons/..."
-                    />
-                  </div>
-                </div>
-                <div className="flex gap-4 pt-4">
-                  <button 
-                    onClick={() => {
-                      const { originalIndex, ...tech } = editingTechStack;
-                      saveTechStack(tech, originalIndex);
-                    }}
-                    className="flex-1 bg-electric text-black font-bold py-4 rounded-xl hover:scale-[1.02] transition-all"
-                  >
-                    Commit Changes
-                  </button>
-                  <button 
-                    onClick={() => setEditingTechStack(null)}
-                    className="flex-1 bg-white/5 border border-white/10 font-bold py-4 rounded-xl hover:bg-white/10 transition-all"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-
-        {activeTab === 'manifesto' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8">
-              <div className="flex justify-between items-center mb-8">
-                <h3 className="text-xl font-bold uppercase tracking-widest">Core Beliefs</h3>
-                <button 
-                  onClick={() => {
-                    const line = prompt('Enter new manifesto line:')
-                    if (line) {
-                      const newManifesto = data.manifesto || { lines: [] }
-                      updateData({ ...data, manifesto: { lines: [...newManifesto.lines, line] } })
-                    }
-                  }}
-                  className="p-3 bg-electric/10 text-electric hover:bg-electric/20 rounded-xl transition-colors flex items-center gap-2"
-                >
-                  <Plus size={18} /> Add Line
-                </button>
-              </div>
-              
-              <div className="space-y-4">
-                {data.manifesto?.lines?.map((line, idx) => (
-                  <div key={idx} className="flex items-center gap-4 group">
-                    <input 
-                      type="text" 
-                      value={line}
-                      onChange={(e) => {
-                        const newLines = [...data.manifesto.lines]
-                        newLines[idx] = e.target.value
-                        updateData({ ...data, manifesto: { lines: newLines } })
-                      }}
-                      className="flex-1 bg-black/50 border border-white/10 rounded-xl px-6 py-4 outline-none focus:border-electric text-lg italic"
-                    />
                     <button 
                       onClick={() => {
-                        if (window.confirm('Remove this line?')) {
-                          updateData({ ...data, manifesto: { lines: data.manifesto.lines.filter((_, i) => i !== idx) } })
-                        }
+                        const { originalIndex, ...tech } = editingTechStack;
+                        saveItem('techStack', tech, originalIndex, setEditingTechStack);
                       }}
-                      className="p-4 text-drama hover:bg-drama/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
+                      className="w-full bg-white text-black font-black py-5 rounded-full hover:bg-electric hover:text-white transition-all duration-500 uppercase tracking-widest text-[10px]"
                     >
-                      <Trash2 size={20} />
+                      Register_Technology
                     </button>
                   </div>
-                ))}
+                )}
               </div>
-            </div>
+            )}
+
+            {activeTab === 'competencies' && (
+              <div className="space-y-12">
+                {!editingCompetency ? (
+                  <>
+                    <button 
+                      onClick={() => setEditingCompetency({ title: '', desc: '', icon: 'Zap', accent: '#3B82F6', originalIndex: null })}
+                      className="w-full group p-10 bg-white/[0.02] border border-dashed border-white/10 rounded-[2.5rem] hover:bg-electric/5 hover:border-electric/30 transition-all duration-700 flex flex-col items-center justify-center gap-4"
+                    >
+                      <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center group-hover:scale-110 transition-all">
+                        <Plus size={32} className="text-slate group-hover:text-electric" />
+                      </div>
+                      <span className="font-black uppercase tracking-[0.4em] text-[10px] text-slate/40 group-hover:text-electric">Establish_Core_Competency</span>
+                    </button>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      {data.competencies?.map((comp, idx) => (
+                        <div key={idx} className="group p-10 bg-white/[0.01] border border-white/5 rounded-[2.5rem] hover:bg-white/[0.03] hover:border-white/10 transition-all duration-500 flex flex-col gap-6" style={{ borderLeftColor: comp.accent, borderLeftWidth: '3px' }}>
+                          <div className="flex justify-between items-start">
+                            <div className="flex flex-col gap-2">
+                              <h3 className="text-2xl font-black uppercase tracking-tighter leading-tight group-hover:text-electric transition-colors">{comp.title}</h3>
+                              <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: comp.accent }} />
+                                <span className="text-[9px] font-mono text-slate/30 uppercase tracking-[0.2em]">{comp.icon} Matrix</span>
+                              </div>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                              <button onClick={() => moveItem('competencies', idx, -1)} className="p-1 text-slate/20 hover:text-electric transition-colors" disabled={idx === 0}><ChevronUp size={14} /></button>
+                              <button onClick={() => moveItem('competencies', idx, 1)} className="p-1 text-slate/20 hover:text-electric transition-colors" disabled={idx === (data.competencies?.length || 0) - 1}><ChevronDown size={14} /></button>
+                            </div>
+                          </div>
+                          <p className="text-slate/60 text-sm italic leading-relaxed">{comp.desc}</p>
+                          <div className="flex gap-4 mt-auto pt-6 border-t border-white/5">
+                            <button onClick={() => setEditingCompetency({...comp, originalIndex: idx})} className="flex-1 py-3 bg-white/5 hover:bg-white/10 rounded-xl transition-all text-[10px] font-black uppercase tracking-widest">Edit_Matrix</button>
+                            <button onClick={() => deleteItem('competencies', idx)} className="p-3 bg-drama/10 text-drama hover:bg-drama/20 rounded-xl transition-all"><Trash2 size={16} /></button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <div className="bg-white/[0.02] border border-white/10 rounded-[3rem] p-12 space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-500 max-w-2xl mx-auto">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-3xl font-black uppercase tracking-tighter italic">Refine <span className="text-electric">Core</span></h3>
+                      <button onClick={() => setEditingCompetency(null)} className="text-[10px] font-mono uppercase text-slate/40 hover:text-white transition-colors tracking-widest">[ Discard ]</button>
+                    </div>
+                    <div className="space-y-6">
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Competency_Alias</label>
+                        <input 
+                          type="text" 
+                          value={editingCompetency.title}
+                          onChange={(e) => setEditingCompetency({...editingCompetency, title: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric"
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Operational_Logic (Description)</label>
+                        <textarea 
+                          rows="3"
+                          value={editingCompetency.desc}
+                          onChange={(e) => setEditingCompetency({...editingCompetency, desc: e.target.value})}
+                          className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric resize-none italic"
+                        />
+                      </div>
+                      <div className="grid grid-cols-2 gap-8">
+                        <div className="space-y-3">
+                          <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Symbolic_Lucide_ID</label>
+                          <input 
+                            type="text" 
+                            value={editingCompetency.icon}
+                            onChange={(e) => setEditingCompetency({...editingCompetency, icon: e.target.value})}
+                            className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric font-mono text-xs"
+                          />
+                        </div>
+                        <div className="space-y-3">
+                          <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Accent_Hex_Code</label>
+                          <div className="flex items-center gap-4">
+                            <input 
+                              type="color" 
+                              value={editingCompetency.accent}
+                              onChange={(e) => setEditingCompetency({...editingCompetency, accent: e.target.value})}
+                              className="w-12 h-12 bg-transparent cursor-pointer rounded-lg"
+                            />
+                            <input 
+                              type="text" 
+                              value={editingCompetency.accent}
+                              onChange={(e) => setEditingCompetency({...editingCompetency, accent: e.target.value})}
+                              className="flex-1 bg-black/40 border border-white/10 rounded-2xl px-6 py-3 outline-none focus:border-electric font-mono text-xs"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button 
+                      onClick={() => {
+                        const { originalIndex, ...comp } = editingCompetency;
+                        saveItem('competencies', comp, originalIndex, setEditingCompetency);
+                      }}
+                      className="w-full bg-white text-black font-black py-5 rounded-full hover:bg-electric hover:text-white transition-all duration-500 uppercase tracking-widest text-[10px]"
+                    >
+                      Commit_Competency_Logic
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {activeTab === 'manifesto' && (
+              <div className="space-y-12">
+                <div className="bg-white/[0.02] border border-white/10 rounded-[3rem] p-12 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 p-8 opacity-[0.02] pointer-events-none">
+                    <BookOpen size={200} />
+                  </div>
+                  <div className="flex justify-between items-center mb-16 relative z-10">
+                    <div>
+                      <h3 className="text-3xl font-black uppercase tracking-tighter italic">Core <span className="text-drama">Manifesto</span></h3>
+                      <p className="text-[10px] font-mono text-slate/30 uppercase tracking-[0.3em] mt-2">Philosophical_Directives</p>
+                    </div>
+                    <button 
+                      onClick={() => {
+                        const line = prompt('Enter new manifesto directive:')
+                        if (line) {
+                          const newManifesto = data.manifesto || { lines: [] }
+                          updateData({ ...data, manifesto: { lines: [...newManifesto.lines, line] } })
+                        }
+                      }}
+                      className="px-8 py-4 bg-drama/10 text-drama hover:bg-drama/20 rounded-full transition-all flex items-center gap-3 uppercase text-[10px] font-black tracking-widest"
+                    >
+                      <Plus size={18} /> Append_Directive
+                    </button>
+                  </div>
+                  
+                  <div className="space-y-6 relative z-10">
+                    {data.manifesto?.lines?.map((line, idx) => (
+                      <div key={idx} className="flex items-center gap-6 group">
+                        <span className="text-[10px] font-mono text-drama opacity-40">0{idx + 1}_</span>
+                        <input 
+                          type="text" 
+                          value={line}
+                          onChange={(e) => {
+                            const newLines = [...data.manifesto.lines]
+                            newLines[idx] = e.target.value
+                            updateData({ ...data, manifesto: { lines: newLines } })
+                          }}
+                          className="flex-1 bg-white/[0.02] border border-white/5 rounded-2xl px-8 py-6 outline-none focus:border-drama/30 focus:bg-white/[0.04] transition-all text-xl italic text-slate/80 font-inter"
+                        />
+                        <button 
+                          onClick={() => {
+                            if (window.confirm('Erase this directive from history?')) {
+                              updateData({ ...data, manifesto: { lines: data.manifesto.lines.filter((_, i) => i !== idx) } })
+                            }
+                          }}
+                          className="p-4 text-drama/40 hover:text-drama hover:bg-drama/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-all shrink-0"
+                        >
+                          <Trash2 size={24} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'contact' && (
+              <div className="space-y-12">
+                <div className="bg-white/[0.02] border border-white/10 rounded-[3rem] p-12 space-y-12">
+                  <div>
+                    <h3 className="text-3xl font-black uppercase tracking-tighter italic mb-2">Access <span className="text-electric">Nodes</span></h3>
+                    <p className="text-[10px] font-mono text-slate/30 uppercase tracking-[0.3em]">External_Communication_Protocols</p>
+                  </div>
+                  
+                  <div className="space-y-6">
+                    <div className="space-y-3">
+                      <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Call_to_Action_Headline</label>
+                      <input 
+                        type="text" 
+                        value={data.contact?.headline || ''}
+                        onChange={(e) => updateContact('headline', e.target.value)}
+                        className="w-full bg-black/40 border border-white/10 rounded-2xl px-8 py-6 outline-none focus:border-electric transition-all text-2xl font-black tracking-tight uppercase"
+                      />
+                    </div>
+
+                    <div className="space-y-3">
+                      <label className="text-[10px] uppercase font-mono text-slate/40 tracking-widest">Subliminal_Directive (Subtext)</label>
+                      <textarea 
+                        rows="4"
+                        value={data.contact?.subtext || ''}
+                        onChange={(e) => updateContact('subtext', e.target.value)}
+                        className="w-full bg-black/40 border border-white/10 rounded-2xl px-8 py-6 outline-none focus:border-electric transition-all resize-none text-lg italic text-slate/60"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-10 pt-12 border-t border-white/5">
+                    {[
+                      { key: 'email', label: 'Primary_Inbox', icon: Mail },
+                      { key: 'linkedin', label: 'Professional_Mesh', icon: Globe },
+                      { key: 'github', label: 'Source_Kernel', icon: Cpu },
+                      { key: 'twitter', label: 'Broadcast_Stream', icon: Star },
+                      { key: 'medium', label: 'Static_Journal', icon: BookOpen },
+                    ].map(link => (
+                      <div key={link.key} className="space-y-3 group">
+                        <div className="flex items-center gap-2 ml-1">
+                          <link.icon size={12} className="text-electric opacity-40 group-focus-within:opacity-100 transition-opacity" />
+                          <label className="text-[9px] uppercase font-mono text-slate/30 tracking-[0.2em]">{link.label}</label>
+                        </div>
+                        <input 
+                          type="text" 
+                          value={data.contact?.[link.key] || ''}
+                          onChange={(e) => updateContact(link.key, e.target.value)}
+                          className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-electric/50 font-mono text-xs text-electric/80 transition-all"
+                          placeholder={`connect::${link.key}`}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'config' && (
+              <div className="space-y-12">
+                <div className="bg-white/[0.02] border border-white/10 rounded-[3rem] p-16 text-center relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-electric/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
+                  <div className="w-24 h-24 bg-electric/10 rounded-[2rem] flex items-center justify-center mx-auto mb-10 border border-electric/20 shadow-[0_0_50px_rgba(0,229,255,0.1)] relative z-10 group-hover:scale-110 transition-transform duration-700">
+                    <Settings className="text-electric" size={40} />
+                  </div>
+                  <h2 className="text-4xl font-black mb-6 uppercase tracking-tighter italic relative z-10">System <span className="text-electric">Core</span></h2>
+                  <p className="text-slate/40 max-w-xl mx-auto mb-16 leading-relaxed relative z-10 text-lg">
+                    Database integrity is verified. Real-time synchronization is active via the established MongoDB tunnel. Every commitment here is permanent across the production grid.
+                  </p>
+
+                  <div className="pt-16 border-t border-white/5 relative z-10">
+                    <h3 className="text-xl font-black mb-4 text-drama uppercase tracking-widest italic">Nuclear_Option</h3>
+                    <p className="text-slate/30 text-xs mb-12 uppercase tracking-widest">
+                      Restore system state to factory defaults. This will permanently overwrite current cloud records.
+                    </p>
+                    <button 
+                      onClick={() => {
+                        if (window.confirm('Wipe all cloud data and revert to static defaults? This action cannot be undone.')) {
+                          resetData()
+                          alert('System reset to baseline configuration.')
+                        }
+                      }}
+                      className="group px-12 py-5 border border-drama/30 text-drama hover:bg-drama hover:text-white rounded-full font-black transition-all duration-500 uppercase tracking-[0.3em] text-[10px]"
+                    >
+                      Initialize_Nuclear_Reset
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
-        )}
-
-        {activeTab === 'contact' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 space-y-6">
-              <h3 className="text-xl font-bold uppercase tracking-widest mb-6">Contact & Social Links</h3>
-              
-              <div className="space-y-4">
-                <label className="text-xs uppercase font-mono text-slate tracking-widest">Headline</label>
-                <input 
-                  type="text" 
-                  value={data.contact?.headline || ''}
-                  onChange={(e) => updateContact('headline', e.target.value)}
-                  className="w-full bg-black/50 border border-white/10 rounded-xl px-6 py-4 outline-none focus:border-electric text-xl font-bold"
-                />
-              </div>
-
-              <div className="space-y-4">
-                <label className="text-xs uppercase font-mono text-slate tracking-widest">Subtext</label>
-                <textarea 
-                  rows="3"
-                  value={data.contact?.subtext || ''}
-                  onChange={(e) => updateContact('subtext', e.target.value)}
-                  className="w-full bg-black/50 border border-white/10 rounded-xl px-6 py-4 outline-none focus:border-electric resize-none text-lg"
-                />
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6 pt-4 border-t border-white/10">
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-mono text-slate">Email Address</label>
-                  <input 
-                    type="email" 
-                    value={data.contact?.email || ''}
-                    onChange={(e) => updateContact('email', e.target.value)}
-                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-mono text-slate">LinkedIn URL</label>
-                  <input 
-                    type="url" 
-                    value={data.contact?.linkedin || ''}
-                    onChange={(e) => updateContact('linkedin', e.target.value)}
-                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-mono text-slate">GitHub URL</label>
-                  <input 
-                    type="url" 
-                    value={data.contact?.github || ''}
-                    onChange={(e) => updateContact('github', e.target.value)}
-                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-mono text-slate">X / Twitter URL</label>
-                  <input 
-                    type="url" 
-                    value={data.contact?.twitter || ''}
-                    onChange={(e) => updateContact('twitter', e.target.value)}
-                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-mono text-slate">Medium URL</label>
-                  <input 
-                    type="url" 
-                    value={data.contact?.medium || ''}
-                    onChange={(e) => updateContact('medium', e.target.value)}
-                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-electric font-mono"
-                  />
-                </div>
-              </div>
+        </div>
+        
+        {/* Ambient Footer */}
+        <footer className="p-8 border-t border-white/5 flex justify-between items-center bg-black/20 relative z-10">
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-2">
+              <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.8)]" />
+              <span className="text-[8px] font-mono text-slate/40 uppercase tracking-widest">Network_Stable</span>
             </div>
+            <div className="w-[1px] h-3 bg-white/10" />
+            <span className="text-[8px] font-mono text-slate/40 uppercase tracking-widest">Latency::24ms</span>
           </div>
-        )}
-
-        {activeTab === 'config' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-10 text-center">
-              <div className="w-20 h-20 bg-electric/20 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-electric/40">
-                <Settings className="text-electric" size={32} />
-              </div>
-              <h2 className="text-3xl font-bold mb-4">Database Protocol</h2>
-              <p className="text-slate max-w-xl mx-auto mb-10 leading-relaxed">
-                Changes made in this interface are now synced directly with your MongoDB database via the backend API.
-              </p>
-
-              <div className="mt-16 pt-12 border-t border-white/5">
-                <h3 className="text-xl font-bold mb-4 text-drama">Factory Reset</h3>
-                <p className="text-slate text-sm mb-8">
-                  Wipe database changes and revert to the static data defined in <code className="text-electric">portfolioData.js</code>. 
-                  This action will overwrite current data in MongoDB.
-                </p>
-                <button 
-                  onClick={() => {
-                    if (window.confirm('Are you sure you want to revert to factory defaults? All database changes will be lost.')) {
-                      resetData()
-                      alert('Database reset to initial configuration.')
-                    }
-                  }}
-                  className="px-8 py-3 border border-drama/30 text-drama hover:bg-drama/10 rounded-full font-bold transition-all"
-                >
-                  INITIALIZE SYSTEM RESET
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+          <p className="text-[8px] font-mono text-slate/20 uppercase tracking-[0.5em]">Antigravity::Engine_Ready</p>
+        </footer>
       </main>
     </div>
   )

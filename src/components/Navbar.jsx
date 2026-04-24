@@ -50,6 +50,7 @@ const Navbar = () => {
     { name: "Experience", path: "/#experience", hash: "experience" },
     { name: "Leadership", path: "/#leadership", hash: "leadership" },
     { name: "Awards", path: "/#certifications", hash: "certifications" },
+    { name: "Archive", path: "/archive", hash: null },
     { name: "Contact", path: "/#contact", hash: "contact" }
   ]
 
@@ -87,47 +88,62 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-10">
+        <div className="hidden md:flex items-center gap-8 lg:gap-10">
           {navLinks.map((link) => (
             <Link 
               key={link.name} 
               to={link.path}
               onClick={(e) => handleNavClick(e, link)}
-              className={`text-sm font-medium tracking-widest uppercase transition-all duration-300 hover:text-electric relative ${isActive(link) ? 'text-electric' : 'text-slate'}`}
+              className={`text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:text-electric relative ${isActive(link) ? 'text-electric' : 'text-slate/60'}`}
             >
               {link.name}
               {isActive(link) && (
-                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-electric rounded-full" />
+                <span className="absolute -bottom-2 left-0 right-0 h-0.5 bg-electric rounded-full" />
               )}
             </Link>
           ))}
           <Link to="/admin" className="opacity-0 w-2 h-2 hover:opacity-100 transition-opacity bg-white/10 rounded-full" />
           <button 
             onClick={() => window.location.href = 'mailto:mrshibly.bd@gmail.com'}
-            className="px-6 py-2.5 bg-white text-obsidian rounded-full hover:bg-electric hover:text-white transition-all duration-300 font-bold"
+            className="px-6 py-3 bg-white text-obsidian rounded-full hover:bg-electric hover:text-white transition-all duration-500 font-bold uppercase tracking-widest text-[10px]"
           >
             Initiate Project
           </button>
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
+        <button className="md:hidden text-white relative z-50 p-2" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
-      {/* Mobile Nav */}
-      <div className={`fixed inset-0 bg-obsidian z-40 flex flex-col items-center justify-center gap-8 transition-all duration-500 md:hidden ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
-        {navLinks.map((link) => (
+      {/* Mobile Nav Overlay */}
+      <div className={`fixed inset-0 bg-obsidian/95 backdrop-blur-2xl z-40 flex flex-col items-center justify-center gap-6 transition-all duration-700 md:hidden ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
+        <div className="absolute top-0 left-0 w-full h-full opacity-[0.02] pointer-events-none" style={{
+          backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
+          backgroundSize: '40px 40px'
+        }} />
+        
+        {navLinks.map((link, idx) => (
           <Link 
             key={link.name} 
             to={link.path}
-            className={`text-3xl font-bold tracking-tighter transition-colors ${isActive(link) ? 'text-electric' : 'hover:text-electric'}`}
+            style={{ transitionDelay: `${idx * 100}ms` }}
+            className={`text-4xl font-black uppercase tracking-tighter transition-all duration-500 ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'} ${isActive(link) ? 'text-electric' : 'text-white/40 hover:text-white'}`}
             onClick={(e) => handleNavClick(e, link)}
           >
-            {link.name}
+            {link.name}{isActive(link) && <span className="text-electric ml-2">.</span>}
           </Link>
         ))}
+        
+        <div className={`mt-10 transition-all duration-700 delay-500 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
+          <button 
+            onClick={() => window.location.href = 'mailto:mrshibly.bd@gmail.com'}
+            className="px-12 py-5 bg-white text-black rounded-full font-black uppercase tracking-widest text-xs"
+          >
+            Get In Touch
+          </button>
+        </div>
       </div>
     </nav>
   )
