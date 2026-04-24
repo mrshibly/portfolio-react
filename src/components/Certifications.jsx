@@ -15,17 +15,21 @@ const Certifications = () => {
     if (certs.length === 0) return
 
     const ctx = gsap.context(() => {
+      ScrollTrigger.refresh()
+      
       gsap.from('.cert-card', {
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top 80%',
+          start: 'top 85%',
+          toggleActions: 'play none none none'
         },
         opacity: 0,
-        y: 50,
-        scale: 0.95,
+        y: 30,
+        scale: 0.98,
         duration: 0.8,
-        stagger: 0.15,
-        ease: 'power3.out'
+        stagger: 0.1,
+        ease: 'power3.out',
+        clearProps: 'all'
       })
     }, sectionRef)
     return () => ctx.revert()

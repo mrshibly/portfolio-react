@@ -15,16 +15,20 @@ const Experience = () => {
     if (experience.length === 0) return
 
     const ctx = gsap.context(() => {
+      ScrollTrigger.refresh()
+      
       gsap.from('.exp-item', {
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top 80%',
+          start: 'top 85%',
+          toggleActions: 'play none none none'
         },
         opacity: 0,
-        x: -40,
+        x: -30,
         duration: 0.8,
-        stagger: 0.2,
-        ease: 'power3.out'
+        stagger: 0.15,
+        ease: 'power3.out',
+        clearProps: 'all'
       })
     }, sectionRef)
     return () => ctx.revert()

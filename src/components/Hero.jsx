@@ -108,7 +108,7 @@ const Hero = () => {
             {/* Ambient Glow */}
             <div className="absolute -inset-10 bg-electric/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-all duration-1000" />
             
-            <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-[450px] lg:h-[450px] rounded-full border border-white/10 p-4 md:p-8 backdrop-blur-sm bg-white/[0.02] hover:bg-white/5 transition-colors duration-700">
+            <div className="profile-frame relative w-64 h-64 md:w-80 md:h-80 lg:w-[450px] lg:h-[450px] rounded-full border border-white/10 p-4 md:p-8 backdrop-blur-sm bg-white/[0.02] hover:bg-white/5 transition-colors duration-700">
               <div className="w-full h-full rounded-full overflow-hidden border-2 border-electric/30 relative">
                 <img 
                   src={image} 

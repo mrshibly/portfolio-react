@@ -26,16 +26,21 @@ const Leadership = () => {
     if (leadership.length === 0) return
 
     const ctx = gsap.context(() => {
+      // Force a refresh of ScrollTrigger positions once the items are rendered
+      ScrollTrigger.refresh()
+      
       gsap.from('.leadership-item', {
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top 80%',
+          start: 'top 85%',
+          toggleActions: 'play none none none'
         },
         opacity: 0,
-        y: 40,
+        y: 30,
         duration: 0.8,
-        stagger: 0.15,
-        ease: 'power3.out'
+        stagger: 0.1,
+        ease: 'power3.out',
+        clearProps: 'all' // Ensures GSAP doesn't leave inline styles after animation
       })
     }, sectionRef)
     return () => ctx.revert()
