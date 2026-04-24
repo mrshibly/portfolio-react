@@ -17,7 +17,7 @@ const Navbar = () => {
   // Scroll spy — detect which section is currently in view
   useEffect(() => {
     if (location.pathname !== '/') return
-    const sectionIds = ['projects', 'experience', 'education', 'certifications', 'techstack', 'contact']
+    const sectionIds = ['projects', 'experience', 'education', 'certifications', 'leadership', 'contact']
     
     const observer = new IntersectionObserver(
       (entries) => {
@@ -48,6 +48,7 @@ const Navbar = () => {
     { name: "Home", path: "/", hash: null },
     { name: "Projects", path: "/#projects", hash: "projects" },
     { name: "Experience", path: "/#experience", hash: "experience" },
+    { name: "Leadership", path: "/#leadership", hash: "leadership" },
     { name: "Awards", path: "/#certifications", hash: "certifications" },
     { name: "Contact", path: "/#contact", hash: "contact" }
   ]

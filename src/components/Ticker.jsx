@@ -22,7 +22,7 @@ const Ticker = () => {
     <div className="py-16 border-y border-white/5 bg-obsidian/50 overflow-hidden">
       <div className="container mx-auto px-6 mb-10 text-center">
         <p className="text-[10px] uppercase tracking-[0.5em] text-slate/60">
-          Technical Arsenal
+          Trusted Leadership & Affiliations
         </p>
       </div>
       
