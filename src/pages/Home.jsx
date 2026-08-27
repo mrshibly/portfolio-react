@@ -2,12 +2,16 @@ import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import Hero from '../components/Hero'
 import Ticker from '../components/Ticker'
+import Stats from '../components/Stats'
+import Competencies from '../components/Competencies'
 import Projects from '../components/Projects'
-import Contact from '../components/Contact'
+import TechStack from '../components/TechStack'
 import Experience from '../components/Experience'
-import Education from '../components/Education'
-import Leadership from '../components/Leadership'
 import Certifications from '../components/Certifications'
+import Leadership from '../components/Leadership'
+import Education from '../components/Education'
+import Manifesto from '../components/Manifesto'
+import Contact from '../components/Contact'
 
 const Home = () => {
   const location = useLocation()
@@ -29,11 +33,15 @@ const Home = () => {
     <>
       <Hero />
       <Ticker />
+      <Stats />
+      <Competencies />
       <Projects />
+      <TechStack />
       <Experience />
-      <Education />
       <Certifications />
       <Leadership />
+      <Education />
+      <Manifesto />
       <Contact />
     </>
   )

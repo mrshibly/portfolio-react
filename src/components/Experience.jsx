@@ -1,89 +1,102 @@
-import React, { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { usePortfolioData } from '../hooks/usePortfolioData'
-import { Briefcase } from 'lucide-react'
+import React from 'react'
+import { Briefcase, Brain, Globe, Rocket, CheckCircle2, Calendar, MapPin } from 'lucide-react'
+import { portfolioData } from '../data/portfolioData'
 
-gsap.registerPlugin(ScrollTrigger)
+const iconMap = {
+  Brain,
+  Globe,
+  Rocket,
+  Briefcase
+}
 
 const Experience = () => {
-  const sectionRef = useRef(null)
-  const { data } = usePortfolioData()
-  const experience = data.experience || []
-
-  useEffect(() => {
-    if (experience.length === 0) return
-
-    const ctx = gsap.context(() => {
-      ScrollTrigger.refresh()
-      
-      gsap.from('.exp-item', {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none none'
-        },
-        opacity: 0,
-        x: -30,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power3.out',
-        clearProps: 'all'
-      })
-    }, sectionRef)
-    return () => ctx.revert()
-  }, [experience])
-
-  if (experience.length === 0) return null
+  const experience = portfolioData.experience || []
 
   return (
-    <section id="experience" ref={sectionRef} className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-          <div className="max-w-2xl">
-            <p className="text-electric font-mono text-xs uppercase tracking-widest mb-4">Career Journey</p>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter">
-              Work <span className="text-drama italic">Experience</span>
+    <section id="experience" className="py-16 sm:py-20 border-t border-slate-200/80 dark:border-slate-800/80 relative">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative z-10">
+        
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12 gap-4 sm:gap-6">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200/80 dark:border-blue-800/80 text-blue-700 dark:text-blue-300 text-xs font-semibold font-mono mb-2 sm:mb-3">
+              <Briefcase size={12} />
+              <span>Career Trajectory</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+              Professional <span className="text-blue-600 dark:text-blue-500">Experience</span>
             </h2>
           </div>
+          <p className="text-slate-600 dark:text-slate-300 max-w-md text-xs sm:text-sm md:text-base font-normal">
+            7+ years of engineering leadership, international coordination, and production AI model deployment.
+          </p>
         </div>
 
-        <div className="relative border-l border-white/10 ml-4 md:ml-6 space-y-12 pb-8">
-          {experience.map((exp, index) => (
-            <div key={index} className="exp-item relative pl-8 md:pl-12">
-              {/* Timeline dot */}
-              <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-electric shadow-[0_0_10px_rgba(0,229,255,0.8)]" />
-              
-              <div className="bg-white/5 border border-white/5 p-6 md:p-8 rounded-2xl hover:bg-white/10 transition-all duration-300 group relative">
-                <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between mb-4">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-obsidian border border-white/10 flex items-center justify-center overflow-hidden shrink-0">
-                      {exp.logo ? (
-                        <img src={exp.logo} alt={exp.company} className="w-8 h-8 object-contain" />
-                      ) : (
-                        <Briefcase className="text-electric" size={24} />
+        {/* Timeline */}
+        <div className="relative border-l border-slate-200 dark:border-slate-800 ml-3 sm:ml-4 space-y-6 sm:space-y-8 pb-2">
+          {experience.map((exp, index) => {
+            const Icon = iconMap[exp.icon] || Briefcase
+            return (
+              <div key={index} className="relative pl-6 sm:pl-8">
+                
+                {/* Node on Line */}
+                <div className="absolute -left-[5px] top-3 w-2.5 h-2.5 rounded-full bg-blue-600 dark:bg-blue-400" />
+
+                {/* Card Container */}
+                <div className="card-clean p-5 sm:p-6 rounded-xl group">
+                  
+                  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-3.5">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-950/60 border border-blue-200/80 dark:border-blue-800/80 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0 group-hover:scale-105 transition-transform">
+                        <Icon size={18} />
+                      </div>
+                      <div>
+                        <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                          {exp.title}
+                        </h3>
+                        <p className="text-blue-600 dark:text-blue-400 font-mono text-xs font-semibold">
+                          {exp.company}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-slate-500 dark:text-slate-400">
+                      <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                        <Calendar size={12} className="text-blue-600 dark:text-blue-400" />
+                        {exp.duration}
+                      </span>
+                      {exp.location && (
+                        <span className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                          <MapPin size={12} className="text-slate-500 dark:text-slate-400" />
+                          {exp.location}
+                        </span>
                       )}
                     </div>
-                    <div>
-                      <h3 className="text-xl md:text-2xl font-bold tracking-tight">{exp.title}</h3>
-                      <p className="text-electric font-mono text-sm uppercase tracking-widest">{exp.company}</p>
+                  </div>
+
+                  <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal">
+                    {exp.desc}
+                  </p>
+
+                  {/* Highlights Bullet List */}
+                  {exp.highlights && exp.highlights.length > 0 && (
+                    <div className="space-y-1.5 pt-3 border-t border-slate-100 dark:border-slate-800">
+                      {exp.highlights.map((item, idx) => (
+                        <div key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+                          <CheckCircle2 size={14} className="text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
                     </div>
-                  </div>
-                  <div className="text-slate/60 font-mono text-xs border border-white/10 px-3 py-1 rounded-full bg-obsidian/50 whitespace-nowrap">
-                    {exp.duration}
-                  </div>
+                  )}
+
                 </div>
-                <p className="text-slate leading-relaxed text-sm md:text-base max-w-3xl">
-                  {exp.desc}
-                </p>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
+
       </div>
-      
-      {/* Background glow */}
-      <div className="absolute top-1/4 -right-1/4 w-96 h-96 bg-electric/5 blur-[120px] rounded-full pointer-events-none" />
     </section>
   )
 }

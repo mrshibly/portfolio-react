@@ -1,111 +1,115 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-obsidian: #050505;
-  --color-electric: #3B82F6;
-  --color-drama: #FF2D55;
-  --color-slate: #8E8E93;
-  
-  --font-inter: "Inter", sans-serif;
-  --font-inter-tight: "Inter Tight", sans-serif;
-  --font-serif: "Instrument Serif", serif;
+  --color-brand: #2563EB;
+  --color-brand-light: #3B82F6;
+  --color-brand-dark: #1D4ED8;
 
-  --radius-4xl: 2rem;
-  --radius-5xl: 3rem;
+  --font-sans: "Geist", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", monospace;
 
-  --animate-scroll: scroll 30s linear infinite;
-  --animate-pulse-slow: pulse-slow 4s ease-in-out infinite;
-  --animate-spin-slow: spin 8s linear infinite;
-  --animate-reverse-spin: spin 12s linear infinite reverse;
+  --animate-scroll: scroll 40s linear infinite;
 
   @keyframes scroll {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
   }
-
-  @keyframes pulse-slow {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.9); }
-  }
-
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
 }
 
 @layer base {
-  html.lenis {
-    height: auto;
+  :root {
+    --bg-primary: #FAFAFA;
+    --bg-surface: #FFFFFF;
+    --border-color: #E2E8F0;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
   }
 
-  .lenis.lenis-smooth {
-    scroll-behavior: auto !important;
+  .dark {
+    --bg-primary: #0A0E17;
+    --bg-surface: #111827;
+    --border-color: #1E293B;
+    --text-primary: #F8FAFC;
+    --text-secondary: #CBD5E1;
+    --text-muted: #94A3B8;
   }
 
-  .lenis.lenis-smooth [data-lenis-prevent] {
-    overscroll-behavior: contain;
+  html {
+    scroll-behavior: smooth;
+    background-color: #FAFAFA;
   }
 
-  .lenis.lenis-stopped {
-    overflow: hidden;
-  }
-
-  .lenis.lenis-scrolling iframe {
-    pointer-events: none;
+  html.dark {
+    background-color: #0A0E17;
   }
 
   body {
-    @apply antialiased bg-obsidian text-white selection:bg-electric/30 selection:text-white;
-    font-family: var(--font-inter);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.01em;
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold tracking-tight;
-    font-family: var(--font-inter-tight);
+    letter-spacing: -0.03em;
+    font-weight: 700;
   }
 }
 
-@layer components {
-  .btn-primary {
-    @apply px-6 py-3 bg-electric text-white rounded-full font-medium transition-all duration-300 hover:scale-105 active:scale-95;
-  }
-  
-  .glass-card {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-4xl p-8 transition-all duration-500;
-  }
+/* Pristine Card Component */
+.card-clean {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.text-drama {
-  font-family: var(--font-serif);
-  @apply italic;
+.card-clean:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 6px 18px -4px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
+  transform: translateY(-2px);
 }
 
+.dark .card-clean {
+  background-color: #111827;
+  border-color: #1E293B;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.dark .card-clean:hover {
+  border-color: #334155;
+  box-shadow: 0 6px 18px -4px rgba(0, 0, 0, 0.4);
+}
+
+/* Mask for Ticker */
 .mask-ticker {
   mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
-/* Custom Scrollbar */
+/* Minimal Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #222;
-  border-radius: 10px;
-  border: 2px solid #050505;
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3B82F6;
+  background: #2563EB;
 }
-
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #222 #050505;
-}
-

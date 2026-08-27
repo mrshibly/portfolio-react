@@ -1,63 +1,89 @@
-import { Linkedin, Github, Twitter, ExternalLink } from 'lucide-react'
+import React from 'react'
+import { ArrowUp, FileText } from 'lucide-react'
+import { GithubIcon } from './icons/GithubIcon'
+import { LinkedinIcon } from './icons/LinkedinIcon'
+import { portfolioData } from '../data/portfolioData'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   const year = new Date().getFullYear()
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   return (
-    <footer className="py-20 border-t border-white/5 relative z-10">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between gap-12 mb-20">
-          <div className="max-w-xs">
-            <h3 className="text-2xl font-bold mb-6 tracking-tighter">SHIBLY<span className="text-electric">.AI</span></h3>
-            <p className="text-slate text-sm leading-relaxed">
-              Design and engineering at the intersection of neural networks and architectural stability.
+    <footer className="py-10 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 transition-colors">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+        
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+          
+          {/* Brand */}
+          <div>
+            <Link to="/" className="flex items-center gap-2 mb-1.5 group">
+              <div className="w-7 h-7 rounded-lg bg-blue-600 dark:bg-blue-500 text-white flex items-center justify-center font-mono font-bold text-xs shadow-2xs">
+                MR
+              </div>
+              <span className="text-base font-bold text-slate-900 dark:text-white tracking-tight">
+                Md. Mahmudur Rahman
+              </span>
+            </Link>
+            <p className="text-slate-500 dark:text-slate-400 text-xs max-w-md">
+              AI Engineer & Systems Architect specializing in autonomous multi-agent swarms, production RAG pipelines, and high-concurrency backends.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-12">
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-white/40 mb-6 font-mono">Navigation</p>
-              <ul className="space-y-4 text-sm font-medium">
-                <li><a href="#" className="hover:text-electric transition-colors">Home</a></li>
-                <li><a href="#projects" className="hover:text-electric transition-colors">Projects</a></li>
-                <li><a href="#experience" className="hover:text-electric transition-colors">Experience</a></li>
-                <li><a href="#leadership" className="hover:text-electric transition-colors">Leadership</a></li>
-              </ul>
-            </div>
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-white/40 mb-6 font-mono">Social</p>
-              <ul className="space-y-4 text-sm font-medium">
-                <li><a href="https://linkedin.com/in/mrshibly" target="_blank" rel="noopener noreferrer" className="hover:text-electric transition-colors flex items-center gap-2"><Linkedin size={16}/> LinkedIn</a></li>
-                <li><a href="https://github.com/mrshibly" target="_blank" rel="noopener noreferrer" className="hover:text-electric transition-colors flex items-center gap-2"><Github size={16}/> GitHub</a></li>
-                <li><a href="https://twitter.com/mr_shibly" target="_blank" rel="noopener noreferrer" className="hover:text-electric transition-colors flex items-center gap-2"><Twitter size={16}/> Twitter</a></li>
-                <li><a href="https://medium.com/@mrshibly" target="_blank" rel="noopener noreferrer" className="hover:text-electric transition-colors flex items-center gap-2"><ExternalLink size={16}/> Medium</a></li>
-              </ul>
-            </div>
-            <div className="hidden md:block">
-              <p className="text-[10px] uppercase tracking-widest text-white/40 mb-6 font-mono">Legal</p>
-              <ul className="space-y-4 text-sm font-medium">
-                <li><a href="#" className="hover:text-electric transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-electric transition-colors">Cookie Policy</a></li>
-              </ul>
-            </div>
+          {/* Socials & Resume */}
+          <div className="flex flex-wrap items-center gap-2">
+            <a
+              href="/mahmudur_rahman_cv.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+            >
+              <FileText size={13} className="text-blue-600 dark:text-blue-400" />
+              <span>Resume PDF</span>
+            </a>
+            <a 
+              href={portfolioData.contact.github} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+              aria-label="GitHub Profile"
+            >
+              <GithubIcon size={15} />
+            </a>
+            <a 
+              href={portfolioData.contact.linkedin} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+              aria-label="LinkedIn Profile"
+            >
+              <LinkedinIcon size={15} />
+            </a>
+          </div>
+
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
+          <p>© {year} Md. Mahmudur Rahman. All rights reserved.</p>
+          
+          <div className="flex items-center gap-4">
+            <Link to="/archive" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+              Project Archive
+            </Link>
+            <button
+              onClick={scrollToTop}
+              className="flex items-center gap-1 px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-colors text-[11px]"
+            >
+              <span>Top</span>
+              <ArrowUp size={11} />
+            </button>
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-between pt-12 border-t border-white/5 gap-8">
-          <p className="text-slate text-xs font-mono tracking-widest">
-            © {year} MD. MAHMUDUR RAHMAN. ALL RIGHTS RESERVED.
-          </p>
-          
-          <div className="flex items-center gap-8">
-            <div className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[10px] font-mono tracking-widest text-slate">SYSTEM STATUS: OPTIMAL</span>
-            </div>
-            <div className="text-[10px] font-mono tracking-widest text-slate">
-              BUILT WITH VITE + REACT + GSAP
-            </div>
-          </div>
-        </div>
       </div>
     </footer>
   )

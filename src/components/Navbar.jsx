@@ -1,64 +1,41 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, Terminal } from 'lucide-react'
+import { Menu, X, Code2, Send, FileText, Sun, Moon } from 'lucide-react'
+import { useTheme } from '../context/ThemeContext'
+import { portfolioData } from '../data/portfolioData'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState('')
+  const { theme, toggleTheme } = useTheme()
   const location = useLocation()
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', handleScroll)
+    const handleScroll = () => setScrolled(window.scrollY > 15)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Scroll spy — detect which section is currently in view
   useEffect(() => {
-    if (location.pathname !== '/') return
-    const sectionIds = ['projects', 'experience', 'education', 'certifications', 'leadership', 'contact']
-    
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id)
-          }
-        })
-      },
-      { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
-    )
-
-    // Observe after a delay to ensure DOM is ready
-    const timer = setTimeout(() => {
-      sectionIds.forEach(id => {
-        const el = document.getElementById(id)
-        if (el) observer.observe(el)
-      })
-    }, 500)
-
-    return () => {
-      clearTimeout(timer)
-      observer.disconnect()
-    }
+    setIsOpen(false)
   }, [location.pathname])
 
   const navLinks = [
-    { name: "Home", path: "/", hash: null },
-    { name: "Projects", path: "/#projects", hash: "projects" },
-    { name: "Experience", path: "/#experience", hash: "experience" },
-    { name: "Leadership", path: "/#leadership", hash: "leadership" },
-    { name: "Awards", path: "/#certifications", hash: "certifications" },
-    { name: "Archive", path: "/archive", hash: null },
-    { name: "Contact", path: "/#contact", hash: "contact" }
+    { name: "Overview", path: "/" },
+    { name: "Projects", path: "/#projects" },
+    { name: "Competencies", path: "/#competencies" },
+    { name: "Experience", path: "/#experience" },
+    { name: "Awards", path: "/#certifications" },
+    { name: "Archive", path: "/archive" },
+    { name: "Contact", path: "/#contact" }
   ]
 
   const handleNavClick = (e, link) => {
-    if (link.hash) {
+    if (link.path.startsWith('/#')) {
+      const id = link.path.replace('/#', '')
       if (location.pathname === '/') {
         e.preventDefault()
-        const element = document.getElementById(link.hash)
+        const element = document.getElementById(id)
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' })
         }
@@ -71,81 +48,136 @@ const Navbar = () => {
     setIsOpen(false)
   }
 
-  const isActive = useCallback((link) => {
-    if (location.pathname !== '/') return location.pathname === link.path
-    if (link.hash) return activeSection === link.hash
-    return !activeSection && link.path === '/'
-  }, [location.pathname, activeSection])
-
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'py-4 bg-obsidian/80 backdrop-blur-xl border-b border-white/5' : 'py-8 bg-transparent'}`}>
-      <div className="container mx-auto px-6 flex justify-between items-center">
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 bg-electric flex items-center justify-center rounded-xl rotate-3 group-hover:rotate-0 transition-transform duration-500 shadow-[0_0_20px_rgba(0,229,255,0.3)]">
-            <Terminal className="text-black" size={20} />
+    <header
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-200 ${
+        scrolled
+          ? 'py-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80 shadow-2xs'
+          : 'py-4 sm:py-5 bg-transparent'
+      }`}
+    >
+      <div className="container mx-auto px-4 sm:px-6 flex justify-between items-center max-w-6xl">
+        
+        {/* Brand Logo */}
+        <Link to="/" className="flex items-center gap-2.5 group">
+          <div className="w-8 h-8 rounded-lg bg-blue-600 dark:bg-blue-500 text-white flex items-center justify-center font-bold font-mono text-xs shadow-xs group-hover:bg-blue-700 transition-colors">
+            MR
           </div>
-          <span className="text-2xl font-black tracking-tighter uppercase">Shibly<span className="text-electric">.</span>AI</span>
+          <div className="flex flex-col">
+            <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
+              Mahmudur Rahman
+            </span>
+            <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
+              AI Systems Architect
+            </span>
+          </div>
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8 lg:gap-10">
+        {/* Desktop Nav Links */}
+        <nav className="hidden lg:flex items-center gap-1">
+          {navLinks.map((link) => {
+            const isArchive = link.path === '/archive' && location.pathname === '/archive'
+            return (
+              <Link
+                key={link.name}
+                to={link.path}
+                onClick={(e) => handleNavClick(e, link)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                  isArchive
+                    ? 'text-blue-600 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-950/60 font-semibold'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/60'
+                }`}
+              >
+                {link.name}
+              </Link>
+            )
+          })}
+        </nav>
+
+        {/* Action Controls */}
+        <div className="hidden lg:flex items-center gap-2.5">
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            aria-label="Toggle theme"
+          >
+            {theme === 'light' ? <Moon size={15} /> : <Sun size={15} />}
+          </button>
+
+          <a
+            href="/mahmudur_rahman_cv.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+          >
+            <FileText size={13} className="text-blue-600 dark:text-blue-400" />
+            <span>Resume</span>
+          </a>
+
+          <a
+            href={`mailto:${portfolioData.contact.email}`}
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-2xs transition-colors"
+          >
+            <Send size={12} />
+            <span>Contact</span>
+          </a>
+        </div>
+
+        {/* Mobile Header Actions */}
+        <div className="lg:hidden flex items-center gap-1.5">
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+            aria-label="Toggle theme"
+          >
+            {theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}
+          </button>
+
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="p-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+            aria-label="Toggle navigation menu"
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+
+      </div>
+
+      {/* Mobile Drawer */}
+      {isOpen && (
+        <div className="lg:hidden fixed inset-x-0 top-[57px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 p-5 flex flex-col gap-1.5 shadow-lg animate-in slide-in-from-top-1 duration-150 max-h-[calc(100vh-60px)] overflow-y-auto">
           {navLinks.map((link) => (
-            <Link 
-              key={link.name} 
+            <Link
+              key={link.name}
               to={link.path}
               onClick={(e) => handleNavClick(e, link)}
-              className={`text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:text-electric relative ${isActive(link) ? 'text-electric' : 'text-slate/60'}`}
+              className="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               {link.name}
-              {isActive(link) && (
-                <span className="absolute -bottom-2 left-0 right-0 h-0.5 bg-electric rounded-full" />
-              )}
             </Link>
           ))}
-          <Link to="/admin" className="opacity-0 w-2 h-2 hover:opacity-100 transition-opacity bg-white/10 rounded-full" />
-          <button 
-            onClick={() => window.location.href = 'mailto:mrshibly.bd@gmail.com'}
-            className="px-6 py-3 bg-white text-obsidian rounded-full hover:bg-electric hover:text-white transition-all duration-500 font-bold uppercase tracking-widest text-[10px]"
-          >
-            Initiate Project
-          </button>
+          <div className="pt-3 mt-2 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row gap-2">
+            <a
+              href="/mahmudur_rahman_cv.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 py-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100 text-xs font-semibold"
+            >
+              <FileText size={14} className="text-blue-600 dark:text-blue-400" />
+              <span>Download Resume (PDF)</span>
+            </a>
+            <a
+              href={`mailto:${portfolioData.contact.email}`}
+              className="flex items-center justify-center gap-2 py-2.5 rounded-lg bg-blue-600 text-white text-xs font-semibold shadow-xs"
+            >
+              <Send size={13} />
+              <span>Get in Touch</span>
+            </a>
+          </div>
         </div>
-
-        {/* Mobile Menu Button */}
-        <button className="md:hidden text-white relative z-50 p-2" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
-      </div>
-
-      {/* Mobile Nav Overlay */}
-      <div className={`fixed inset-0 bg-obsidian/95 backdrop-blur-2xl z-40 flex flex-col items-center justify-center gap-6 transition-all duration-700 md:hidden ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
-        <div className="absolute top-0 left-0 w-full h-full opacity-[0.02] pointer-events-none" style={{
-          backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
-          backgroundSize: '40px 40px'
-        }} />
-        
-        {navLinks.map((link, idx) => (
-          <Link 
-            key={link.name} 
-            to={link.path}
-            style={{ transitionDelay: `${idx * 100}ms` }}
-            className={`text-4xl font-black uppercase tracking-tighter transition-all duration-500 ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'} ${isActive(link) ? 'text-electric' : 'text-white/40 hover:text-white'}`}
-            onClick={(e) => handleNavClick(e, link)}
-          >
-            {link.name}{isActive(link) && <span className="text-electric ml-2">.</span>}
-          </Link>
-        ))}
-        
-        <div className={`mt-10 transition-all duration-700 delay-500 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
-          <button 
-            onClick={() => window.location.href = 'mailto:mrshibly.bd@gmail.com'}
-            className="px-12 py-5 bg-white text-black rounded-full font-black uppercase tracking-widest text-xs"
-          >
-            Get In Touch
-          </button>
-        </div>
-      </div>
-    </nav>
+      )}
+    </header>
   )
 }
 

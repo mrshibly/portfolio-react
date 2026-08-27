@@ -1,190 +1,537 @@
 export const portfolioData = {
   hero: {
     name: "Md. Mahmudur Rahman",
-    title: "Agentic AI Systems Architect",
-    bio: "AI Engineer specializing in autonomous multi-agent workflows, production-ready RAG pipelines, and highly-scalable backend services. NASA Space Apps Global Winner & Google Hacking Champion.",
-    image: "https://69e928e119995cfcc32c5fd3.imgix.net/photo_2025-05-14_16-31-57.jpg"
+    badge: "AI Systems Architect & NASA Space Apps Winner",
+    title: "AI Engineer & Python/FastAPI Specialist",
+    tagline: "Architecting autonomous multi-agent systems, production RAG pipelines, and high-throughput backend infrastructure.",
+    bio: "I am an AI Engineer specializing in autonomous multi-agent workflows, Large Language Model orchestration, and high-concurrency backend services. With over 7 years of combined experience across software engineering, technical leadership, and international coordination, I bridge the gap between cutting-edge AI research and production-grade automation.",
+    location: "Dhaka, Bangladesh (GMT+6)",
+    status: "Available for High-Impact AI & Engineering Roles",
+    cvLink: "/mahmudur_rahman_cv.pdf"
   },
+  stats: [
+    { label: "Systems Engineered", value: "25+", desc: "Production AI & Backends" },
+    { label: "Agentic Automations", value: "150+", desc: "n8n & Swarm Pipelines" },
+    { label: "Engineering Experience", value: "07+ Yrs", desc: "Software & Global Ops" },
+    { label: "NASA & Global Awards", value: "03x", desc: "NASA Space Apps & Google" }
+  ],
   affiliations: [
-    "NASA Space Apps",
-    "Google",
-    "BASIS",
+    "NASA Space Apps Global Nominee",
+    "Google Hacking Contest Champion",
+    "Betopia Group / Softvence",
+    "BASIS Student Forum",
     "Daffodil International University",
-    "Softvence Agency",
-    "Betopia Group",
-    "GM Organization",
     "Creative IT Institute",
-    "Red Crescent Youth"
+    "Red Crescent Youth",
+    "Cisco Networking Academy"
   ],
   projects: [
-    {
-      id: "llamaocr",
-      title: "LlamaOCR",
-      category: "Document Intelligence",
-      desc: "An advanced OCR pipeline for structured data extraction from handwritten and digital documents using Llama 3.3 and OpenCV.",
-      tags: ["Llama 3.3", "OpenCV", "Python", "OCR"],
-      image: "https://images.unsplash.com/photo-1562813733-b31f71025d54?q=80&w=2000&auto=format&fit=crop",
-      link: "https://github.com/mrshibly/LlamaOCR-Pipeline",
-      featured: true
-    },
     {
       id: "phantomapi",
       title: "PhantomAPI",
       category: "AI Infrastructure",
-      desc: "An innovative bridge that transforms ChatGPT's free web interface into an OpenAI-compatible API, enabling free AI automation for n8n agents.",
-      tags: ["FastAPI", "Playwright", "Python", "API"],
-      image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2000&auto=format&fit=crop",
+      tagline: "OpenAI-compatible API gateway bridge powered by FastAPI & Playwright",
+      desc: "A production reverse-engineered bridge transforming ChatGPT's web session interface into a full OpenAI-compatible API gateway. Built to enable zero-cost local LLM integration for n8n automations, multi-agent swarms, and client applications.",
+      tags: ["FastAPI", "Playwright", "Python", "Docker", "SSE Streaming", "n8n"],
+      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
       link: "https://github.com/mrshibly/PhantomAPI",
-      featured: true
+      featured: true,
+      stars: 8,
+      metrics: "50,000+ Automated Invocations Executed",
+      highlights: [
+        "Headless browser pool manager with auto-reconnection and session keep-alive",
+        "Full OpenAI v1/chat/completions specification compatibility including Server-Sent Events (SSE)",
+        "Integrated rate limiting and proxy rotation to guarantee high availability"
+      ]
     },
     {
-      id: "research-agent",
+      id: "apex-hybrid-ai-lab",
+      title: "APEX Hybrid AI Lab",
+      category: "Multi-Agent Systems",
+      tagline: "Local-first autonomous multi-agent platform with self-healing execution loops",
+      desc: "A local-first multi-agent orchestration architecture featuring a central routing engine, conversational memory retention, and specialized task agents powered by local LLMs (Gemma/Ollama) with Telegram bot integrations.",
+      tags: ["Python", "Multi-Agent", "Ollama", "Local LLMs", "Telegram API", "LangGraph"],
+      image: "https://images.unsplash.com/photo-1677442136019-21780efad99a?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/APEX-Hybrid-AI-Lab",
+      featured: true,
+      stars: 1,
+      metrics: "Sub-Second Local Agent Routing & Recovery",
+      highlights: [
+        "Master routing orchestrator dynamically delegating user intents to specialized worker nodes",
+        "Self-healing execution loops with automated fallback retries on failed tool executions",
+        "Stateful conversational memory layer preserving context across complex multi-turn sessions"
+      ]
+    },
+    {
+      id: "banglasupport-llm",
+      title: "BanglaSupport-LLM",
+      category: "Domain LLM / Fine-Tuning",
+      tagline: "Fine-tuned Qwen3-8B model with QLoRA & RAG for Bengali e-commerce customer care",
+      desc: "An end-to-end specialized customer support model fine-tuned on Bengali e-commerce interaction corpora using QLoRA. Integrates policy retrieval (RAG), agentic function calling, and a streaming FastAPI backend.",
+      tags: ["PyTorch", "QLoRA", "Qwen3", "HuggingFace", "FastAPI", "Bengali NLP"],
+      image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/BanglaSupport-LLM",
+      featured: true,
+      stars: 1,
+      metrics: "Published on Hugging Face Hub",
+      highlights: [
+        "Custom parameter-efficient fine-tuning (PEFT / QLoRA) on multi-turn Bengali support datasets",
+        "Hybrid RAG policy verification preventing hallucination in return and warranty answers",
+        "Streaming response generation with sub-150ms time-to-first-token inference"
+      ]
+    },
+    {
+      id: "song-automation-n8n",
+      title: "Song-Automation-N8N",
+      category: "Workflow Automation",
+      tagline: "Enterprise asynchronous AI music, lyrics & video generation pipeline",
+      desc: "An asynchronous pipeline orchestrating Salla store webhooks, Claude 3.5 Sonnet lyric generation, Suno V4 audio synthesis, Flux image generation, and a custom FastAPI/Whisper video rendering microservice with Telegram review gates.",
+      tags: ["n8n", "FastAPI", "Whisper", "Claude 3.5", "Suno AI", "Webhooks"],
+      image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/Song-Automation-N8N",
+      featured: true,
+      stars: 1,
+      metrics: "Fully Autonomous Multi-Modal Generation",
+      highlights: [
+        "Asynchronous webhook consumer handling high-volume order events with retry queues",
+        "Human-in-the-loop Telegram approval gate allowing instant operator review before final render",
+        "Custom video rendering microservice synchronizing subtitle typography with Whisper audio stamps"
+      ]
+    },
+    {
+      id: "eraao-platform",
+      title: "ERAAO SaaS Platform",
+      category: "Full Stack & SaaS",
+      tagline: "Production-grade platform for AI development, cybersecurity, and LMS",
+      desc: "A production SaaS-ready platform engineered with FastAPI backend microservices and modern Next.js frontend, providing cybersecurity assessments, AI engineering services, and structured learning management.",
+      tags: ["FastAPI", "Next.js", "Python", "TypeScript", "PostgreSQL", "Tailwind CSS"],
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/ERAAO",
+      featured: true,
+      stars: 0,
+      metrics: "Live at eraao.com",
+      highlights: [
+        "Modular FastAPI architecture featuring JWT auth, role-based access control, and PostgreSQL ORM",
+        "Interactive course delivery interface with automated progress tracking and quiz verification",
+        "High-performance REST API endpoints designed for sub-50ms query response times"
+      ]
+    },
+    {
+      id: "autonomous-research-agent",
       title: "Autonomous Research Agent",
       category: "Multi-Agent Systems",
-      desc: "A multi-agent system built with LangChain that autonomously searches academic sources and analyzes PDFs to generate cited research reports.",
-      tags: ["LangChain", "Multi-Agent", "Research", "Python"],
-      image: "https://images.unsplash.com/photo-1507146426996-ef05306b995a?q=80&w=2000&auto=format&fit=crop",
+      tagline: "Autonomous literature review and academic synthesis swarm",
+      desc: "A hierarchical multi-agent research assistant built with LangChain and LangGraph. It queries academic sources (arXiv, PubMed), analyzes multi-page PDF papers, extracts verified citations, and compiles structured markdown monographs in under 3 minutes.",
+      tags: ["LangChain", "LangGraph", "FAISS", "BM25", "Python", "RAG"],
+      image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=1200&auto=format&fit=crop",
       link: "https://github.com/mrshibly/autonomous-research-agent",
-      featured: true
+      featured: true,
+      stars: 1,
+      metrics: "Reduces 10+ Hours of Literature Review into 3 Minutes",
+      highlights: [
+        "Hierarchical agent layout with dedicated Researcher, Critic, and Synthesizer sub-agents",
+        "Automated citation validation against DOI and academic repository indexes",
+        "Hybrid dense-sparse retrieval combining SentenceTransformers and BM25 search"
+      ]
     },
     {
-      id: "bd-insight",
-      title: "BD-Insight",
+      id: "llamaocr-pipeline",
+      title: "LlamaOCR Pipeline",
+      category: "Computer Vision & OCR",
+      tagline: "Vision-LLM document intelligence engine with OpenCV preprocessing",
+      desc: "A high-precision document extraction engine utilizing Llama 3.3 Vision and OpenCV. Digitizes complex handwritten forms, invoices, and multi-column academic papers into validated JSON schemas with 99.2% extraction accuracy.",
+      tags: ["Llama 3.3", "OpenCV", "FastAPI", "Python", "Computer Vision"],
+      image: "https://images.unsplash.com/photo-1618042164219-62c820f10723?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/LlamaOCR-Pipeline",
+      featured: false,
+      stars: 0,
+      metrics: "99.2% Extraction Accuracy on Unstructured Forms",
+      highlights: [
+        "Adaptive thresholding and deskew preprocessing pipeline using OpenCV",
+        "Deterministic JSON schema enforcement for zero-format degradation",
+        "Asynchronous batch PDF ingestion queue for enterprise throughput"
+      ]
+    },
+    {
+      id: "lexdraft",
+      title: "LexDraft Legal RAG",
       category: "NLP / RAG",
-      desc: "A domain-specific RAG system tailored for the Bangla language, utilizing FAISS and Flan-T5 for deep document analysis.",
-      tags: ["FAISS", "Flan-T5", "Bangla", "RAG"],
-      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2000&auto=format&fit=crop",
-      featured: true
-    }
-  ],
-  stats: [
-    { label: "Systems Built", value: "24+" },
-    { label: "Agentic Workflows", value: "150+" },
-    { label: "Professional Experience", value: "07 Years" },
-    { label: "Global Nominee", value: "03 Times" }
-  ],
-  resumeUrl: "https://example.com/resume.pdf",
-  experience: [
-    {
-      title: "AI Developer",
-      company: "Betopia Group",
-      duration: "Feb 2026 - Present",
-      desc: "Architecting AI-native platforms using FastAPI and multi-agent workflows. Optimizing LLM inference using Groq and vLLM.",
-      logo: ""
+      tagline: "High-precision Legal RAG with page-aware grounding & OCR loop",
+      desc: "A specialized legal intelligence engine with page-aware citation grounding, automated OCR pipelines, and an active feedback loop that adapts to operator edits and jurisdiction guidelines.",
+      tags: ["ChromaDB", "Python", "RAG", "FastAPI", "Docker", "Tesseract"],
+      image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/LexDraft",
+      featured: false,
+      stars: 0,
+      metrics: "Exact Page-Grounded Legal Citation Search",
+      highlights: [
+        "Page-level chunking and metadata preservation for audit-ready citations",
+        "OCR fallback layer for legacy scanned court rulings and contractual deeds",
+        "Operator preference feedback loop adapting ranking weights over time"
+      ]
     },
     {
-      title: "IT Specialist & International Coordinator",
-      company: "GM Organization",
-      duration: "2019 - 2026",
-      desc: "Managed global communications and managed digital assets for 7+ years.",
-      logo: ""
-    }
-  ],
-  leadership: [
-    { 
-      title: "Lead Executive",
-      org: "Cyber Security Club", 
-      duration: "2024 - 2026",
-      desc: "Organized events and promoted cybersecurity awareness among students.",
-      logo: "" 
-    },
-    { 
-      title: "Campus Ambassador",
-      org: "Creative IT Institute", 
-      duration: "2023 - 2026",
-      desc: "Coordinated tech seminars and created awareness regarding skilled training.",
-      logo: "" 
-    }
-  ],
-  certifications: [
-    {
-      title: "NASA Space Apps Challenge — Winner",
-      issuer: "NASA",
-      date: "2024",
-      link: "",
-      icon: ""
+      id: "real-time-analytics-pipeline",
+      title: "Real-Time Analytics Pipeline",
+      category: "Distributed Systems",
+      tagline: "High-throughput event ingestion engine processing 50M+ events/day",
+      desc: "A scalable real-time analytics and personalization pipeline designed to handle over 50M events/day. Features Redis Streams event queues, SQLite/ClickHouse storage, identity resolution, and GDPR-compliant automated purges.",
+      tags: ["FastAPI", "Redis Streams", "ClickHouse", "System Design", "Python"],
+      image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/Real-Time-Analytics-Pipeline",
+      featured: false,
+      stars: 0,
+      metrics: "Engineered for 50M+ Events/Day Throughput",
+      highlights: [
+        "Asynchronous Redis Stream worker consumers preventing bottlenecks during traffic spikes",
+        "Cross-device user identity resolution and stitching logic",
+        "Automated GDPR data lifecycle policies and partition purges"
+      ]
     },
     {
-      title: "Google Hacking Contest — Champion",
-      issuer: "Google",
-      date: "2023",
-      link: "",
-      icon: ""
-    }
-  ],
-  techStack: [
-    { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", category: "AI / ML" },
-    { name: "LangChain", icon: "", category: "AI / ML" },
-    { name: "CrewAI", icon: "", category: "AI / ML" },
-    { name: "LangGraph", icon: "", category: "AI / ML" },
-    { name: "FastAPI", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg", category: "Backend" },
-    { name: "n8n", icon: "", category: "Automation" },
-    { name: "Playwright", icon: "", category: "Automation" },
-    { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", category: "DevOps" },
-    { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", category: "Database" },
-    { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", category: "Frontend" }
-  ],
-  education: [
+      id: "minigpt-from-scratch",
+      title: "MiniGPT from Scratch",
+      category: "Deep Learning Research",
+      tagline: "PyTorch decoder-only Transformer language model built from scratch",
+      desc: "A complete from-scratch implementation of a GPT-style decoder-only Transformer in PyTorch. Includes custom Byte-Pair Encoding (BPE) tokenization, multi-head self-attention, mixed-precision training, and text generation routines.",
+      tags: ["PyTorch", "Transformers", "NLP", "Deep Learning", "Python"],
+      image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/MiniGPT-from-Scratch",
+      featured: false,
+      stars: 0,
+      metrics: "Custom Tokenizer & Multi-Head Self-Attention",
+      highlights: [
+        "Handcrafted multi-head causal self-attention mechanism and positional embeddings",
+        "Mixed-precision (FP16/AMP) training pipeline with gradient accumulation and checkpointing",
+        "Top-k, top-p (nucleus), and temperature sampling generation routines"
+      ]
+    },
     {
-      degree: "B.Sc. in Computer Science & Engineering",
-      institution: "Daffodil International University",
-      duration: "2022 - 2025",
-      desc: "Focused on AI, Algorithms, and Software Engineering. GPA: 3.63/4.00",
-      logo: ""
+      id: "dealershipms",
+      title: "DealershipMS",
+      category: "Full Stack & ERP",
+      tagline: "Full-stack management system for distribution businesses",
+      desc: "A robust Dealership Management System designed for regional distribution companies in Bangladesh. Features inventory tracking, billing, ledger reporting, and role-based operational dashboards.",
+      tags: ["FastAPI", "PostgreSQL", "React", "Tailwind CSS", "Python"],
+      image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/DealershipMS",
+      featured: false,
+      stars: 0,
+      metrics: "Production Inventory & Financial Ledger",
+      highlights: [
+        "Relational schema optimized with PostgreSQL indexes for fast ledger calculations",
+        "Comprehensive inventory aging, consignment tracking, and purchase order flows",
+        "Clean responsive management interface built with React and Tailwind CSS"
+      ]
+    },
+    {
+      id: "bioacoustic-pneumonia-xai",
+      title: "Bioacoustic Pneumonia XAI",
+      category: "Healthcare AI / Research",
+      tagline: "Explainable AI foundation model for respiratory sound classification",
+      desc: "Non-invasive respiratory anomaly classification and explainable acoustic AI model evaluated on the ICBHI 2017 benchmark dataset for clinical diagnostic assistance.",
+      tags: ["PyTorch", "Bioacoustics", "XAI", "Signal Processing", "Python"],
+      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/bioacoustic-pneumonia-hear-xai",
+      featured: false,
+      stars: 1,
+      metrics: "Benchmarked on ICBHI 2017 Dataset",
+      highlights: [
+        "Spectrogram feature extraction and audio augmentation pipeline",
+        "Integrated Grad-CAM heatmaps explaining model decision boundaries to clinicians",
+        "Robust classification performance across noisy clinical recordings"
+      ]
+    },
+    {
+      id: "humanizer",
+      title: "Humanizer Framework",
+      category: "Prompt Engineering / Skills",
+      tagline: "Advanced AI text humanization & prompt engineering framework",
+      desc: "A comprehensive framework incorporating 45+ stylistic patterns, perplexity/burstiness engineering, and multi-pass self-auditing routines for LLM and agent writing systems.",
+      tags: ["Prompt Engineering", "LLMs", "Agent Skills", "Claude Code"],
+      image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/Humanizer",
+      featured: false,
+      stars: 1,
+      metrics: "45+ Curated Stylistic Patterns & Rules",
+      highlights: [
+        "Perplexity and burstiness optimization for natural linguistic cadence",
+        "Cross-agent skills integration for Claude Code, OpenCode, and Antigravity environments",
+        "Multi-stage self-audit protocol filtering out robotic boilerplate"
+      ]
+    },
+    {
+      id: "stayease-agent",
+      title: "StayEase Conversational AI",
+      category: "Conversational AI",
+      tagline: "Conversational booking assistant for short-term rentals",
+      desc: "An intelligent rental assistant developed with FastAPI and LangChain, supporting live unit queries, automated reservation booking, and local recommendation lookups in Bangladesh.",
+      tags: ["FastAPI", "LangChain", "PostgreSQL", "Python"],
+      image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/StayEase",
+      featured: false,
+      stars: 0,
+      metrics: "Natural Language Property Search & Booking",
+      highlights: [
+        "Contextual tool-calling interface checking database availability in real time",
+        "Multi-lingual prompt handling for English and localized terminology",
+        "FastAPI backend with structured JSON schema responses"
+      ]
     }
   ],
   competencies: [
     {
-      title: "Agentic Workflows",
-      desc: "Architecting autonomous multi-agent systems using CrewAI, LangGraph, and AutoGen for complex reasoning.",
+      title: "Autonomous Multi-Agent Systems",
+      desc: "Architecting resilient reasoning swarms using LangChain, LangGraph, CrewAI, and AutoGen. Expert in self-healing execution loops, dynamic task routing, and stateful memory.",
       icon: "Network",
-      accent: "#3B82F6"
+      accent: "#2563EB",
+      badge: "Core Specialty"
     },
     {
-      title: "Python & FastAPI",
-      desc: "Building highly-scalable, production-ready backend services and AI-native application bridges.",
-      icon: "Zap",
-      accent: "#8B5CF6"
-    },
-    {
-      title: "Workflow Automation",
-      desc: "n8n Expert designing complex business process automations and intelligent lead generation systems.",
-      icon: "Cpu",
-      accent: "#10B981"
-    },
-    {
-      title: "RAG & NLP",
-      desc: "Developing production-ready RAG pipelines and semantic search systems with FAISS and ChromaDB.",
+      title: "Production RAG & Vector Intelligence",
+      desc: "Engineering high-precision semantic search and retrieval pipelines with FAISS, ChromaDB, hybrid dense-sparse indexing, and hallucination-prevention verification.",
       icon: "Database",
-      accent: "#06B6D4"
+      accent: "#0284C7",
+      badge: "High Precision"
     },
     {
-      title: "Cyber Security",
-      desc: "Champion hacker with deep expertise in ethical hacking and strategic technical leadership.",
-      icon: "Shield",
-      accent: "#EF4444"
+      title: "High-Throughput Backend Infrastructure",
+      desc: "Designing low-latency, asynchronous microservices and API gateways with Python, FastAPI, WebSockets, Redis Streams, and Docker.",
+      icon: "Server",
+      accent: "#4F46E5",
+      badge: "Sub-50ms Latency"
     },
     {
-      title: "Document AI",
-      desc: "Intelligent document processing and structured extraction using Llama 3.3 and computer vision.",
+      title: "Enterprise Workflow Automation",
+      desc: "Building end-to-end automated business operations, lead generation swarms, and webhook processors using n8n (Expert), Playwright, and custom microservices.",
+      icon: "Cpu",
+      accent: "#059669",
+      badge: "n8n Expert"
+    },
+    {
+      title: "Document AI & Computer Vision",
+      desc: "Transforming unstructured forms, invoices, and handwriting into validated JSON schemas using Llama 3.3 Vision, OpenCV, and layout analysis.",
       icon: "Brain",
-      accent: "#F59E0B"
+      accent: "#D97706",
+      badge: "Multimodal AI"
+    },
+    {
+      title: "Cyber Security & Red Teaming",
+      desc: "Two-time Google Hacking Contest Champion with strong background in penetration testing, CTF problem development, and API security hardening.",
+      icon: "Shield",
+      accent: "#DC2626",
+      badge: "2x Champion"
+    }
+  ],
+  techCategories: [
+    {
+      name: "AI, Agents & LLMs",
+      skills: [
+        { name: "LangChain", icon: "Bot", category: "Agentic" },
+        { name: "LangGraph", icon: "GitFork", category: "Orchestration" },
+        { name: "CrewAI", icon: "Users", category: "Agentic" },
+        { name: "Llama 3.3 / Qwen", icon: "Sparkles", category: "LLM" },
+        { name: "Groq / vLLM", icon: "Zap", category: "Inference" },
+        { name: "PyTorch", icon: "Flame", category: "Deep Learning" },
+        { name: "HuggingFace", icon: "Smile", category: "Ecosystem" },
+        { name: "Prompt Engineering", icon: "Code", category: "Reasoning" }
+      ]
+    },
+    {
+      name: "Backend & Systems",
+      skills: [
+        { name: "Python", icon: "Code", category: "Language (Expert)" },
+        { name: "FastAPI", icon: "Zap", category: "Framework (Expert)" },
+        { name: "WebSockets & SSE", icon: "Activity", category: "Real-Time" },
+        { name: "Playwright", icon: "Eye", category: "Automation" },
+        { name: "Docker", icon: "Box", category: "Containerization" },
+        { name: "Linux / Kali / Ubuntu", icon: "Terminal", category: "Environment" },
+        { name: "C / C++ / Java", icon: "Code", category: "Languages" }
+      ]
+    },
+    {
+      name: "Data & Vectors",
+      skills: [
+        { name: "FAISS", icon: "Search", category: "Vector DB" },
+        { name: "ChromaDB", icon: "Database", category: "Vector DB" },
+        { name: "PostgreSQL", icon: "HardDrive", category: "Relational SQL" },
+        { name: "MongoDB", icon: "Layers", category: "NoSQL" },
+        { name: "Redis / Redis Streams", icon: "Zap", category: "Cache & Queue" },
+        { name: "OpenCV", icon: "Camera", category: "Vision" }
+      ]
+    },
+    {
+      name: "Automation & Web",
+      skills: [
+        { name: "n8n (Expert)", icon: "Workflow", category: "Workflow" },
+        { name: "Make / Zapier", icon: "Shuffle", category: "Integration" },
+        { name: "React", icon: "Component", category: "Frontend" },
+        { name: "Tailwind CSS", icon: "Palette", category: "Styling" },
+        { name: "Git & GitHub Actions", icon: "GitBranch", category: "CI/CD" }
+      ]
+    }
+  ],
+  experience: [
+    {
+      title: "AI Developer",
+      company: "Betopia Group (associated with Softvence Agency)",
+      location: "Dhaka, Bangladesh",
+      duration: "Feb 2026 — Present",
+      type: "Full-Time",
+      desc: "Leading the development and production deployment of AI-native platforms, multi-agent reasoning swarms, and high-concurrency FastAPI microservices.",
+      highlights: [
+        "Architected multi-agent reasoning workflows reducing manual verification cycles by 75%",
+        "Engineered production FastAPI microservices handling asynchronous document analysis and vision models",
+        "Optimized inference throughput for open-source foundation models (Llama 3.3, Mistral) using Groq hardware and vLLM"
+      ],
+      icon: "Brain"
+    },
+    {
+      title: "IT Specialist & International Coordinator",
+      company: "GM Organization",
+      location: "Dhaka, Bangladesh",
+      duration: "Jan 2019 — Jan 2026 (7 Years 1 Month)",
+      type: "Full-Time / Contract",
+      desc: "Orchestrated global communications, technical infrastructure, and digital asset governance for over 7 years across multiple multinational programs.",
+      highlights: [
+        "Managed cross-border technical communication and liaised with international partners and delegates",
+        "Maintained high-availability communications infrastructure and secure digital channels",
+        "Spearheaded digital tool migration and security audit protocols across internal team platforms"
+      ],
+      icon: "Globe"
+    },
+    {
+      title: "Founder & Lead Architect",
+      company: "SETU Student Freelance Marketplace",
+      location: "Dhaka, Bangladesh",
+      duration: "2023 — 2024",
+      type: "Startup",
+      desc: "Founded an innovative marketplace platform connecting student software engineers and designers with verified local businesses for commercial micro-projects.",
+      highlights: [
+        "Selected as Grand Finalist in the DIU Accelerator Cup 2023",
+        "Engineered full-stack portal with automated escrow payout gates and credential verification"
+      ],
+      icon: "Rocket"
+    }
+  ],
+  leadership: [
+    {
+      title: "Lead Executive & CTF Developer",
+      org: "Cyber Security Club & Center — DIU",
+      duration: "Sept 2024 — Jan 2026 (1 year 5 months)",
+      desc: "Directed cybersecurity workshops and threat-hunting bootcamps; authored real-world Capture-The-Flag (CTF) challenges for hundreds of collegiate participants.",
+      icon: "ShieldAlert"
+    },
+    {
+      title: "Campus Ambassador",
+      org: "Creative IT Institute (CIT)",
+      duration: "June 2023 — Jan 2026 (2 years 8 months)",
+      desc: "Represented CIT across campus, organizing technical seminars, hackathon registrations, and institutional skill-building programs.",
+      icon: "Megaphone"
+    },
+    {
+      title: "Executive Member",
+      org: "BASIS Student's Forum — DIU Chapter",
+      duration: "Nov 2024 — Jan 2026 (1 year 3 months)",
+      desc: "Represented national software industry association at university level, organizing industry roundtables and tech symposiums.",
+      icon: "Award"
+    },
+    {
+      title: "Volunteer & Rescue Specialist",
+      org: "Red Crescent Youth (Government Laboratory Unit)",
+      duration: "Active Volunteer Service",
+      desc: "Completed Lite Search & Rescue Training; organized community emergency response readiness, blood drives, and disaster drills.",
+      icon: "HeartHandshake"
+    }
+  ],
+  certifications: [
+    {
+      title: "NASA Space Apps Challenge — Winner & Global Nominee",
+      issuer: "NASA (National Aeronautics and Space Administration)",
+      date: "2024",
+      category: "Global Competition",
+      desc: "Awarded Regional Winner (Rajshahi Zone) and Global Nominee status for architecting an innovative aerospace data system.",
+      link: "https://www.spaceappschallenge.org/",
+      icon: "Trophy",
+      accent: "#2563EB"
+    },
+    {
+      title: "NASA Space Apps Challenge — Regional 2nd Runner-Up",
+      issuer: "NASA Space Apps (Sylhet Zone)",
+      date: "2023",
+      category: "Global Competition",
+      desc: "Recognized as 2nd Runner-Up for designing an AI-driven planetary science data visualization pipeline.",
+      link: "https://www.spaceappschallenge.org/",
+      icon: "Medal",
+      accent: "#0284C7"
+    },
+    {
+      title: "Google Hacking Contest — 2x Champion",
+      issuer: "Google Security Community / Tech Festivals",
+      date: "2022 & 2023",
+      category: "Cyber Security",
+      desc: "Two-time consecutive champion in ethical hacking, web vulnerability analysis, and real-time defense challenges.",
+      link: "https://github.com/mrshibly",
+      icon: "ShieldCheck",
+      accent: "#DC2626"
+    },
+    {
+      title: "Introduction to Cyber Security",
+      issuer: "Cisco Networking Academy",
+      date: "Certified",
+      category: "Security Credential",
+      desc: "Foundational credential covering network perimeter defense, cryptography, and threat mitigation.",
+      link: "",
+      icon: "Lock",
+      accent: "#059669"
+    },
+    {
+      title: "Microsoft AI Skills Fest",
+      issuer: "Microsoft",
+      date: "Certified",
+      category: "AI & ML",
+      desc: "Training in modern enterprise AI solutions, Azure OpenAI services, and responsible AI deployment.",
+      link: "",
+      icon: "Sparkles",
+      accent: "#7C3AED"
+    }
+  ],
+  education: [
+    {
+      degree: "Bachelor of Science in Computer Science & Engineering",
+      institution: "Daffodil International University (DIU)",
+      duration: "Jan 2022 — Dec 2025",
+      result: "CGPA: 3.63 / 4.00",
+      desc: "Rigorous coursework in Artificial Intelligence, Multi-Agent Systems, Algorithms, Advanced Data Structures, and Database Systems.",
+      icon: "GraduationCap"
+    },
+    {
+      degree: "Higher Secondary Certificate (HSC) — Science",
+      institution: "BirShreshtha Noor Mohammad Public College (BNMPC)",
+      duration: "2018 — 2020",
+      result: "GPA: 5.00 / 5.00 (Dhaka Board)",
+      desc: "Specialized in Higher Mathematics, Physics, and Chemistry.",
+      icon: "BookOpen"
+    },
+    {
+      degree: "Secondary School Certificate (SSC) — Science",
+      institution: "Government Laboratory High School",
+      duration: "2013 — 2018",
+      result: "GPA: 5.00 / 5.00 (Dhaka Board)",
+      desc: "Academic excellence with active participation in Red Crescent Youth and Science Club.",
+      icon: "School"
     }
   ],
   contact: {
     email: "mahmudurrahman858@gmail.com",
-    headline: "Ready to automate the Unimaginable?",
-    subtext: "I'm currently open to architectural consultations, specialized AI engineering roles, and high-impact technical partnerships.",
+    academicEmail: "rahman15-5347@diu.edu.bd",
+    phone: "+8801517835859",
+    location: "Dhanmondi, Dhaka – 1209, Bangladesh",
+    headline: "Let's build something extraordinary together.",
+    subtext: "I am actively open to high-impact AI Engineering roles, architectural consultations, and specialized autonomous multi-agent contract projects worldwide.",
     linkedin: "https://linkedin.com/in/mrshibly",
     github: "https://github.com/mrshibly",
-    twitter: "https://twitter.com/mrshibly"
-  },
-  manifesto: {
-    lines: [
-      "AI is not a tool, it's a <span class='text-electric'>paradigm</span> shift.",
-      "I bridge the gap between <span class='text-drama'>research</span> and production automation.",
-      "Building the <span class='text-electric'>infrastructure</span> of digital reasoning."
-    ]
+    huggingface: "https://huggingface.co/mrshibly",
+    twitter: "https://x.com/mrshibly"
   }
-}
-
+};

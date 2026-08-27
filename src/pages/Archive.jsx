@@ -1,146 +1,171 @@
-import React, { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ExternalLink, ArrowLeft } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { ArrowLeft, Search, FolderGit2, ArrowUpRight, Star } from 'lucide-react'
 import { GithubIcon } from '../components/icons/GithubIcon'
 import { Link } from 'react-router-dom'
-import { usePortfolioData } from '../hooks/usePortfolioData'
+import { portfolioData } from '../data/portfolioData'
 
 const Archive = () => {
-  const containerRef = useRef(null)
-  const { data } = usePortfolioData()
-  const projects = data.projects
+  const projects = portfolioData.projects
+  const [searchTerm, setSearchTerm] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('All')
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    
-    const ctx = gsap.context(() => {
-      gsap.from('.archive-item', {
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: 'power3.out',
-        delay: 0.2
-      })
-    }, containerRef)
-
-    return () => ctx.revert()
   }, [])
 
-  return (
-    <section ref={containerRef} className="min-h-screen pt-32 pb-20 bg-obsidian relative overflow-hidden">
-      {/* High-tech Background Grid */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{
-        backgroundImage: `
-          linear-gradient(rgba(59, 130, 246, 0.5) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(59, 130, 246, 0.5) 1px, transparent 1px)
-        `,
-        backgroundSize: '40px 40px'
-      }} />
-      
-      {/* Decorative scanning line */}
-      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-electric/20 to-transparent animate-scan pointer-events-none" />
+  const categories = ['All', ...new Set(projects.map(p => p.category))]
 
-      <div className="container mx-auto px-6 relative z-10">
-        <Link to="/" className="inline-flex items-center gap-2 text-slate/60 hover:text-electric transition-all mb-12 group font-mono text-xs uppercase tracking-widest">
-          <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-          <span className="opacity-0 group-hover:opacity-100 transition-opacity">0x00</span> Back to Terminal
+  const filteredProjects = projects.filter(project => {
+    const matchesSearch = 
+      project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.desc.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.tags.some(t => t.toLowerCase().includes(searchTerm.toLowerCase()))
+    
+    const matchesCat = selectedCategory === 'All' || project.category === selectedCategory
+
+    return matchesSearch && matchesCat
+  })
+
+  return (
+    <section className="min-h-screen pt-24 sm:pt-32 pb-20 sm:pb-24 relative bg-slate-50 dark:bg-slate-950 transition-colors">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative z-10">
+        
+        {/* Back Link */}
+        <Link 
+          to="/" 
+          className="inline-flex items-center gap-1.5 sm:gap-2 text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-white transition-colors mb-6 sm:mb-8 group font-medium text-xs uppercase tracking-wider"
+        >
+          <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform text-blue-600 dark:text-blue-400" />
+          <span>Back to Overview</span>
         </Link>
 
-        <div className="mb-16">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-[1px] bg-electric/50" />
-            <p className="text-electric font-mono text-xs uppercase tracking-[0.4em]">Index_System.v3</p>
+        {/* Page Heading */}
+        <div className="mb-8 sm:mb-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200/80 dark:border-blue-800/80 text-blue-700 dark:text-blue-300 text-xs font-semibold font-mono mb-2 sm:mb-3">
+            <FolderGit2 size={12} />
+            <span>Master Engineering Catalog</span>
           </div>
-          <h1 className="text-6xl md:text-8xl font-black mb-8 tracking-tighter leading-none">
-            Project <span className="text-drama italic">Archive</span>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-2 sm:mb-3">
+            Project <span className="text-blue-600 dark:text-blue-500">Archive</span>
           </h1>
-          <p className="text-slate text-lg md:text-xl max-w-2xl leading-relaxed font-light">
-            A deep-level index of my technical explorations, autonomous agent experiments, and production-grade architectures.
+          <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm md:text-base max-w-2xl font-normal">
+            A comprehensive index of 14+ autonomous multi-agent swarms, production RAG pipelines, reverse-engineered API bridges, and enterprise microservices.
           </p>
         </div>
 
-        <div className="overflow-x-auto custom-scrollbar">
-          <div className="min-w-[900px]">
-            {/* Table Header */}
-            <div className="grid grid-cols-12 gap-4 px-8 py-5 border-y border-white/5 text-slate/40 text-[9px] uppercase tracking-[0.3em] font-mono bg-white/[0.01]">
-              <div className="col-span-1">ID_YR</div>
-              <div className="col-span-4">Entity_Name</div>
-              <div className="col-span-3">Core_Stack</div>
-              <div className="col-span-2">System_Status</div>
-              <div className="col-span-2 text-right">Access_Port</div>
-            </div>
+        {/* Controls: Search & Category Filter */}
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4 mb-6 sm:mb-8 p-3 sm:p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs">
+          
+          {/* Search Box */}
+          <div className="relative w-full md:w-80">
+            <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search keyword, tag, or topic..."
+              className="w-full pl-9 pr-4 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
+            />
+          </div>
 
-            {/* Project Items */}
-            {projects.map((project, index) => (
-              <div 
-                key={project.id}
-                className="archive-item grid grid-cols-12 items-center gap-4 px-8 py-12 border-b border-white/5 hover:bg-white/[0.02] transition-all duration-700 group relative overflow-hidden"
+          {/* Category Chips */}
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none w-full md:w-auto">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors shrink-0 ${
+                  selectedCategory === cat
+                    ? 'bg-blue-600 text-white shadow-2xs'
+                    : 'bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+                }`}
               >
-                {/* Hover Glow Background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-electric/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                
-                <div className="col-span-1 text-slate/30 font-mono text-xs group-hover:text-electric/60 transition-colors">
-                  #{project.year || '2024'}
-                </div>
-                
-                <div className="col-span-4 relative">
-                  <h3 className="text-2xl font-bold text-white/80 group-hover:text-white transition-all duration-500 tracking-tight flex items-center gap-3">
-                    {project.title}
-                    <div className="w-0 group-hover:w-8 h-[1px] bg-electric/50 transition-all duration-700" />
-                  </h3>
-                  <p className="text-[10px] text-slate/40 mt-2 uppercase tracking-[0.2em] font-mono group-hover:text-slate/60 transition-colors">
-                    {project.category}
-                  </p>
-                </div>
-
-                <div className="col-span-3">
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.slice(0, 3).map(tag => (
-                      <span key={tag} className="text-[10px] px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-slate/70 font-mono group-hover:border-electric/30 group-hover:text-slate/90 transition-all">
-                        {tag}
-                      </span>
-                    ))}
-                    {project.tags.length > 3 && (
-                      <span className="text-[10px] text-slate/30 font-mono self-center">+{project.tags.length - 3}</span>
-                    )}
-                  </div>
-                </div>
-
-                <div className="col-span-2">
-                  <div className="flex items-center gap-3">
-                    <div className="relative">
-                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 absolute inset-0 animate-ping opacity-75" />
-                    </div>
-                    <span className="text-[10px] uppercase tracking-widest text-slate/50 font-mono group-hover:text-emerald-400 transition-colors">Deployed</span>
-                  </div>
-                </div>
-
-                <div className="col-span-2 flex justify-end gap-3">
-                  {project.link && (
-                    <a 
-                      href={project.link} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 flex items-center justify-center text-slate/40 hover:text-white hover:bg-white/10 border border-transparent hover:border-white/10 rounded-xl transition-all duration-300"
-                      title="Source Code"
-                    >
-                      <GithubIcon size={18} />
-                    </a>
-                  )}
-                  <Link 
-                    to={`/project/${project.id}`}
-                    className="w-10 h-10 flex items-center justify-center text-slate/40 hover:text-electric hover:bg-electric/10 border border-transparent hover:border-electric/20 rounded-xl transition-all duration-300"
-                    title="View Details"
-                  >
-                    <ExternalLink size={18} />
-                  </Link>
-                </div>
-              </div>
+                {cat}
+              </button>
             ))}
           </div>
         </div>
+
+        {/* Catalog List */}
+        <div className="space-y-3.5 sm:space-y-4">
+          {filteredProjects.map((project) => (
+            <div
+              key={project.id}
+              className="card-clean p-4 sm:p-5 rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 group"
+            >
+              <div className="flex items-start gap-3 sm:gap-4 w-full md:w-auto">
+                {/* Thumbnail */}
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg overflow-hidden shrink-0 border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800">
+                  <img 
+                    src={project.image} 
+                    alt={project.title} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                </div>
+
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1">
+                    <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      {project.title}
+                    </h3>
+                    <span className="px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 text-[9px] sm:text-[10px] font-mono font-semibold uppercase">
+                      {project.category}
+                    </span>
+                    {project.stars !== undefined && project.stars > 0 && (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 text-[9px] sm:text-[10px] font-mono font-bold">
+                        <Star size={9} fill="currentColor" />
+                        <span>{project.stars}</span>
+                      </span>
+                    )}
+                  </div>
+
+                  <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm max-w-2xl leading-relaxed mb-2.5 line-clamp-2 font-normal">
+                    {project.desc}
+                  </p>
+
+                  <div className="flex flex-wrap gap-1">
+                    {project.tags.map((tag) => (
+                      <span key={tag} className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-[9px] sm:text-[10px] font-mono text-slate-600 dark:text-slate-300">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="flex items-center gap-2 w-full md:w-auto justify-end shrink-0 pt-2.5 md:pt-0 border-t md:border-t-0 border-slate-100 dark:border-slate-800">
+                {project.link && (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors"
+                    title="View GitHub Repository"
+                  >
+                    <GithubIcon size={14} />
+                  </a>
+                )}
+                
+                <Link
+                  to={`/project/${project.id}`}
+                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-colors shadow-2xs"
+                >
+                  <span>Details</span>
+                  <ArrowUpRight size={13} />
+                </Link>
+              </div>
+            </div>
+          ))}
+
+          {filteredProjects.length === 0 && (
+            <div className="py-16 text-center text-slate-500 font-mono text-xs">
+              No matching systems found for "{searchTerm}".
+            </div>
+          )}
+        </div>
+
       </div>
     </section>
   )
