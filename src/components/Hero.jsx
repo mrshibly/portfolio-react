@@ -98,24 +98,32 @@ const Hero = () => {
           <div className="lg:col-span-5 w-full">
             <div className="card-clean rounded-2xl p-6 sm:p-7 space-y-6">
               
-              {/* Profile Card Header */}
+              {/* Profile Card Header with User's Photo */}
               <div className="flex items-center justify-between pb-5 border-b border-slate-100 dark:border-slate-800">
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-xl bg-blue-50 dark:bg-blue-950/80 border border-blue-200/80 dark:border-blue-800/80 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold font-mono text-base">
-                    MR
+                <div className="flex items-center gap-3.5">
+                  <div className="relative">
+                    <img 
+                      src={hero.avatar || "/profile.png"} 
+                      alt={hero.name} 
+                      className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl object-cover object-center border-2 border-white dark:border-slate-800 shadow-md ring-1 ring-slate-200 dark:ring-slate-700"
+                    />
+                    <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white dark:border-slate-900" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-slate-900 dark:text-white text-base leading-tight">
-                      Md. Mahmudur Rahman
+                    <h3 className="font-bold text-slate-900 dark:text-white text-base sm:text-lg leading-tight">
+                      {hero.name}
                     </h3>
-                    <p className="text-xs text-blue-600 dark:text-blue-400 font-mono font-medium">
+                    <p className="text-xs text-blue-600 dark:text-blue-400 font-mono font-medium mt-0.5">
                       AI & Backend Architect
+                    </p>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400 font-mono mt-0.5">
+                      DIU B.Sc CSE (CGPA 3.63)
                     </p>
                   </div>
                 </div>
                 
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 text-[10px] font-mono font-semibold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 text-[10px] font-mono font-semibold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                   ACTIVE
                 </span>
               </div>

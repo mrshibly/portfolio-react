@@ -7,7 +7,8 @@ export const portfolioData = {
     bio: "I am an AI Engineer specializing in autonomous multi-agent workflows, Large Language Model orchestration, and high-concurrency backend services. With over 7 years of combined experience across software engineering, technical leadership, and international coordination, I bridge the gap between cutting-edge AI research and production-grade automation.",
     location: "Dhaka, Bangladesh (GMT+6)",
     status: "Available for High-Impact AI & Engineering Roles",
-    cvLink: "/mahmudur_rahman_cv.pdf"
+    cvLink: "/mahmudur_rahman_cv.pdf",
+    avatar: "/profile.png"
   },
   stats: [
     { label: "Systems Engineered", value: "25+", desc: "Production AI & Backends" },
