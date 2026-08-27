@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { ArrowLeft, CheckCircle2, Cpu, Sparkles, ArrowUpRight, Star } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, Cpu, Sparkles, ArrowUpRight, Star, Workflow, Network, ArrowRight } from 'lucide-react'
 import { GithubIcon } from '../components/icons/GithubIcon'
 import { portfolioData } from '../data/portfolioData'
 
@@ -33,7 +33,7 @@ const ProjectDetails = () => {
 
         <div className="grid lg:grid-cols-12 gap-8 sm:gap-10 items-start">
           
-          {/* Left Column: Details */}
+          {/* Left Column: Details & Highlights (7 Cols) */}
           <div className="lg:col-span-7">
             
             <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-3 sm:mb-4">
@@ -83,6 +83,33 @@ const ProjectDetails = () => {
               </div>
             )}
 
+            {/* Interactive Architecture Flowchart */}
+            {project.architectureSteps && project.architectureSteps.length > 0 && (
+              <div className="mb-6 sm:mb-7 p-4 sm:p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs">
+                <h3 className="text-xs font-mono uppercase tracking-wider text-slate-800 dark:text-slate-200 flex items-center gap-2 font-bold mb-3.5">
+                  <Network size={14} className="text-blue-600 dark:text-blue-400" />
+                  <span>System Dataflow & Pipeline Execution</span>
+                </h3>
+                
+                <div className="space-y-2.5">
+                  {project.architectureSteps.map((step, idx) => (
+                    <div 
+                      key={idx} 
+                      className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 flex items-start gap-3 text-xs"
+                    >
+                      <span className="w-5 h-5 rounded-md bg-blue-600 text-white flex items-center justify-center font-mono font-bold text-[10px] shrink-0 mt-0.5">
+                        0{idx + 1}
+                      </span>
+                      <div className="min-w-0">
+                        <p className="font-bold text-slate-900 dark:text-white font-mono text-xs">{step.node}</p>
+                        <p className="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed mt-0.5">{step.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Actions */}
             <div className="flex flex-col sm:flex-row flex-wrap gap-2.5 mb-8 w-full">
               {project.link && (
@@ -110,7 +137,7 @@ const ProjectDetails = () => {
 
           </div>
 
-          {/* Right Column: Visual Preview */}
+          {/* Right Column: Visual Preview (5 Cols) */}
           <div className="lg:col-span-5 space-y-4 w-full">
             <div className="card-clean rounded-xl overflow-hidden p-2">
               <div className="w-full aspect-[16/10] rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800">
@@ -124,7 +151,7 @@ const ProjectDetails = () => {
               <div className="p-3 flex items-center justify-between text-xs font-mono">
                 <span className="text-slate-500 dark:text-slate-400 text-[10px] sm:text-xs">ENGINEERING STATUS</span>
                 <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1.5 text-[10px] sm:text-xs">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                   VERIFIED & ACTIVE
                 </span>
               </div>

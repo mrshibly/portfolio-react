@@ -1,11 +1,18 @@
 import React from 'react'
-import { Cpu, Workflow, Clock, Trophy } from 'lucide-react'
+import { Cpu, Workflow, Clock, Trophy, GitFork } from 'lucide-react'
 import { portfolioData } from '../data/portfolioData'
+import { useGithubStats } from '../hooks/useGithubStats'
 
 const icons = [Cpu, Workflow, Clock, Trophy]
 
 const Stats = () => {
-  const stats = portfolioData.stats
+  const ghStats = useGithubStats('mrshibly')
+  const stats = [
+    { label: "Systems Engineered", value: `${ghStats.publicRepos}+`, desc: "Verified GitHub Repos" },
+    { label: "Agentic Automations", value: "150+", desc: "n8n & Swarm Pipelines" },
+    { label: "Engineering Experience", value: "07+ Yrs", desc: "Software & Global Ops" },
+    { label: "NASA & Global Awards", value: "03x", desc: "NASA Space Apps & Google" }
+  ]
 
   return (
     <section className="py-12 relative">
@@ -23,7 +30,7 @@ const Stats = () => {
                     <Icon size={16} />
                   </div>
                   <span className="text-[9px] font-mono text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">
-                    0{i+1} // METRIC
+                    0{i+1} // LIVE
                   </span>
                 </div>
 

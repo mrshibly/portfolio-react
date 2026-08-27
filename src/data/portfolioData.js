@@ -43,6 +43,12 @@ export const portfolioData = {
         "Headless browser pool manager with auto-reconnection and session keep-alive",
         "Full OpenAI v1/chat/completions specification compatibility including Server-Sent Events (SSE)",
         "Integrated rate limiting and proxy rotation to guarantee high availability"
+      ],
+      architectureSteps: [
+        { node: "Client / Agent", desc: "Sends standard OpenAI POST /v1/chat/completions payload" },
+        { node: "FastAPI Gateway", desc: "Validates schema, checks token cache, manages rate limits" },
+        { node: "Playwright Worker Pool", desc: "Injects prompt into authenticated headless web session" },
+        { node: "SSE Stream Parser", desc: "Intercepts DOM tokens in real-time and streams chunks back" }
       ]
     },
     {
@@ -61,6 +67,12 @@ export const portfolioData = {
         "Master routing orchestrator dynamically delegating user intents to specialized worker nodes",
         "Self-healing execution loops with automated fallback retries on failed tool executions",
         "Stateful conversational memory layer preserving context across complex multi-turn sessions"
+      ],
+      architectureSteps: [
+        { node: "User Input (Telegram/CLI)", desc: "Captures natural language commands & operational goals" },
+        { node: "Master Intent Router", desc: "Evaluates task complexity and decomposes into sub-goals" },
+        { node: "LangGraph Swarm Nodes", desc: "Specialized worker agents execute parallel tool calls" },
+        { node: "Self-Healing Critic", desc: "Verifies outputs, auto-corrects errors before user dispatch" }
       ]
     },
     {
@@ -79,6 +91,12 @@ export const portfolioData = {
         "Custom parameter-efficient fine-tuning (PEFT / QLoRA) on multi-turn Bengali support datasets",
         "Hybrid RAG policy verification preventing hallucination in return and warranty answers",
         "Streaming response generation with sub-150ms time-to-first-token inference"
+      ],
+      architectureSteps: [
+        { node: "Customer Query", desc: "Receives raw Bengali/Banglish e-commerce support inquiry" },
+        { node: "Dense Vector Retrieval", desc: "FAISS searches merchant return policies and order database" },
+        { node: "QLoRA Adapter Weights", desc: "Qwen3-8B fine-tuned base applies localized tone and empathy" },
+        { node: "FastAPI Stream", desc: "Streams tokenized customer response with sub-150ms latency" }
       ]
     },
     {
@@ -97,6 +115,12 @@ export const portfolioData = {
         "Asynchronous webhook consumer handling high-volume order events with retry queues",
         "Human-in-the-loop Telegram approval gate allowing instant operator review before final render",
         "Custom video rendering microservice synchronizing subtitle typography with Whisper audio stamps"
+      ],
+      architectureSteps: [
+        { node: "Salla Webhook", desc: "Captures new customer song dedication and thematic order" },
+        { node: "n8n Orchestrator", desc: "Dispatches Claude 3.5 for lyrics and Suno V4 for audio stems" },
+        { node: "Telegram Approval Gate", desc: "Interactive bot sends audio preview to operator for 1-click QA" },
+        { node: "Whisper + Video Service", desc: "FastAPI generates synchronized lyric typography video" }
       ]
     },
     {
@@ -115,6 +139,12 @@ export const portfolioData = {
         "Modular FastAPI architecture featuring JWT auth, role-based access control, and PostgreSQL ORM",
         "Interactive course delivery interface with automated progress tracking and quiz verification",
         "High-performance REST API endpoints designed for sub-50ms query response times"
+      ],
+      architectureSteps: [
+        { node: "Next.js 14 Frontend", desc: "Server-side rendered dashboard with Tailwind CSS & Lucide" },
+        { node: "FastAPI REST API", desc: "JWT authenticated endpoints with Pydantic validation" },
+        { node: "PostgreSQL & Redis", desc: "Indexed relational tables with Redis query caching" },
+        { node: "LMS Progress Engine", desc: "Automated module grading, certification generation & analytics" }
       ]
     },
     {
@@ -133,6 +163,12 @@ export const portfolioData = {
         "Hierarchical agent layout with dedicated Researcher, Critic, and Synthesizer sub-agents",
         "Automated citation validation against DOI and academic repository indexes",
         "Hybrid dense-sparse retrieval combining SentenceTransformers and BM25 search"
+      ],
+      architectureSteps: [
+        { node: "Research Query", desc: "User inputs complex technical or scientific research prompt" },
+        { node: "Paper Ingestion Agent", desc: "Queries arXiv/PubMed APIs and extracts PDF structural text" },
+        { node: "Hybrid Search (FAISS+BM25)", desc: "Dense semantic + keyword lookup identifies relevant findings" },
+        { node: "Critic & Synthesizer", desc: "Audits DOI citations and compiles structured markdown paper" }
       ]
     },
     {
@@ -151,6 +187,12 @@ export const portfolioData = {
         "Adaptive thresholding and deskew preprocessing pipeline using OpenCV",
         "Deterministic JSON schema enforcement for zero-format degradation",
         "Asynchronous batch PDF ingestion queue for enterprise throughput"
+      ],
+      architectureSteps: [
+        { node: "Document Upload", desc: "Receives scanned PDF / handwritten form image" },
+        { node: "OpenCV Preprocessor", desc: "Applies adaptive thresholding, deskew, and contrast enhancement" },
+        { node: "Llama 3.3 Vision", desc: "Extracts tabular structures, key-values, and signatures" },
+        { node: "JSON Schema Validator", desc: "Enforces strict Pydantic model types for ERP ingestion" }
       ]
     },
     {

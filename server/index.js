@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 
 import portfolioRoutes from './routes/portfolioRoutes.js';
 import chatRoutes from './routes/chatRoutes.js';
+import contactRoutes from './routes/contactRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,6 +22,7 @@ app.use(express.json());
 // Routes
 app.use('/api/portfolio', portfolioRoutes);
 app.use('/api/chat', chatRoutes);
+app.use('/api/contact', contactRoutes);
 
 // Serve static frontend files
 app.use(express.static(path.join(__dirname, '../dist')));
@@ -46,4 +48,3 @@ app.listen(PORT, () => {
   console.log(`- GROQ_API_KEY: ${process.env.GROQ_API_KEY ? 'LOADED' : 'MISSING (AI Assistant will be disabled)'}`);
   console.log(`- ADMIN_PASSWORD: ${process.env.ADMIN_PASSWORD ? 'LOADED' : 'MISSING (Admin panel will be locked)'}`);
 });
-

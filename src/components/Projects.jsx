@@ -1,18 +1,35 @@
-import React from 'react'
-import { ArrowUpRight, FolderGit2, Sparkles, ArrowRight, Star } from 'lucide-react'
+import React, { useState } from 'react'
+import { ArrowUpRight, FolderGit2, Sparkles, ArrowRight, Star, Filter } from 'lucide-react'
 import { GithubIcon } from './icons/GithubIcon'
 import { portfolioData } from '../data/portfolioData'
 import { Link } from 'react-router-dom'
 
+const filterCategories = [
+  'All',
+  'Multi-Agent Systems',
+  'AI Infrastructure',
+  'NLP / RAG',
+  'Workflow Automation'
+]
+
 const Projects = () => {
-  const projects = portfolioData.projects.filter(p => p.featured)
+  const [activeFilter, setActiveFilter] = useState('All')
+  const allProjects = portfolioData.projects
+
+  const displayedProjects = allProjects.filter((project) => {
+    if (activeFilter === 'All') return project.featured
+    if (activeFilter === 'NLP / RAG') {
+      return project.category.includes('NLP') || project.category.includes('RAG') || project.category.includes('Fine-Tuning')
+    }
+    return project.category === activeFilter || project.tags.some(t => t.toLowerCase().includes(activeFilter.toLowerCase()))
+  })
 
   return (
     <section id="projects" className="py-16 sm:py-20 border-t border-slate-200/80 dark:border-slate-800/80 relative">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12 gap-4 sm:gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200/80 dark:border-blue-800/80 text-blue-700 dark:text-blue-300 text-xs font-semibold font-mono mb-2 sm:mb-3">
               <FolderGit2 size={12} />
@@ -31,9 +48,26 @@ const Projects = () => {
           </Link>
         </div>
 
+        {/* Quick Category Filter Pills */}
+        <div className="flex items-center gap-1.5 sm:gap-2 mb-8 overflow-x-auto pb-1 scrollbar-none">
+          {filterCategories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveFilter(cat)}
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors shrink-0 ${
+                activeFilter === cat
+                  ? 'bg-blue-600 text-white shadow-2xs font-semibold'
+                  : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
         {/* Project Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {projects.map((project) => (
+          {displayedProjects.map((project) => (
             <div 
               key={project.id} 
               className="card-clean rounded-xl overflow-hidden flex flex-col justify-between group"
@@ -105,7 +139,7 @@ const Projects = () => {
                     to={`/project/${project.id}`}
                     className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-colors shadow-xs"
                   >
-                    <span>Details</span>
+                    <span>Architecture</span>
                     <ArrowUpRight size={13} />
                   </Link>
                 </div>
