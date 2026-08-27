@@ -17,14 +17,15 @@ export const portfolioData = {
     { label: "NASA & Global Awards", value: "03x", desc: "NASA Space Apps & Google" }
   ],
   affiliations: [
+    "Studio Butterfly",
+    "Softvence Agency",
+    "Betopia Group",
     "NASA Space Apps Global Nominee",
     "Google Hacking Contest Champion",
-    "Betopia Group / Softvence",
     "BASIS Student Forum",
     "Daffodil International University",
     "Creative IT Institute",
-    "Red Crescent Youth",
-    "Cisco Networking Academy"
+    "Cyber Security Club DIU"
   ],
   projects: [
     {
@@ -553,16 +554,36 @@ export const portfolioData = {
   experience: [
     {
       title: "AI Developer",
-      company: "Betopia Group (associated with Softvence Agency)",
-      location: "Dhaka, Bangladesh",
-      duration: "Feb 2026 — Present",
+      company: "Studio Butterfly",
+      location: "Dhaka, Bangladesh (Remote)",
+      duration: "Jul 2026 — Aug 2026",
       type: "Full-Time",
-      desc: "Leading the development and production deployment of AI-native platforms, multi-agent reasoning swarms, and high-concurrency FastAPI microservices.",
+      logo: "/logos/studio_butterfly.png",
+      desc: "Architected agentic AI products, autonomous multi-agent reasoning workflows, and enterprise RAG pipelines with Model Context Protocol (MCP) integrations.",
+      highlights: [
+        "Designed hierarchical multi-agent workflows (research, planning, execution) using LangGraph and LangChain",
+        "Engineered production RAG pipelines integrating dense vector databases for precise semantic search",
+        "Engineered structured LLM outputs, managed context windows, and minimized hallucinations",
+        "Built Agent-to-Agent (A2A) communication protocols and deployed tool-calling (MCP) for autonomous task execution",
+        "Optimized API latency and token budgets for high-throughput SaaS backend infrastructure"
+      ],
+      skills: ["Multi-Agent Systems", "LangGraph", "LangChain", "RAG", "MCP", "FastAPI"],
+      icon: "Brain"
+    },
+    {
+      title: "AI Developer",
+      company: "Betopia Group / Softvence Agency",
+      location: "Dhaka, Bangladesh",
+      duration: "Feb 2026 — Jul 2026",
+      type: "Full-Time",
+      logo: "/logos/softvence.png",
+      desc: "Led the development and production deployment of AI-native platforms, multi-agent reasoning swarms, and high-concurrency FastAPI microservices.",
       highlights: [
         "Architected multi-agent reasoning workflows reducing manual verification cycles by 75%",
         "Engineered production FastAPI microservices handling asynchronous document analysis and vision models",
         "Optimized inference throughput for open-source foundation models (Llama 3.3, Mistral) using Groq hardware and vLLM"
       ],
+      skills: ["FastAPI", "Python", "Llama 3.3", "Groq", "vLLM", "Docker"],
       icon: "Brain"
     },
     {
@@ -598,6 +619,7 @@ export const portfolioData = {
       title: "Lead Executive & CTF Developer",
       org: "Cyber Security Club & Center — DIU",
       duration: "Sept 2024 — Jan 2026 (1 year 5 months)",
+      logo: "/logos/cyber_security_club.png",
       desc: "Directed cybersecurity workshops and threat-hunting bootcamps; authored real-world Capture-The-Flag (CTF) challenges for hundreds of collegiate participants.",
       icon: "ShieldAlert"
     },
@@ -605,6 +627,7 @@ export const portfolioData = {
       title: "Campus Ambassador",
       org: "Creative IT Institute (CIT)",
       duration: "June 2023 — Jan 2026 (2 years 8 months)",
+      logo: "/logos/creative_it.png",
       desc: "Represented CIT across campus, organizing technical seminars, hackathon registrations, and institutional skill-building programs.",
       icon: "Megaphone"
     },
@@ -612,6 +635,7 @@ export const portfolioData = {
       title: "Executive Member",
       org: "BASIS Student's Forum — DIU Chapter",
       duration: "Nov 2024 — Jan 2026 (1 year 3 months)",
+      logo: "/logos/basis_diu.png",
       desc: "Represented national software industry association at university level, organizing industry roundtables and tech symposiums.",
       icon: "Award"
     },

@@ -45,9 +45,20 @@ const Leadership = () => {
               >
                 <div>
                   <div className="flex items-center justify-between mb-3.5">
-                    <div className="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-950/60 border border-blue-200/80 dark:border-blue-800/80 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-105 transition-transform">
-                      <Icon size={18} />
-                    </div>
+                    {item.logo ? (
+                      <div className="w-10 h-10 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-700/80 p-1 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform overflow-hidden shadow-2xs">
+                        <img 
+                          src={item.logo} 
+                          alt={item.org} 
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-950/60 border border-blue-200/80 dark:border-blue-800/80 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0 group-hover:scale-105 transition-transform">
+                        <Icon size={18} />
+                      </div>
+                    )}
+                    
                     <span className="px-2.5 py-0.5 rounded-md text-xs font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium">
                       {item.duration}
                     </span>

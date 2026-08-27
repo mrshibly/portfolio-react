@@ -31,8 +31,8 @@ const getAIResponse = (rawQuery) => {
     return `🏆 **Verified Honors & Accolades:**\n• **NASA Space Apps Winner & Global Nominee (2024)** (Regional Winner, Rajshahi Zone)\n• **NASA Space Apps Regional 2nd Runner-Up (2023)**\n• **Google Hacking Contest 2x Consecutive Champion (2022 & 2023)**\n• **Cisco Cyber Security Certified**`;
   }
 
-  if (query.includes('experience') || query.includes('job') || query.includes('betopia') || query.includes('work') || query.includes('career')) {
-    return `💼 **Career Overview:**\n• **AI Developer** at Betopia Group / Softvence (Feb 2026 – Present): Architecting multi-agent swarms, FastAPI services & Groq/vLLM optimization.\n• **IT Specialist & International Coordinator** at GM Organization (2019 – 2026): Managed cross-border digital operations & international communications.\n• **Founder** at SETU Student Freelance Marketplace (DIU Accelerator Cup Grand Finalist).`;
+  if (query.includes('experience') || query.includes('job') || query.includes('betopia') || query.includes('work') || query.includes('career') || query.includes('butterfly') || query.includes('softvence')) {
+    return `💼 **Career Overview:**\n• **AI Developer** at Studio Butterfly (Jul 2026 – Aug 2026): Architecting multi-agent reasoning swarms (LangGraph/LangChain), enterprise RAG, and MCP tool protocols.\n• **AI Developer** at Betopia Group / Softvence (Feb 2026 – Jul 2026): Multi-agent reasoning workflows, FastAPI document analysis & Groq/vLLM inference.\n• **IT Specialist & International Coordinator** at GM Organization (2019 – 2026): Managed cross-border digital operations & international communications.\n• **Founder** at SETU Student Freelance Marketplace (DIU Accelerator Cup Grand Finalist).`;
   }
 
   if (query.includes('skill') || query.includes('stack') || query.includes('tech') || query.includes('python') || query.includes('fastapi')) {
