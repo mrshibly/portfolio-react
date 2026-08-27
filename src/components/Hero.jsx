@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { 
-  ArrowUpRight, Trophy, Cpu, Send, FileText, CheckCircle2, 
-  Shield, MapPin, Sparkles, Terminal, Activity, ArrowRight, Bot
+  Trophy, Cpu, Send, FileText, CheckCircle2, 
+  Shield, Sparkles, ArrowRight
 } from 'lucide-react'
 import { GithubIcon } from './icons/GithubIcon'
 import { LinkedinIcon } from './icons/LinkedinIcon'
@@ -127,99 +127,26 @@ const Hero = () => {
 
           </div>
 
-          {/* Right Column: Interactive Profile & Architecture Card (5 Cols) */}
-          <div className="lg:col-span-5 w-full">
-            <div className="card-clean rounded-2xl overflow-hidden shadow-xs border border-slate-200 dark:border-slate-800">
+          {/* Right Column: Clean Round Frame Portrait (5 Cols) */}
+          <div className="lg:col-span-5 flex items-center justify-center">
+            <div className="relative group">
               
-              {/* Profile Top Bar */}
-              <div className="p-5 sm:p-6 bg-gradient-to-b from-blue-50/50 to-transparent dark:from-blue-950/20 border-b border-slate-100 dark:border-slate-800">
-                <div className="flex items-center gap-4">
-                  
-                  {/* Photo with live beacon */}
-                  <div className="relative shrink-0">
-                    <img 
-                      src={hero.avatar || "/profile.png"} 
-                      alt={hero.name} 
-                      className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover object-center border-2 border-white dark:border-slate-800 shadow-md ring-1 ring-slate-200 dark:ring-slate-700"
-                    />
-                    <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white dark:border-slate-900" />
-                  </div>
-
-                  {/* Profile Identification */}
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1.5 mb-1">
-                      <h3 className="font-bold text-slate-900 dark:text-white text-base sm:text-lg tracking-tight truncate">
-                        {hero.name}
-                      </h3>
-                    </div>
-                    <p className="text-xs text-blue-600 dark:text-blue-400 font-mono font-semibold">
-                      AI Systems Architect
-                    </p>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400 font-mono mt-0.5">
-                      B.Sc. in CSE • CGPA 3.63 / 4.00
-                    </p>
-                  </div>
-                </div>
+              {/* Subtle background decorative aura */}
+              <div className="absolute inset-0 rounded-full bg-blue-500/10 dark:bg-blue-500/20 blur-2xl scale-105 group-hover:scale-110 transition-transform duration-500" />
+              
+              {/* Round Photo Frame */}
+              <div className="relative w-56 h-56 xs:w-64 xs:h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-[320px] lg:h-[320px] rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-2xl ring-1 ring-slate-200/80 dark:ring-slate-700/80 bg-slate-100 dark:bg-slate-800">
+                <img 
+                  src={hero.avatar || "/profile.png"} 
+                  alt={hero.name} 
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                />
               </div>
 
-              {/* Core Architecture Matrix */}
-              <div className="p-5 sm:p-6 space-y-4 text-xs font-mono bg-white dark:bg-slate-900">
-                
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between pb-1.5 border-b border-slate-100 dark:border-slate-800">
-                    <span className="text-slate-500 dark:text-slate-400 font-medium">Agent Frameworks</span>
-                    <span className="text-slate-900 dark:text-slate-100 font-semibold">LangGraph • CrewAI • AutoGen</span>
-                  </div>
-
-                  <div className="flex items-center justify-between pb-1.5 border-b border-slate-100 dark:border-slate-800">
-                    <span className="text-slate-500 dark:text-slate-400 font-medium">Microservices</span>
-                    <span className="text-slate-900 dark:text-slate-100 font-semibold">FastAPI • Python • Docker</span>
-                  </div>
-
-                  <div className="flex items-center justify-between pb-1.5 border-b border-slate-100 dark:border-slate-800">
-                    <span className="text-slate-500 dark:text-slate-400 font-medium">Vector Engines</span>
-                    <span className="text-slate-900 dark:text-slate-100 font-semibold">Hybrid FAISS • ChromaDB</span>
-                  </div>
-
-                  <div className="flex items-center justify-between pb-1.5 border-b border-slate-100 dark:border-slate-800">
-                    <span className="text-slate-500 dark:text-slate-400 font-medium">Hardware Inference</span>
-                    <span className="text-slate-900 dark:text-slate-100 font-semibold">Groq LPU • vLLM • PyTorch</span>
-                  </div>
-
-                  <div className="flex items-center justify-between pb-1.5 border-b border-slate-100 dark:border-slate-800">
-                    <span className="text-slate-500 dark:text-slate-400 font-medium">Workflow Pipelines</span>
-                    <span className="text-slate-900 dark:text-slate-100 font-semibold">n8n Enterprise (150+ Workflows)</span>
-                  </div>
-                </div>
-
-                {/* Quick Metric Grid */}
-                <div className="grid grid-cols-3 gap-2 pt-2 text-center">
-                  <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
-                    <p className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">25+</p>
-                    <p className="text-[9px] uppercase font-semibold text-slate-500 dark:text-slate-400">Systems</p>
-                  </div>
-                  <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
-                    <p className="text-base sm:text-lg font-bold text-blue-600 dark:text-blue-400">3.63</p>
-                    <p className="text-[9px] uppercase font-semibold text-slate-500 dark:text-slate-400">CSE CGPA</p>
-                  </div>
-                  <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
-                    <p className="text-base sm:text-lg font-bold text-emerald-600 dark:text-emerald-400">NASA</p>
-                    <p className="text-[9px] uppercase font-semibold text-slate-500 dark:text-slate-400">Winner</p>
-                  </div>
-                </div>
-
-                {/* Footer Location & Catalog Link */}
-                <div className="pt-2 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
-                  <div className="flex items-center gap-1.5">
-                    <MapPin size={13} className="text-slate-400" />
-                    <span>Dhaka, Bangladesh</span>
-                  </div>
-                  <Link to="/archive" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline flex items-center gap-0.5">
-                    <span>14+ Repos</span>
-                    <ArrowUpRight size={13} />
-                  </Link>
-                </div>
-
+              {/* Verified Online Status Badge */}
+              <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md px-3 py-1.5 rounded-full flex items-center gap-2 font-mono text-[11px] font-semibold text-slate-800 dark:text-slate-200">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span>ACTIVE ARCHITECT</span>
               </div>
 
             </div>
