@@ -1,7 +1,7 @@
 import React from 'react'
 import { 
   FileText, ArrowUpRight, Mail, MapPin, 
-  Award, Sparkles, Terminal, Layers
+  Award, Terminal, Layers, ArrowRight
 } from 'lucide-react'
 import { GithubIcon } from './icons/GithubIcon'
 import { LinkedinIcon } from './icons/LinkedinIcon'
@@ -10,105 +10,109 @@ import { portfolioData } from '../data/portfolioData'
 const Hero = () => {
   const { hero, contact } = portfolioData
 
+  const specialties = [
+    "Multi-Agent Swarms",
+    "LangGraph & LangChain",
+    "Production RAG",
+    "Model Context Protocol (MCP)",
+    "FastAPI Microservices",
+    "Llama 3.3 & Groq"
+  ]
+
   return (
-    <section className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 border-b border-slate-200/80 dark:border-slate-800/80">
-      <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+    <section className="relative pt-24 sm:pt-28 md:pt-32 pb-14 sm:pb-16 border-b border-slate-200/80 dark:border-slate-800/80">
+      
+      {/* Precision Ambient Grid */}
+      <div className="absolute inset-0 bg-linear-grid opacity-60 pointer-events-none" />
+
+      <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative z-10">
         
-        {/* Identity Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-6 mb-8">
+        {/* Top Precision Status Bar */}
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-8 text-xs font-mono">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="font-medium">AVAILABLE FOR ROLES</span>
+          </div>
+
+          <div className="inline-flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+            <Award size={13} className="text-blue-600 dark:text-blue-400" />
+            <span>NASA Space Apps Global Nominee · 2x Google Champion</span>
+          </div>
+        </div>
+
+        {/* Identity & Portrait Lockup */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 sm:gap-8 mb-8 pb-8 border-b border-slate-200/80 dark:border-slate-800/80">
           
-          {/* Authentic Portrait Avatar */}
-          <div className="relative shrink-0">
-            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 shadow-2xs">
+          <div className="space-y-1.5 max-w-xl">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              Md. Mahmudur Rahman
+            </h1>
+            <p className="text-lg sm:text-xl font-medium text-slate-600 dark:text-slate-300">
+              AI Systems Architect & Backend Engineer
+            </p>
+            <p className="text-xs font-mono text-slate-500 dark:text-slate-400 flex items-center gap-1.5 pt-1">
+              <MapPin size={12} />
+              <span>Dhaka, Bangladesh · DIU B.Sc. CSE (3.63 CGPA)</span>
+            </p>
+          </div>
+
+          {/* Crisp Framed Portrait */}
+          <div className="shrink-0">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden border border-slate-300/80 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-xs">
               <img 
                 src={hero.avatar || "/profile.png"} 
                 alt="Md. Mahmudur Rahman" 
-                className="w-full h-full object-cover object-center"
+                className="w-full h-full object-cover object-center grayscale hover:grayscale-0 transition-all duration-300"
               />
             </div>
-            <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-white dark:border-slate-900" title="Available for Roles" />
-          </div>
-
-          {/* Name & Primary Role */}
-          <div className="space-y-1">
-            <div className="flex flex-wrap items-center gap-2.5">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                Md. Mahmudur Rahman
-              </h1>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200/80 dark:border-emerald-800/80 text-emerald-700 dark:text-emerald-300 text-xs font-mono font-medium">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                Available for Roles
-              </span>
-            </div>
-
-            <p className="text-base sm:text-lg text-slate-700 dark:text-slate-300 font-medium">
-              AI Systems Architect & Backend Engineer
-            </p>
-
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500 dark:text-slate-400 font-mono pt-0.5">
-              <span className="inline-flex items-center gap-1">
-                <Award size={13} className="text-blue-600 dark:text-blue-400" />
-                NASA Space Apps Winner & Global Nominee
-              </span>
-              <span>·</span>
-              <span className="inline-flex items-center gap-1">
-                <MapPin size={13} />
-                Dhaka, Bangladesh
-              </span>
-            </div>
           </div>
 
         </div>
 
-        {/* Editorial Bio Statement */}
-        <div className="space-y-3.5 text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-8">
+        {/* Editorial Statement */}
+        <div className="space-y-4 text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-8">
           <p>
-            I build autonomous multi-agent reasoning swarms, production RAG pipelines, and high-concurrency Python backend services. Most recently architected agentic systems at <strong className="text-slate-900 dark:text-white font-semibold">Studio Butterfly</strong> and <strong className="text-slate-900 dark:text-white font-semibold">Betopia Group / Softvence</strong>, engineering hierarchical LangGraph workflows, vector retrieval, and Model Context Protocol (MCP) integrations.
+            I architect autonomous multi-agent workflows, deterministic RAG pipelines, and high-concurrency Python microservices. Most recently at <strong className="font-semibold text-slate-900 dark:text-white">Studio Butterfly</strong> and <strong className="font-semibold text-slate-900 dark:text-white">Betopia Group / Softvence</strong>, I built production agent swarms with LangGraph, Model Context Protocol (MCP) tool systems, and low-latency LLM inference pipelines.
           </p>
           <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400">
-            Two-time Google Hacking Contest Champion with a B.Sc. in Computer Science & Engineering from Daffodil International University (CGPA 3.63/4.00). Focused on bridging the gap between frontier AI research and resilient, scalable production software.
+            Passionate about deterministic agent execution, clean system contracts, and bridging cutting-edge AI research with resilient production infrastructure.
           </p>
         </div>
 
-        {/* Technical Architecture Quick Highlights */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
-          <div className="p-3 rounded-lg border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xs">
-            <span className="text-[10px] font-mono uppercase text-slate-400 dark:text-slate-500 font-semibold block mb-0.5">Primary Focus</span>
-            <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 block truncate">Multi-Agent Swarms</span>
-          </div>
-          <div className="p-3 rounded-lg border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xs">
-            <span className="text-[10px] font-mono uppercase text-slate-400 dark:text-slate-500 font-semibold block mb-0.5">Core Backend</span>
-            <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 block truncate">FastAPI & Python</span>
-          </div>
-          <div className="p-3 rounded-lg border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xs">
-            <span className="text-[10px] font-mono uppercase text-slate-400 dark:text-slate-500 font-semibold block mb-0.5">Security</span>
-            <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 block truncate">2x Google Champion</span>
-          </div>
-          <div className="p-3 rounded-lg border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xs">
-            <span className="text-[10px] font-mono uppercase text-slate-400 dark:text-slate-500 font-semibold block mb-0.5">Academic Degree</span>
-            <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 block truncate">B.Sc. CSE (3.63 CGPA)</span>
+        {/* Linear Hairline Specialties Strip */}
+        <div className="mb-8">
+          <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 block mb-2.5 font-semibold">
+            Core Architecture & Tooling
+          </span>
+          <div className="flex flex-wrap gap-2">
+            {specialties.map((spec, i) => (
+              <span 
+                key={i}
+                className="px-2.5 py-1 rounded-md text-xs font-mono font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300"
+              >
+                {spec}
+              </span>
+            ))}
           </div>
         </div>
 
-        {/* Editorial Action & Connection Bar */}
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-3 pt-5 border-t border-slate-200/80 dark:border-slate-800 text-xs sm:text-sm font-medium">
+        {/* Precision Action & Link Strip */}
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-6 border-t border-slate-200/80 dark:border-slate-800/80 text-xs sm:text-sm font-medium">
           
-          <a 
-            href="/mahmudur_rahman_cv.pdf" 
-            target="_blank" 
+          <a
+            href="/mahmudur_rahman_cv.pdf"
+            target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold transition-colors"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-2xs transition-colors"
           >
-            <FileText size={15} />
-            <span>Curriculum Vitae (PDF)</span>
-            <ArrowUpRight size={14} />
+            <FileText size={14} />
+            <span>Download CV (PDF)</span>
+            <ArrowUpRight size={13} />
           </a>
 
-          <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">·</span>
-
-          <a 
-            href={contact.github} 
-            target="_blank" 
+          <a
+            href={contact.github}
+            target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white transition-colors"
           >
@@ -117,11 +121,9 @@ const Hero = () => {
             <ArrowUpRight size={13} />
           </a>
 
-          <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">·</span>
-
-          <a 
-            href={contact.linkedin} 
-            target="_blank" 
+          <a
+            href={contact.linkedin}
+            target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white transition-colors"
           >
@@ -130,10 +132,8 @@ const Hero = () => {
             <ArrowUpRight size={13} />
           </a>
 
-          <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">·</span>
-
-          <a 
-            href={`mailto:${contact.email}`} 
+          <a
+            href={`mailto:${contact.email}`}
             className="inline-flex items-center gap-1.5 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white transition-colors"
           >
             <Mail size={14} />

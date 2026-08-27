@@ -28,8 +28,8 @@
   }
 
   .dark {
-    --bg-primary: #0A0E17;
-    --bg-surface: #111827;
+    --bg-primary: #090D16;
+    --bg-surface: #0F172A;
     --border-color: #1E293B;
     --text-primary: #F8FAFC;
     --text-secondary: #CBD5E1;
@@ -38,11 +38,7 @@
 
   html {
     scroll-behavior: smooth;
-    background-color: #FAFAFA;
-  }
-
-  html.dark {
-    background-color: #0A0E17;
+    background-color: var(--bg-primary);
   }
 
   body {
@@ -56,34 +52,45 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    letter-spacing: -0.03em;
+    letter-spacing: -0.035em;
     font-weight: 700;
   }
 }
 
-/* Pristine Card Component */
+/* Linear / Swiss Card Component */
 .card-clean {
   background-color: #FFFFFF;
   border: 1px solid #E2E8F0;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
 }
 
 .card-clean:hover {
   border-color: #CBD5E1;
-  box-shadow: 0 6px 18px -4px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
-  transform: translateY(-2px);
+  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.04);
 }
 
 .dark .card-clean {
-  background-color: #111827;
+  background-color: #0F172A;
   border-color: #1E293B;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .dark .card-clean:hover {
   border-color: #334155;
-  box-shadow: 0 6px 18px -4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.3);
+}
+
+/* Linear Precision Grid Background */
+.bg-linear-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(226, 232, 240, 0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(226, 232, 240, 0.4) 1px, transparent 1px);
+}
+
+.dark .bg-linear-grid {
+  background-image: 
+    linear-gradient(to right, rgba(30, 41, 59, 0.35) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30, 41, 59, 0.35) 1px, transparent 1px);
 }
 
 /* Mask for Ticker */
@@ -93,8 +100,8 @@
 
 /* Minimal Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
