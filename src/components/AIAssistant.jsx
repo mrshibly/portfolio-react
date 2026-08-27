@@ -40,7 +40,7 @@ const getAIResponse = (rawQuery) => {
   }
 
   if (query.includes('education') || query.includes('university') || query.includes('cgpa') || query.includes('gpa') || query.includes('degree')) {
-    return `🎓 **Education:**\n• **B.Sc. in Computer Science & Engineering** from Daffodil International University (CGPA: 3.63/4.00, 2022–2025).\n• **HSC Science** from BNMPC (GPA: 5.00/5.00).\n• **SSC Science** from Govt. Laboratory High School (GPA: 5.00/5.00).`;
+    return `🎓 **Education:**\n• **B.Sc. in Computer Science & Engineering** from Daffodil International University (CGPA: 3.64/4.00, 2022–2025).\n• **HSC Science** from BNMPC (GPA: 5.00/5.00).\n• **SSC Science** from Govt. Laboratory High School (GPA: 5.00/5.00).`;
   }
 
   if (query.includes('resume') || query.includes('cv') || query.includes('pdf') || query.includes('download')) {

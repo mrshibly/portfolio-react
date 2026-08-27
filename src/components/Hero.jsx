@@ -52,7 +52,7 @@ const Hero = () => {
             </p>
             <p className="text-xs font-mono text-slate-500 dark:text-slate-400 flex items-center gap-1.5 pt-1">
               <MapPin size={12} />
-              <span>Dhaka, Bangladesh · DIU B.Sc. CSE (3.63 CGPA)</span>
+              <span>Dhaka, Bangladesh · DIU B.Sc. CSE (3.64 CGPA)</span>
             </p>
           </div>
 

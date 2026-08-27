@@ -131,10 +131,10 @@ const defaultData = {
   ],
   education: [
     {
-      degree: "B.Sc. in Computer Science & Engineering",
+      degree: "Bachelor of Science in Computer Science & Engineering",
       institution: "Daffodil International University",
-      duration: "2022 - 2025",
-      desc: "Focused on AI, Algorithms, and Software Engineering. GPA: 3.63/4.00",
+      period: "2022 - 2025",
+      desc: "Focused on AI, Algorithms, and Software Engineering. GPA: 3.64/4.00",
       logo: ""
     }
   ],

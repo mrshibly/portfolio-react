@@ -10,7 +10,7 @@ const Stats = () => {
   const stats = [
     { label: "Systems Engineered", value: `${ghStats.publicRepos}+`, desc: "Verified GitHub Repos" },
     { label: "Agentic Automations", value: "150+", desc: "n8n & Swarm Pipelines" },
-    { label: "Academic Record", value: "3.63", desc: "DIU B.Sc CSE CGPA" },
+    { label: "Academic Record", value: "3.64", desc: "DIU B.Sc CSE CGPA" },
     { label: "NASA & Global Awards", value: "03x", desc: "NASA Space Apps & Google" }
   ]
 

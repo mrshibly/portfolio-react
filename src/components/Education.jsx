@@ -27,7 +27,7 @@ const Education = () => {
             </h2>
           </div>
           <p className="text-slate-600 dark:text-slate-300 max-w-md text-xs sm:text-sm md:text-base font-normal">
-            B.Sc. in Computer Science & Engineering with distinction (CGPA 3.63/4.00) and consistent GPA 5.00/5.00 academic records.
+            B.Sc. in Computer Science & Engineering with distinction (CGPA 3.64/4.00) and consistent GPA 5.00/5.00 academic records.
           </p>
         </div>
 

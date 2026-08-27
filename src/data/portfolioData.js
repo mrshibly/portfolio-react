@@ -678,7 +678,7 @@ export const portfolioData = {
       degree: "Bachelor of Science in Computer Science & Engineering",
       institution: "Daffodil International University (DIU)",
       duration: "Jan 2022 — Dec 2025",
-      result: "CGPA: 3.63 / 4.00",
+      result: "CGPA: 3.64 / 4.00",
       logo: "/logos/diu.png",
       desc: "Rigorous coursework in Artificial Intelligence, Multi-Agent Systems, Algorithms, Advanced Data Structures, and Database Systems.",
       icon: "GraduationCap"
