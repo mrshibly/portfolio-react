@@ -70,7 +70,7 @@ const Projects = () => {
           {displayedProjects.map((project) => (
             <div 
               key={project.id} 
-              className="card-clean rounded-xl overflow-hidden flex flex-col justify-between group"
+              className="card-clean rounded-xl overflow-hidden flex flex-col justify-between group hover:-translate-y-1.5 hover:shadow-lg hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300"
             >
               {/* Media Container */}
               <div className="relative w-full aspect-[16/9] overflow-hidden bg-slate-100 dark:bg-slate-800 border-b border-slate-100 dark:border-slate-800">
@@ -82,7 +82,7 @@ const Projects = () => {
                     e.target.onerror = null
                     e.target.src = 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop'
                   }}
-                  className="w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-300"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                 />
                 
                 {/* Top Badges */}
