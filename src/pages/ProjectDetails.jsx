@@ -119,6 +119,10 @@ const ProjectDetails = () => {
                 <img 
                   src={project.image} 
                   alt={project.title} 
+                  onError={(e) => {
+                    e.target.onerror = null
+                    e.target.src = 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop'
+                  }}
                   className="w-full h-full object-cover object-center"
                 />
               </div>

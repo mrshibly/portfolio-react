@@ -157,7 +157,7 @@ export const portfolioData = {
       tagline: "Local-first autonomous multi-agent platform with self-healing execution loops",
       desc: "A local-first multi-agent orchestration architecture featuring a central routing engine, conversational memory retention, and specialized task agents powered by local LLMs (Gemma/Ollama) with Telegram bot integrations.",
       tags: ["Python", "Multi-Agent", "Ollama", "Local LLMs", "Telegram API", "LangGraph"],
-      image: "https://images.unsplash.com/photo-1677442136019-21780efad99a?q=80&w=1200&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop",
       link: "https://github.com/mrshibly/APEX-Hybrid-AI-Lab",
       featured: true,
       stars: 1,
