@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ArrowLeft, Search, FolderGit2, ArrowUpRight, Star } from 'lucide-react'
+import { ArrowLeft, Search, FolderGit2, ArrowUpRight, Star, X } from 'lucide-react'
 import { GithubIcon } from '../components/icons/GithubIcon'
 import { Link } from 'react-router-dom'
 import { portfolioData } from '../data/portfolioData'
@@ -25,6 +25,12 @@ const Archive = () => {
 
     return matchesSearch && matchesCat
   })
+
+  // Count helper
+  const getCategoryCount = (cat) => {
+    if (cat === 'All') return projects.length
+    return projects.filter(p => p.category === cat).length
+  }
 
   return (
     <section className="min-h-screen pt-24 sm:pt-32 pb-20 sm:pb-24 relative bg-slate-50 dark:bg-slate-950 transition-colors">
@@ -53,37 +59,64 @@ const Archive = () => {
           </p>
         </div>
 
-        {/* Controls: Search & Category Filter */}
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4 mb-6 sm:mb-8 p-3 sm:p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs">
+        {/* Redesigned Search & Category Filter Controls */}
+        <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
           
-          {/* Search Box */}
-          <div className="relative w-full md:w-80">
-            <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search keyword, tag, or topic..."
-              className="w-full pl-9 pr-4 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
-            />
+          {/* Top Row: Full Search Bar with Live Result Counter */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+            <div className="relative flex-1">
+              <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" />
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search by system title, tech stack (e.g. FastAPI, LangGraph, PyTorch), or keyword..."
+                className="w-full pl-10 pr-9 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
+              />
+              {searchTerm && (
+                <button
+                  onClick={() => setSearchTerm('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-0.5"
+                >
+                  <X size={14} />
+                </button>
+              )}
+            </div>
+
+            <div className="text-xs font-mono text-slate-500 dark:text-slate-400 shrink-0 px-1">
+              Showing <span className="font-bold text-slate-900 dark:text-white">{filteredProjects.length}</span> of {projects.length} systems
+            </div>
           </div>
 
-          {/* Category Chips */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none w-full md:w-auto">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors shrink-0 ${
-                  selectedCategory === cat
-                    ? 'bg-blue-600 text-white shadow-2xs'
-                    : 'bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+          {/* Bottom Row: Flex-Wrapping Category Filter Pills (No Scrollbar) */}
+          <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-2">
+            {categories.map((cat) => {
+              const count = getCategoryCount(cat)
+              const isSelected = selectedCategory === cat
+
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                    isSelected
+                      ? 'bg-blue-600 text-white shadow-2xs font-semibold'
+                      : 'bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+                  }`}
+                >
+                  <span>{cat}</span>
+                  <span className={`px-1.5 py-0.2 rounded-md text-[10px] font-mono font-bold ${
+                    isSelected 
+                      ? 'bg-blue-700 text-white' 
+                      : 'bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-300'
+                  }`}>
+                    {count}
+                  </span>
+                </button>
+              )
+            })}
           </div>
+
         </div>
 
         {/* Catalog List */}
@@ -152,7 +185,7 @@ const Archive = () => {
                   to={`/project/${project.id}`}
                   className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-colors shadow-2xs"
                 >
-                  <span>Details</span>
+                  <span>Architecture</span>
                   <ArrowUpRight size={13} />
                 </Link>
               </div>
