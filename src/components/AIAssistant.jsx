@@ -83,18 +83,40 @@ const AIAssistant = () => {
     }
   }, [messages, isOpen]);
 
-  const processQuery = (userQuery) => {
+  const processQuery = async (userQuery) => {
     if (!userQuery.trim() || isLoading) return;
 
     setMessages(prev => [...prev, { role: 'user', content: userQuery }]);
     setInput('');
     setIsLoading(true);
 
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: userQuery })
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.reply && !data.reply.includes("trouble connecting to my brain")) {
+          const cleanReply = data.reply
+            .replace(/\*\*/g, '')
+            .replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '');
+          setMessages(prev => [...prev, { role: 'assistant', content: cleanReply }]);
+          setIsLoading(false);
+          return;
+        }
+      }
+    } catch (err) {
+      // Silent fallback to local instant knowledge base
+    }
+
     setTimeout(() => {
       const response = getAIResponse(userQuery);
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
       setIsLoading(false);
-    }, 350);
+    }, 250);
   };
 
   const handleSend = (e) => {
