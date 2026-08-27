@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { ArrowLeft, CheckCircle2, Cpu, Sparkles, ArrowUpRight, Star, Workflow, Network, ArrowRight } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, Cpu, Sparkles, ArrowUpRight, Star, Workflow, Network, Layers } from 'lucide-react'
 import { GithubIcon } from '../components/icons/GithubIcon'
 import { portfolioData } from '../data/portfolioData'
+import MermaidViewer from '../components/MermaidViewer'
 
 const ProjectDetails = () => {
   const { id } = useParams()
@@ -31,7 +32,8 @@ const ProjectDetails = () => {
           <span>Back to Projects Archive</span>
         </Link>
 
-        <div className="grid lg:grid-cols-12 gap-8 sm:gap-10 items-start">
+        {/* Top Header Grid */}
+        <div className="grid lg:grid-cols-12 gap-8 sm:gap-10 items-start mb-10 sm:mb-12">
           
           {/* Left Column: Details & Highlights (7 Cols) */}
           <div className="lg:col-span-7">
@@ -83,35 +85,8 @@ const ProjectDetails = () => {
               </div>
             )}
 
-            {/* Interactive Architecture Flowchart */}
-            {project.architectureSteps && project.architectureSteps.length > 0 && (
-              <div className="mb-6 sm:mb-7 p-4 sm:p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs">
-                <h3 className="text-xs font-mono uppercase tracking-wider text-slate-800 dark:text-slate-200 flex items-center gap-2 font-bold mb-3.5">
-                  <Network size={14} className="text-blue-600 dark:text-blue-400" />
-                  <span>System Dataflow & Pipeline Execution</span>
-                </h3>
-                
-                <div className="space-y-2.5">
-                  {project.architectureSteps.map((step, idx) => (
-                    <div 
-                      key={idx} 
-                      className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 flex items-start gap-3 text-xs"
-                    >
-                      <span className="w-5 h-5 rounded-md bg-blue-600 text-white flex items-center justify-center font-mono font-bold text-[10px] shrink-0 mt-0.5">
-                        0{idx + 1}
-                      </span>
-                      <div className="min-w-0">
-                        <p className="font-bold text-slate-900 dark:text-white font-mono text-xs">{step.node}</p>
-                        <p className="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed mt-0.5">{step.desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
             {/* Actions */}
-            <div className="flex flex-col sm:flex-row flex-wrap gap-2.5 mb-8 w-full">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-2.5 mb-6 w-full">
               {project.link && (
                 <a 
                   href={project.link} 
@@ -171,6 +146,55 @@ const ProjectDetails = () => {
           </div>
 
         </div>
+
+        {/* Dedicated System Architecture Section with Mermaid Flowchart */}
+        {project.mermaid && (
+          <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800">
+            <div className="mb-5 flex flex-col md:flex-row md:items-end justify-between gap-2">
+              <div>
+                <div className="inline-flex items-center gap-1.5 text-xs font-mono text-blue-600 dark:text-blue-400 font-semibold mb-1">
+                  <Workflow size={13} />
+                  <span>Interactive Architecture Flowchart</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                  End-to-End System Pipeline
+                </h3>
+              </div>
+              <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+                Mermaid.js SVG Rendering
+              </span>
+            </div>
+
+            <MermaidViewer chart={project.mermaid} />
+          </div>
+        )}
+
+        {/* Step-by-Step Pipeline Execution */}
+        {project.architectureSteps && project.architectureSteps.length > 0 && (
+          <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+              <Network size={16} className="text-blue-600 dark:text-blue-400" />
+              <span>Step-by-Step Dataflow Nodes</span>
+            </h3>
+            
+            <div className="grid md:grid-cols-2 gap-3.5">
+              {project.architectureSteps.map((step, idx) => (
+                <div 
+                  key={idx} 
+                  className="card-clean p-4 rounded-xl flex items-start gap-3 text-xs"
+                >
+                  <span className="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center font-mono font-bold text-xs shrink-0 mt-0.5">
+                    0{idx + 1}
+                  </span>
+                  <div className="min-w-0">
+                    <p className="font-bold text-slate-900 dark:text-white font-mono text-xs">{step.node}</p>
+                    <p className="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mt-1">{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
       </div>
     </div>

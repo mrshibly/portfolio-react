@@ -9,11 +9,13 @@ export default defineConfig({
     }
   },
   build: {
+    chunkSizeWarningLimit: 1200,
     rollupOptions: {
       output: {
         manualChunks: {
           'vendor-motion': ['framer-motion'],
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-mermaid': ['mermaid']
         }
       }
     }

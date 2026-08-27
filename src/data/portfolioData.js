@@ -28,6 +28,72 @@ export const portfolioData = {
   ],
   projects: [
     {
+      id: "song-automation-n8n",
+      title: "Song-Automation-N8N",
+      category: "Workflow Automation",
+      tagline: "Enterprise asynchronous AI music, lyrics & video generation pipeline",
+      desc: "An asynchronous pipeline orchestrating Salla store webhooks, Claude 3.5 Sonnet lyric generation, Suno V4 audio synthesis, Flux image generation, and a custom FastAPI/Whisper video rendering microservice with Telegram review gates.",
+      tags: ["n8n", "FastAPI", "Whisper", "Claude 3.5", "Suno AI", "Webhooks"],
+      image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/Song-Automation-N8N",
+      featured: true,
+      stars: 1,
+      metrics: "Fully Autonomous Multi-Modal Generation",
+      highlights: [
+        "Asynchronous webhook consumer handling high-volume order events with retry queues",
+        "Human-in-the-loop Telegram approval gate allowing instant operator review before final render",
+        "Custom video rendering microservice synchronizing subtitle typography with Whisper audio stamps"
+      ],
+      mermaid: `flowchart TD
+    classDef intake fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
+    classDef ai fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef micro fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
+    classDef hitl fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
+    classDef delivery fill:#ffebee,stroke:#c62828,stroke-width:2px;
+
+    subgraph Intake ["1. Order Intake & DB Synchronization"]
+        A["Salla Store Webhook"] --> B["Signature Verification & Parsing"]
+        B --> C["Supabase Idempotency Check"]
+        C --> D["Store Order in Database"]
+    end
+
+    subgraph AI_Orchestration ["2. Multi-Modal AI Generation"]
+        D --> E["Claude 3.5 API\\n(Poetic Lyric Writing)"]
+        E --> F["Suno V4 AI\\n(Music Synthesis Trigger)"]
+        F --> G["Asynchronous Wait Node\\n(Polling KIE API)"]
+        G --> H["Flux Schnell via Replicate\\n(Lyrics-Aware Cover Art)"]
+    end
+
+    subgraph Video_Service ["3. Python Rendering Microservice"]
+        H --> I["FastAPI Microservice\\n(Async Background Processing)"]
+        I --> J["Stable-Whisper AI\\n(Word-Level Timestamp Sync)"]
+        J --> K["Arabic Reshaper & FFmpeg\\n(RTL Typography & H.264 Video)"]
+    end
+
+    subgraph Approval ["4. Human-in-the-Loop Gate"]
+        K --> L["Telegram Approval Bot\\n(Interactive Inline Buttons)"]
+        L -- "Reject / Retry" --> M["State Increment & Re-route"]
+        M --> E
+    end
+
+    subgraph Delivery ["5. Automated Fulfillment"]
+        L -- "Approve" --> N["Update Supabase Status"]
+        N --> O["Karzoun WhatsApp API\\n(Direct Customer Delivery)"]
+    end
+
+    class A,B,C,D intake;
+    class E,F,G,H ai;
+    class I,J,K micro;
+    class L,M hitl;
+    class N,O delivery;`,
+      architectureSteps: [
+        { node: "Salla Webhook", desc: "Captures new customer song dedication and thematic order" },
+        { node: "n8n Orchestrator", desc: "Dispatches Claude 3.5 for lyrics and Suno V4 for audio stems" },
+        { node: "Telegram Approval Gate", desc: "Interactive bot sends audio preview to operator for 1-click QA" },
+        { node: "Whisper + Video Service", desc: "FastAPI generates synchronized lyric typography video" }
+      ]
+    },
+    {
       id: "phantomapi",
       title: "PhantomAPI",
       category: "AI Infrastructure",
@@ -44,6 +110,39 @@ export const portfolioData = {
         "Full OpenAI v1/chat/completions specification compatibility including Server-Sent Events (SSE)",
         "Integrated rate limiting and proxy rotation to guarantee high availability"
       ],
+      mermaid: `flowchart TD
+    classDef client fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
+    classDef gw fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef worker fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
+    classDef stream fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
+
+    subgraph ClientLayer ["1. Client Requests"]
+        C1["n8n Agent"] --> API["POST /v1/chat/completions"]
+        C2["Custom AI App"] --> API
+    end
+
+    subgraph Gateway ["2. FastAPI Proxy & Token Manager"]
+        API --> V["Pydantic Validation & Token Cache"]
+        V --> Q["Async Request Queue"]
+    end
+
+    subgraph BrowserPool ["3. Playwright Headless Worker Pool"]
+        Q --> P1["Worker Node #1 (Session Keep-Alive)"]
+        Q --> P2["Worker Node #2 (Session Keep-Alive)"]
+        P1 --> DOM["ChatGPT Web DOM Interface"]
+        P2 --> DOM
+    end
+
+    subgraph StreamLayer ["4. SSE Real-Time Streaming"]
+        DOM --> SSE["Token Mutation Observer"]
+        SSE --> StreamOut["Server-Sent Events (SSE) Stream"]
+        StreamOut --> C1
+    end
+
+    class C1,C2,API client;
+    class V,Q gw;
+    class P1,P2,DOM worker;
+    class SSE,StreamOut stream;`,
       architectureSteps: [
         { node: "Client / Agent", desc: "Sends standard OpenAI POST /v1/chat/completions payload" },
         { node: "FastAPI Gateway", desc: "Validates schema, checks token cache, manages rate limits" },
@@ -68,6 +167,38 @@ export const portfolioData = {
         "Self-healing execution loops with automated fallback retries on failed tool executions",
         "Stateful conversational memory layer preserving context across complex multi-turn sessions"
       ],
+      mermaid: `flowchart TD
+    classDef input fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
+    classDef router fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef agents fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
+    classDef loop fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
+
+    subgraph InputChannel ["1. Inbound Intent"]
+        T["Telegram Bot"] --> R["Master Intent Router"]
+        CLI["Local CLI"] --> R
+    end
+
+    subgraph MemoryContext ["2. Context & Memory"]
+        R <--> Mem["Stateful SQLite Memory"]
+    end
+
+    subgraph SwarmNodes ["3. Specialized Worker Agents"]
+        R --> A1["Coding Agent (DeepSeek-Coder)"]
+        R --> A2["Research Agent (Llama 3.3)"]
+        R --> A3["Automation Agent (Ollama Local)"]
+    end
+
+    subgraph SelfHealing ["4. Validation & Self-Healing Loop"]
+        A1 & A2 & A3 --> Critic["Self-Healing Critic Node"]
+        Critic -- "Error Detected" --> Retry["Auto-Correct Parameter Injection"]
+        Retry --> R
+        Critic -- "Verified Output" --> Out["Response Dispatch"]
+    end
+
+    class T,CLI input;
+    class R,Mem router;
+    class A1,A2,A3 agents;
+    class Critic,Retry,Out loop;`,
       architectureSteps: [
         { node: "User Input (Telegram/CLI)", desc: "Captures natural language commands & operational goals" },
         { node: "Master Intent Router", desc: "Evaluates task complexity and decomposes into sub-goals" },
@@ -92,35 +223,40 @@ export const portfolioData = {
         "Hybrid RAG policy verification preventing hallucination in return and warranty answers",
         "Streaming response generation with sub-150ms time-to-first-token inference"
       ],
+      mermaid: `flowchart TD
+    classDef query fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
+    classDef rag fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef model fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
+    classDef output fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
+
+    subgraph QueryIn ["1. Query Ingestion"]
+        Q["Customer Query (Bangla/Banglish)"] --> V["Vector Embedding (bge-m3)"]
+    end
+
+    subgraph RAGLayer ["2. Policy Retrieval & Grounding"]
+        V --> FAISS["FAISS Index (E-Commerce Policies)"]
+        FAISS --> Context["Context Augmentation Engine"]
+    end
+
+    subgraph Inference ["3. QLoRA Adapter Inference"]
+        Context --> LLM["Qwen3-8B Base Model"]
+        LLM <--> LoRA["Fine-Tuned QLoRA Weights"]
+    end
+
+    subgraph Streaming ["4. Sub-150ms Delivery"]
+        LoRA --> API["FastAPI SSE Response"]
+        API --> Client["Customer Chat Widget"]
+    end
+
+    class Q,V query;
+    class FAISS,Context rag;
+    class LLM,LoRA model;
+    class API,Client output;`,
       architectureSteps: [
         { node: "Customer Query", desc: "Receives raw Bengali/Banglish e-commerce support inquiry" },
         { node: "Dense Vector Retrieval", desc: "FAISS searches merchant return policies and order database" },
         { node: "QLoRA Adapter Weights", desc: "Qwen3-8B fine-tuned base applies localized tone and empathy" },
         { node: "FastAPI Stream", desc: "Streams tokenized customer response with sub-150ms latency" }
-      ]
-    },
-    {
-      id: "song-automation-n8n",
-      title: "Song-Automation-N8N",
-      category: "Workflow Automation",
-      tagline: "Enterprise asynchronous AI music, lyrics & video generation pipeline",
-      desc: "An asynchronous pipeline orchestrating Salla store webhooks, Claude 3.5 Sonnet lyric generation, Suno V4 audio synthesis, Flux image generation, and a custom FastAPI/Whisper video rendering microservice with Telegram review gates.",
-      tags: ["n8n", "FastAPI", "Whisper", "Claude 3.5", "Suno AI", "Webhooks"],
-      image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1200&auto=format&fit=crop",
-      link: "https://github.com/mrshibly/Song-Automation-N8N",
-      featured: true,
-      stars: 1,
-      metrics: "Fully Autonomous Multi-Modal Generation",
-      highlights: [
-        "Asynchronous webhook consumer handling high-volume order events with retry queues",
-        "Human-in-the-loop Telegram approval gate allowing instant operator review before final render",
-        "Custom video rendering microservice synchronizing subtitle typography with Whisper audio stamps"
-      ],
-      architectureSteps: [
-        { node: "Salla Webhook", desc: "Captures new customer song dedication and thematic order" },
-        { node: "n8n Orchestrator", desc: "Dispatches Claude 3.5 for lyrics and Suno V4 for audio stems" },
-        { node: "Telegram Approval Gate", desc: "Interactive bot sends audio preview to operator for 1-click QA" },
-        { node: "Whisper + Video Service", desc: "FastAPI generates synchronized lyric typography video" }
       ]
     },
     {
