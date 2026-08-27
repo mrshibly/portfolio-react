@@ -32,7 +32,7 @@ const getAIResponse = (rawQuery) => {
   }
 
   if (query.includes('experience') || query.includes('job') || query.includes('betopia') || query.includes('work') || query.includes('career') || query.includes('butterfly') || query.includes('softvence')) {
-    return `💼 **Career Overview:**\n• **AI Developer** at Studio Butterfly (Jul 2026 – Aug 2026): Architecting multi-agent reasoning swarms (LangGraph/LangChain), enterprise RAG, and MCP tool protocols.\n• **AI Developer** at Betopia Group / Softvence (Feb 2026 – Jul 2026): Multi-agent reasoning workflows, FastAPI document analysis & Groq/vLLM inference.\n• **IT Specialist & International Coordinator** at GM Organization (2019 – 2026): Managed cross-border digital operations & international communications.\n• **Founder** at SETU Student Freelance Marketplace (DIU Accelerator Cup Grand Finalist).`;
+    return `💼 **Career Overview:**\n• **AI Developer** at Studio Butterfly (Jul 2026 – Aug 2026): Architecting multi-agent reasoning swarms (LangGraph/LangChain), enterprise RAG, and MCP tool protocols.\n• **AI Developer** at Betopia Group / Softvence (Feb 2026 – Jul 2026): Multi-agent reasoning workflows, FastAPI document analysis & Groq/vLLM inference throughput.`;
   }
 
   if (query.includes('skill') || query.includes('stack') || query.includes('tech') || query.includes('python') || query.includes('fastapi')) {

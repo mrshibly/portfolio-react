@@ -585,33 +585,6 @@ export const portfolioData = {
       ],
       skills: ["FastAPI", "Python", "Llama 3.3", "Groq", "vLLM", "Docker"],
       icon: "Brain"
-    },
-    {
-      title: "IT Specialist & International Coordinator",
-      company: "GM Organization",
-      location: "Dhaka, Bangladesh",
-      duration: "Jan 2019 — Jan 2026",
-      type: "Full-Time / Contract",
-      desc: "Orchestrated global communications, technical infrastructure, and digital asset governance across multiple multinational programs.",
-      highlights: [
-        "Managed cross-border technical communication and liaised with international partners and delegates",
-        "Maintained high-availability communications infrastructure and secure digital channels",
-        "Spearheaded digital tool migration and security audit protocols across internal team platforms"
-      ],
-      icon: "Globe"
-    },
-    {
-      title: "Founder & Lead Architect",
-      company: "SETU Student Freelance Marketplace",
-      location: "Dhaka, Bangladesh",
-      duration: "2023 — 2024",
-      type: "Startup",
-      desc: "Founded an innovative marketplace platform connecting student software engineers and designers with verified local businesses for commercial micro-projects.",
-      highlights: [
-        "Selected as Grand Finalist in the DIU Accelerator Cup 2023",
-        "Engineered full-stack portal with automated escrow payout gates and credential verification"
-      ],
-      icon: "Rocket"
     }
   ],
   leadership: [
