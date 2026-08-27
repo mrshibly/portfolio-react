@@ -1,16 +1,16 @@
 import React from 'react'
-import { Cpu, Workflow, Clock, Trophy, GitFork } from 'lucide-react'
+import { Cpu, Workflow, GraduationCap, Trophy } from 'lucide-react'
 import { portfolioData } from '../data/portfolioData'
 import { useGithubStats } from '../hooks/useGithubStats'
 
-const icons = [Cpu, Workflow, Clock, Trophy]
+const icons = [Cpu, Workflow, GraduationCap, Trophy]
 
 const Stats = () => {
   const ghStats = useGithubStats('mrshibly')
   const stats = [
     { label: "Systems Engineered", value: `${ghStats.publicRepos}+`, desc: "Verified GitHub Repos" },
     { label: "Agentic Automations", value: "150+", desc: "n8n & Swarm Pipelines" },
-    { label: "Engineering Experience", value: "07+ Yrs", desc: "Software & Global Ops" },
+    { label: "Academic Record", value: "3.63", desc: "DIU B.Sc CSE CGPA" },
     { label: "NASA & Global Awards", value: "03x", desc: "NASA Space Apps & Google" }
   ]
 
@@ -30,7 +30,7 @@ const Stats = () => {
                     <Icon size={16} />
                   </div>
                   <span className="text-[9px] font-mono text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">
-                    0{i+1} // LIVE
+                    0{i+1} // METRIC
                   </span>
                 </div>
 

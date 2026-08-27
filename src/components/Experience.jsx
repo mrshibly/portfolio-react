@@ -28,7 +28,7 @@ const Experience = () => {
             </h2>
           </div>
           <p className="text-slate-600 dark:text-slate-300 max-w-md text-xs sm:text-sm md:text-base font-normal">
-            7+ years of engineering leadership, international coordination, and production AI model deployment.
+            Proven track record in autonomous multi-agent systems, high-concurrency Python backends, and production AI deployments.
           </p>
         </div>
 

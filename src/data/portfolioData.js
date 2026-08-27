@@ -4,7 +4,7 @@ export const portfolioData = {
     badge: "AI Systems Architect & NASA Space Apps Winner",
     title: "AI Engineer & Python/FastAPI Specialist",
     tagline: "Architecting autonomous multi-agent systems, production RAG pipelines, and high-throughput backend infrastructure.",
-    bio: "I am an AI Engineer specializing in autonomous multi-agent workflows, Large Language Model orchestration, and high-concurrency backend services. With over 7 years of combined experience across software engineering, technical leadership, and international coordination, I bridge the gap between cutting-edge AI research and production-grade automation.",
+    bio: "I am an AI Engineer specializing in autonomous multi-agent workflows, Large Language Model orchestration, and high-concurrency backend services. Focused on bridging the gap between cutting-edge AI research and production-grade software automation.",
     location: "Dhaka, Bangladesh (GMT+6)",
     status: "Available for High-Impact AI & Engineering Roles",
     cvLink: "/mahmudur_rahman_cv.pdf",
@@ -13,7 +13,7 @@ export const portfolioData = {
   stats: [
     { label: "Systems Engineered", value: "25+", desc: "Production AI & Backends" },
     { label: "Agentic Automations", value: "150+", desc: "n8n & Swarm Pipelines" },
-    { label: "Engineering Experience", value: "07+ Yrs", desc: "Software & Global Ops" },
+    { label: "Public Repositories", value: "14+", desc: "Verified Open-Source" },
     { label: "NASA & Global Awards", value: "03x", desc: "NASA Space Apps & Google" }
   ],
   affiliations: [
@@ -569,9 +569,9 @@ export const portfolioData = {
       title: "IT Specialist & International Coordinator",
       company: "GM Organization",
       location: "Dhaka, Bangladesh",
-      duration: "Jan 2019 — Jan 2026 (7 Years 1 Month)",
+      duration: "Jan 2019 — Jan 2026",
       type: "Full-Time / Contract",
-      desc: "Orchestrated global communications, technical infrastructure, and digital asset governance for over 7 years across multiple multinational programs.",
+      desc: "Orchestrated global communications, technical infrastructure, and digital asset governance across multiple multinational programs.",
       highlights: [
         "Managed cross-border technical communication and liaised with international partners and delegates",
         "Maintained high-availability communications infrastructure and secure digital channels",
