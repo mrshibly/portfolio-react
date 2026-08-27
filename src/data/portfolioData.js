@@ -616,6 +616,7 @@ export const portfolioData = {
       title: "Volunteer & Rescue Specialist",
       org: "Red Crescent Youth (Government Laboratory Unit)",
       duration: "Active Volunteer Service",
+      logo: "/logos/red_crescent.png",
       desc: "Completed Lite Search & Rescue Training; organized community emergency response readiness, blood drives, and disaster drills.",
       icon: "HeartHandshake"
     }
