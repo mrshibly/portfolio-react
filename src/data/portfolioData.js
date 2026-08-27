@@ -679,6 +679,7 @@ export const portfolioData = {
       institution: "Daffodil International University (DIU)",
       duration: "Jan 2022 — Dec 2025",
       result: "CGPA: 3.63 / 4.00",
+      logo: "/logos/diu.png",
       desc: "Rigorous coursework in Artificial Intelligence, Multi-Agent Systems, Algorithms, Advanced Data Structures, and Database Systems.",
       icon: "GraduationCap"
     },
@@ -687,6 +688,7 @@ export const portfolioData = {
       institution: "BirShreshtha Noor Mohammad Public College (BNMPC)",
       duration: "2018 — 2020",
       result: "GPA: 5.00 / 5.00 (Dhaka Board)",
+      logo: "/logos/bnmpc.png",
       desc: "Specialized in Higher Mathematics, Physics, and Chemistry.",
       icon: "BookOpen"
     },
@@ -695,6 +697,7 @@ export const portfolioData = {
       institution: "Government Laboratory High School",
       duration: "2013 — 2018",
       result: "GPA: 5.00 / 5.00 (Dhaka Board)",
+      logo: "/logos/govt_lab.png",
       desc: "Academic excellence with active participation in Red Crescent Youth and Science Club.",
       icon: "School"
     }

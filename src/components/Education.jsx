@@ -42,9 +42,20 @@ const Education = () => {
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-950/60 border border-blue-200/80 dark:border-blue-800/80 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-105 transition-transform">
-                      <Icon size={18} />
-                    </div>
+                    {edu.logo ? (
+                      <div className="w-10 h-10 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-700/80 p-1 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform overflow-hidden shadow-2xs">
+                        <img 
+                          src={edu.logo} 
+                          alt={edu.institution} 
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-950/60 border border-blue-200/80 dark:border-blue-800/80 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-105 transition-transform">
+                        <Icon size={18} />
+                      </div>
+                    )}
+                    
                     {edu.result && (
                       <span className="px-2.5 py-0.5 rounded-md text-xs font-mono bg-blue-50 dark:bg-blue-950/60 border border-blue-200/80 dark:border-blue-800/80 text-blue-700 dark:text-blue-300 font-bold">
                         {edu.result}
