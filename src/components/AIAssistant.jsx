@@ -3,55 +3,55 @@ import { X, Send, Bot, Sparkles, Terminal, ArrowRight, Zap, CheckCircle, FileTex
 import { motion, AnimatePresence } from 'framer-motion';
 import { portfolioData } from '../data/portfolioData';
 
-// Intelligent client-side response matcher for instant answers
+// Intelligent client-side response matcher with clean typography
 const getAIResponse = (rawQuery) => {
   const query = rawQuery.toLowerCase().trim();
 
   if (query.includes('phantomapi') || query.includes('api') || query.includes('chatgpt')) {
-    return `**PhantomAPI** is Mahmudur's reverse-engineered API gateway (FastAPI + Playwright) that converts ChatGPT's free web session into an OpenAI-compatible endpoint. It has executed over 50,000+ automated invocations for n8n automations.\n\n🔗 GitHub: https://github.com/mrshibly/PhantomAPI`;
+    return `PhantomAPI is Mahmudur's reverse-engineered API gateway (FastAPI + Playwright) that converts ChatGPT's free web session into an OpenAI-compatible endpoint. It has executed over 50,000+ automated invocations for n8n automations.\n\nGitHub Repository: https://github.com/mrshibly/PhantomAPI`;
   }
 
   if (query.includes('apex') || query.includes('swarm') || query.includes('multi-agent') || query.includes('agent')) {
-    return `**APEX Hybrid AI Lab** is Mahmudur's local-first multi-agent orchestration architecture. It features a central intent router, self-healing execution loops, conversational memory, and specialized Telegram bot agents powered by local LLMs (Gemma/Ollama).\n\n🔗 GitHub: https://github.com/mrshibly/APEX-Hybrid-AI-Lab`;
+    return `APEX Hybrid AI Lab is Mahmudur's local-first multi-agent orchestration architecture. It features a central intent router, self-healing execution loops, conversational memory, and specialized Telegram bot agents powered by local LLMs (Gemma/Ollama).\n\nGitHub Repository: https://github.com/mrshibly/APEX-Hybrid-AI-Lab`;
   }
 
   if (query.includes('banglasupport') || query.includes('qwen') || query.includes('fine-tune') || query.includes('bangla')) {
-    return `**BanglaSupport-LLM** is an end-to-end Qwen3-8B model fine-tuned with QLoRA for Bengali e-commerce customer support, featuring hybrid RAG policy retrieval and streaming FastAPI endpoints.\n\n🔗 GitHub: https://github.com/mrshibly/BanglaSupport-LLM`;
+    return `BanglaSupport-LLM is an end-to-end Qwen3-8B model fine-tuned with QLoRA for Bengali e-commerce customer support, featuring hybrid RAG policy retrieval and streaming FastAPI endpoints.\n\nGitHub Repository: https://github.com/mrshibly/BanglaSupport-LLM`;
   }
 
   if (query.includes('song') || query.includes('n8n') || query.includes('music') || query.includes('automation')) {
-    return `**Song-Automation-N8N** is an enterprise multi-modal workflow integrating Salla store webhooks, Claude 3.5 Sonnet lyric generation, Suno V4 audio synthesis, Flux imagery, and custom FastAPI/Whisper video rendering.\n\n🔗 GitHub: https://github.com/mrshibly/Song-Automation-N8N`;
+    return `Song-Automation-N8N is an enterprise multi-modal workflow integrating Salla store webhooks, Claude 3.5 Sonnet lyric generation, Suno V4 audio synthesis, Flux imagery, and custom FastAPI/Whisper video rendering.\n\nGitHub Repository: https://github.com/mrshibly/Song-Automation-N8N`;
   }
 
   if (query.includes('llamaocr') || query.includes('ocr') || query.includes('document')) {
-    return `**LlamaOCR Pipeline** is a document intelligence engine combining Llama 3.3 Vision and OpenCV adaptive thresholding, achieving 99.2% extraction accuracy on unstructured forms and handwritten sheets.\n\n🔗 GitHub: https://github.com/mrshibly/LlamaOCR-Pipeline`;
+    return `LlamaOCR Pipeline is a document intelligence engine combining Llama 3.3 Vision and OpenCV adaptive thresholding, achieving 99.2% extraction accuracy on unstructured forms and handwritten sheets.\n\nGitHub Repository: https://github.com/mrshibly/LlamaOCR-Pipeline`;
   }
 
   if (query.includes('nasa') || query.includes('space apps') || query.includes('award') || query.includes('google') || query.includes('hack')) {
-    return `🏆 **Verified Honors & Accolades:**\n• **NASA Space Apps Winner & Global Nominee (2024)** (Regional Winner, Rajshahi Zone)\n• **NASA Space Apps Regional 2nd Runner-Up (2023)**\n• **Google Hacking Contest 2x Consecutive Champion (2022 & 2023)**\n• **Cisco Cyber Security Certified**`;
+    return `Verified Honors and Accolades:\n• NASA Space Apps Winner and Global Nominee (2024) (Regional Winner, Rajshahi Zone)\n• NASA Space Apps Regional 2nd Runner-Up (2023)\n• Google Hacking Contest 2x Consecutive Champion (2022 and 2023)\n• Cisco Cyber Security Certified`;
   }
 
   if (query.includes('experience') || query.includes('job') || query.includes('betopia') || query.includes('work') || query.includes('career') || query.includes('butterfly') || query.includes('softvence')) {
-    return `💼 **Career Overview:**\n• **AI Developer** at Studio Butterfly (Jul 2026 – Aug 2026): Architecting multi-agent reasoning swarms (LangGraph/LangChain), enterprise RAG, and MCP tool protocols.\n• **AI Developer** at Betopia Group / Softvence (Feb 2026 – Jul 2026): Multi-agent reasoning workflows, FastAPI document analysis & Groq/vLLM inference throughput.`;
+    return `Career Overview:\n• AI Developer at Studio Butterfly (Jul 2026 – Aug 2026): Architecting multi-agent reasoning swarms (LangGraph/LangChain), enterprise RAG, and MCP tool protocols.\n• AI Developer at Betopia Group / Softvence (Feb 2026 – Jul 2026): Multi-agent reasoning workflows, FastAPI document analysis and Groq/vLLM inference throughput.`;
   }
 
   if (query.includes('skill') || query.includes('stack') || query.includes('tech') || query.includes('python') || query.includes('fastapi')) {
-    return `⚡ **Core Technical Arsenal:**\n• **AI/ML:** Python, FastAPI, LangChain, LangGraph, CrewAI, Llama 3.3, PyTorch, FAISS, ChromaDB\n• **Backend:** FastAPI, WebSockets, Redis Streams, Playwright, Docker, Linux / Kali\n• **Automation:** n8n Expert, Make, Zapier, Webhooks\n• **Frontend & DB:** React, Tailwind CSS, PostgreSQL, MongoDB`;
+    return `Core Technical Arsenal:\n• AI/ML: Python, FastAPI, LangChain, LangGraph, CrewAI, Llama 3.3, PyTorch, FAISS, ChromaDB\n• Backend: FastAPI, WebSockets, Redis Streams, Playwright, Docker, Linux / Kali\n• Automation: n8n Expert, Make, Zapier, Webhooks\n• Frontend and Databases: React, Tailwind CSS, PostgreSQL, MongoDB`;
   }
 
   if (query.includes('education') || query.includes('university') || query.includes('cgpa') || query.includes('gpa') || query.includes('degree')) {
-    return `🎓 **Education:**\n• **B.Sc. in Computer Science & Engineering** from Daffodil International University (CGPA: 3.64/4.00, 2022–2025).\n• **HSC Science** from BNMPC (GPA: 5.00/5.00).\n• **SSC Science** from Govt. Laboratory High School (GPA: 5.00/5.00).`;
+    return `Education:\n• Bachelor of Science in Computer Science and Engineering from Daffodil International University (CGPA: 3.64/4.00, 2022–2025).\n• HSC Science from BNMPC (GPA: 5.00/5.00).\n• SSC Science from Govt. Laboratory High School (GPA: 5.00/5.00).`;
   }
 
   if (query.includes('resume') || query.includes('cv') || query.includes('pdf') || query.includes('download')) {
-    return `📄 **Resume / CV:**\nYou can download Mahmudur's updated resume directly using this link:\n\n🔗 **[Download Resume (PDF)](/mahmudur_rahman_cv.pdf)**`;
+    return `Curriculum Vitae (PDF):\nYou can download Mahmudur's updated resume directly using this link: /mahmudur_rahman_cv.pdf`;
   }
 
   if (query.includes('contact') || query.includes('email') || query.includes('hire') || query.includes('reach') || query.includes('phone') || query.includes('linkedin')) {
-    return `📫 **Contact Information:**\n• **Primary Email:** mahmudurrahman858@gmail.com\n• **Academic Email:** rahman15-5347@diu.edu.bd\n• **Phone / WhatsApp:** +8801517835859\n• **LinkedIn:** https://linkedin.com/in/mrshibly\n• **GitHub:** https://github.com/mrshibly\n\nHe is open to high-impact AI Engineering roles, contract architecture, and consultations.`;
+    return `Contact Information:\n• Primary Email: mahmudurrahman858@gmail.com\n• Academic Email: rahman15-5347@diu.edu.bd\n• Phone / WhatsApp: +8801517835859\n• LinkedIn: https://linkedin.com/in/mrshibly\n• GitHub: https://github.com/mrshibly\n\nHe is open to high-impact AI Engineering roles, contract architecture, and consultations.`;
   }
 
-  return `I am Mahmudur Rahman's Interactive AI Assistant. Mahmudur is an AI Systems Architect specializing in autonomous multi-agent workflows, FastAPI microservices, and RAG pipelines.\n\nFeel free to ask me about his **Projects** (PhantomAPI, APEX Lab, Song-Automation, LlamaOCR), **NASA & Google Awards**, **Skills**, **Resume**, or **Contact details**!`;
+  return `I am Mahmudur Rahman's Interactive AI Assistant. Mahmudur is an AI Systems Architect specializing in autonomous multi-agent workflows, FastAPI microservices, and RAG pipelines.\n\nFeel free to ask me about his Projects (PhantomAPI, APEX Lab, Song-Automation, LlamaOCR), NASA and Google Awards, Technical Skills, Resume, or Contact details.`;
 };
 
 const quickSuggestions = [
@@ -66,7 +66,7 @@ const AIAssistant = () => {
   const [messages, setMessages] = useState([
     { 
       role: 'assistant', 
-      content: "Hello! I am Mahmudur's AI Assistant. How can I help you explore his systems, research, career background, or resume?" 
+      content: "Hello. I am Mahmudur's AI Assistant. How can I help you explore his systems, research, career background, or resume?" 
     }
   ]);
   const [input, setInput] = useState('');
@@ -145,7 +145,7 @@ const AIAssistant = () => {
                     <span>Mahmudur's AI Assistant</span>
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                   </h3>
-                  <p className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400">Ask about experience, code & resume</p>
+                  <p className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400">Ask about experience, code and resume</p>
                 </div>
               </div>
               <button 
