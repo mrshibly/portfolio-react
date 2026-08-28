@@ -13,8 +13,8 @@ const ProjectDetails = lazy(() => import('./pages/ProjectDetails'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 const PageFallback = () => (
-  <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
-    <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+  <div className="min-h-screen bg-slate-50 dark:bg-[#09090b] flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-orange-500 border-t-transparent rounded-full animate-spin" />
   </div>
 )
 
