@@ -128,7 +128,7 @@ const AIAssistant = () => {
     <>
       {/* Floating Trigger Button */}
       <motion.button
-        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-12 h-12 sm:w-13 sm:h-13 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg shadow-blue-600/30 z-50 flex items-center justify-center border border-white/20 hover:scale-105 active:scale-95 transition-transform"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-tr from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white rounded-full shadow-lg shadow-orange-500/30 z-50 flex items-center justify-center border border-white/20 hover:scale-105 active:scale-95 transition-transform cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle AI Assistant"
       >
@@ -140,7 +140,7 @@ const AIAssistant = () => {
           ) : (
             <motion.div key="open" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="relative flex items-center justify-center">
               <Bot size={22} className="text-white" />
-              <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-blue-600" />
+              <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-orange-500" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -154,25 +154,25 @@ const AIAssistant = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.96 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-18 right-4 sm:bottom-22 sm:right-6 w-[calc(100vw-2rem)] sm:w-[400px] h-[480px] sm:h-[520px] max-h-[75vh] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl flex flex-col z-50 overflow-hidden"
+            className="fixed bottom-18 right-4 sm:bottom-22 sm:right-6 w-[calc(100vw-2rem)] sm:w-[400px] h-[480px] sm:h-[520px] max-h-[75vh] bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-3xl shadow-2xl flex flex-col z-50 overflow-hidden"
           >
             {/* Header */}
-            <div className="p-3.5 sm:p-4 bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+            <div className="p-3.5 sm:p-4 bg-slate-50 dark:bg-zinc-950/80 border-b border-slate-200 dark:border-zinc-800 flex justify-between items-center">
               <div className="flex items-center gap-2.5 sm:gap-3">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-blue-100 dark:bg-blue-950 flex items-center justify-center text-blue-600 dark:text-blue-400">
-                  <Bot size={16} />
+                <div className="w-8 h-8 rounded-xl bg-orange-500/10 dark:bg-orange-500/15 border border-orange-500/30 flex items-center justify-center text-orange-600 dark:text-orange-400">
+                  <Bot size={17} />
                 </div>
                 <div>
                   <h3 className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5 sm:gap-2">
                     <span>Mahmudur's AI Assistant</span>
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                   </h3>
-                  <p className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400">Ask about experience, code and resume</p>
+                  <p className="text-[9px] sm:text-[10px] text-slate-500 dark:text-zinc-400">Ask about experience, code and resume</p>
                 </div>
               </div>
               <button 
                 onClick={() => setIsOpen(false)} 
-                className="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                className="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors"
               >
                 <X size={16} />
               </button>
@@ -186,15 +186,15 @@ const AIAssistant = () => {
                   className={`flex gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   {msg.role === 'assistant' && (
-                    <div className="w-6 h-6 rounded-lg bg-blue-50 dark:bg-blue-950 flex items-center justify-center shrink-0 text-blue-600 dark:text-blue-400 mt-0.5">
+                    <div className="w-6 h-6 rounded-lg bg-orange-500/10 dark:bg-orange-500/15 flex items-center justify-center shrink-0 text-orange-600 dark:text-orange-400 mt-0.5">
                       <Bot size={13} />
                     </div>
                   )}
                   <div 
                     className={`px-3.5 py-2.5 rounded-2xl max-w-[88%] leading-relaxed whitespace-pre-wrap ${
                       msg.role === 'user' 
-                        ? 'bg-blue-600 text-white rounded-tr-none shadow-xs' 
-                        : 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200/60 dark:border-slate-700/60 rounded-tl-none font-sans'
+                        ? 'bg-orange-500 text-white rounded-tr-none shadow-xs' 
+                        : 'bg-slate-100 dark:bg-zinc-800 text-slate-800 dark:text-zinc-100 border border-slate-200/60 dark:border-zinc-700/60 rounded-tl-none font-sans'
                     }`}
                   >
                     {msg.content}
@@ -204,13 +204,13 @@ const AIAssistant = () => {
 
               {isLoading && (
                 <div className="flex justify-start gap-2">
-                  <div className="w-6 h-6 rounded-lg bg-blue-50 dark:bg-blue-950 flex items-center justify-center shrink-0 text-blue-600 dark:text-blue-400">
+                  <div className="w-6 h-6 rounded-lg bg-orange-500/10 dark:bg-orange-500/15 flex items-center justify-center shrink-0 text-orange-600 dark:text-orange-400">
                     <Bot size={13} />
                   </div>
-                  <div className="px-3.5 py-2.5 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 rounded-tl-none flex gap-1 items-center">
-                    <div className="w-1.5 h-1.5 bg-blue-600 dark:bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <div className="w-1.5 h-1.5 bg-blue-600 dark:bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <div className="w-1.5 h-1.5 bg-blue-600 dark:bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                  <div className="px-3.5 py-2.5 rounded-2xl bg-slate-100 dark:bg-zinc-800 border border-slate-200/60 dark:border-zinc-700/60 rounded-tl-none flex gap-1 items-center">
+                    <div className="w-1.5 h-1.5 bg-orange-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                    <div className="w-1.5 h-1.5 bg-orange-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                    <div className="w-1.5 h-1.5 bg-orange-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                   </div>
                 </div>
               )}
@@ -218,12 +218,12 @@ const AIAssistant = () => {
             </div>
 
             {/* Quick Suggestions */}
-            <div className="px-3 py-2 bg-slate-50 dark:bg-slate-850 border-t border-slate-100 dark:border-slate-800 flex gap-1.5 overflow-x-auto scrollbar-none">
+            <div className="px-3 py-2 bg-slate-50 dark:bg-zinc-950/80 border-t border-slate-100 dark:border-zinc-800 flex gap-1.5 overflow-x-auto scrollbar-none">
               {quickSuggestions.map((suggestion, i) => (
                 <button
                   key={i}
                   onClick={() => processQuery(suggestion)}
-                  className="whitespace-nowrap px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-950 border border-slate-200 dark:border-slate-700 text-[10px] text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors shrink-0"
+                  className="whitespace-nowrap px-2.5 py-1 rounded-lg bg-white dark:bg-zinc-800 hover:bg-orange-500/10 dark:hover:bg-orange-500/15 border border-slate-200 dark:border-zinc-700 text-[10px] text-slate-600 dark:text-zinc-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors shrink-0"
                 >
                   {suggestion}
                 </button>
@@ -231,18 +231,18 @@ const AIAssistant = () => {
             </div>
 
             {/* Input Footer */}
-            <form onSubmit={handleSend} className="p-2.5 sm:p-3 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex items-center gap-2">
+            <form onSubmit={handleSend} className="p-2.5 sm:p-3 bg-white dark:bg-zinc-900 border-t border-slate-200 dark:border-zinc-800 flex items-center gap-2">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about projects, awards, skills..."
-                className="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
+                className="flex-1 bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-zinc-500 focus:outline-none focus:border-orange-500 transition-colors"
               />
               <button 
                 type="submit"
                 disabled={!input.trim() || isLoading}
-                className="w-8 h-8 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white flex items-center justify-center transition-colors shrink-0 shadow-xs"
+                className="w-8 h-8 rounded-xl bg-orange-500 hover:bg-orange-600 disabled:opacity-40 text-white flex items-center justify-center transition-colors shrink-0 shadow-xs cursor-pointer"
               >
                 <Send size={13} />
               </button>

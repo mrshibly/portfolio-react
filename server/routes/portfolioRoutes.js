@@ -6,9 +6,10 @@ const router = express.Router();
 const defaultData = {
   hero: {
     name: "Md. Mahmudur Rahman",
-    title: "Agentic AI Systems Architect",
+    title: "Backend, AI & Automation Engineer",
     bio: "AI Engineer specializing in autonomous multi-agent workflows, production-ready RAG pipelines, and highly-scalable backend services. NASA Space Apps Global Winner & Google Hacking Champion.",
-    image: "https://69e928e119995cfcc32c5fd3.imgix.net/photo_2025-05-14_16-31-57.jpg"
+    image: "/profile.png",
+    avatar: "/profile.png"
   },
   affiliations: [
     "NASA Space Apps",

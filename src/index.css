@@ -2,9 +2,9 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-brand: #2563EB;
-  --color-brand-light: #3B82F6;
-  --color-brand-dark: #1D4ED8;
+  --color-brand: #F97316;
+  --color-brand-light: #FB923C;
+  --color-brand-dark: #EA580C;
 
   --font-sans: "Geist", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: "Geist Mono", "JetBrains Mono", monospace;
@@ -28,9 +28,9 @@
   }
 
   .dark {
-    --bg-primary: #090D16;
-    --bg-surface: #0F172A;
-    --border-color: #1E293B;
+    --bg-primary: #09090B;
+    --bg-surface: #12131A;
+    --border-color: #27272A;
     --text-primary: #F8FAFC;
     --text-secondary: #CBD5E1;
     --text-muted: #94A3B8;
@@ -70,13 +70,31 @@
 }
 
 .dark .card-clean {
-  background-color: #0F172A;
-  border-color: #1E293B;
+  background-color: #12131A;
+  border-color: #27272A;
 }
 
 .dark .card-clean:hover {
-  border-color: #334155;
-  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.3);
+  border-color: rgba(249, 115, 22, 0.35);
+  box-shadow: 0 4px 20px -2px rgba(249, 115, 22, 0.08);
+}
+
+/* Obsidian Glass Card Component */
+.card-obsidian {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  transition: all 0.2s ease;
+}
+
+.dark .card-obsidian {
+  background-color: rgba(18, 19, 26, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(39, 39, 42, 0.8);
+}
+
+.dark .card-obsidian:hover {
+  border-color: rgba(249, 115, 22, 0.4);
+  box-shadow: 0 8px 30px -4px rgba(249, 115, 22, 0.1);
 }
 
 /* Linear Precision Grid Background */
@@ -89,8 +107,8 @@
 
 .dark .bg-linear-grid {
   background-image: 
-    linear-gradient(to right, rgba(30, 41, 59, 0.35) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(30, 41, 59, 0.35) 1px, transparent 1px);
+    linear-gradient(to right, rgba(39, 39, 42, 0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(39, 39, 42, 0.4) 1px, transparent 1px);
 }
 
 /* Mask for Ticker */
@@ -114,9 +132,9 @@
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #27272A;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #2563EB;
+  background: #F97316;
 }

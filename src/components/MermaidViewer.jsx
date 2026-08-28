@@ -23,12 +23,12 @@ const MermaidViewer = ({ chart }) => {
           themeVariables: {
             fontFamily: 'Geist, Plus Jakarta Sans, sans-serif',
             fontSize: '13px',
-            primaryColor: theme === 'dark' ? '#1E293B' : '#EFF6FF',
-            primaryTextColor: theme === 'dark' ? '#F8FAFC' : '#1E293B',
-            primaryBorderColor: '#3B82F6',
-            lineColor: '#3B82F6',
-            secondaryColor: theme === 'dark' ? '#0F172A' : '#F8FAFC',
-            tertiaryColor: theme === 'dark' ? '#1E293B' : '#FFFFFF'
+            primaryColor: theme === 'dark' ? '#18181B' : '#FFF7ED',
+            primaryTextColor: theme === 'dark' ? '#F8FAFC' : '#18181B',
+            primaryBorderColor: '#F97316',
+            lineColor: '#F97316',
+            secondaryColor: theme === 'dark' ? '#121216' : '#FFEDD5',
+            tertiaryColor: theme === 'dark' ? '#1F1F23' : '#FFFFFF'
           },
           securityLevel: 'loose'
         });
@@ -57,7 +57,7 @@ const MermaidViewer = ({ chart }) => {
 
   if (error) {
     return (
-      <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 text-xs font-mono text-slate-500 text-center">
+      <div className="p-4 rounded-2xl bg-slate-50 dark:bg-zinc-900 text-xs font-mono text-slate-500 text-center">
         Diagram preview unavailable.
       </div>
     );
@@ -66,7 +66,7 @@ const MermaidViewer = ({ chart }) => {
   return (
     <div 
       ref={containerRef}
-      className="mermaid-container w-full overflow-x-auto p-4 sm:p-6 rounded-xl bg-slate-50/70 dark:bg-slate-900/70 border border-slate-200/80 dark:border-slate-800/80 flex items-center justify-center [&>svg]:max-w-full [&>svg]:h-auto"
+      className="mermaid-container w-full overflow-x-auto p-4 sm:p-6 rounded-2xl bg-slate-50/70 dark:bg-zinc-900/80 border border-slate-200/80 dark:border-zinc-800 flex items-center justify-center [&>svg]:max-w-full [&>svg]:h-auto"
       dangerouslySetInnerHTML={{ __html: svgContent }}
     />
   );

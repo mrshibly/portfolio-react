@@ -1,10 +1,10 @@
 export const portfolioData = {
   hero: {
     name: "Md. Mahmudur Rahman",
-    badge: "AI Systems Architect & NASA Space Apps Winner",
-    title: "AI Engineer & Python/FastAPI Specialist",
-    tagline: "Architecting autonomous multi-agent systems, production RAG pipelines, and high-throughput backend infrastructure.",
-    bio: "I am an AI Engineer specializing in autonomous multi-agent workflows, Large Language Model orchestration, and high-concurrency backend services. Focused on bridging the gap between cutting-edge AI research and production-grade software automation.",
+    badge: "Backend, AI & Automation Engineer · NASA Space Apps Winner",
+    title: "Backend, AI & Automation Engineer",
+    tagline: "Architecting high-concurrency backend services, autonomous multi-agent workflows, and enterprise automation infrastructure.",
+    bio: "I specialize in building scalable Python/FastAPI backends, autonomous multi-agent systems (LangGraph, CrewAI), and enterprise workflow automations (n8n, Playwright). Bridging robust software engineering with production AI.",
     location: "Dhaka, Bangladesh (GMT+6)",
     status: "Available for High-Impact AI & Engineering Roles",
     cvLink: "/mahmudur_rahman_cv.pdf",

@@ -25,23 +25,23 @@ const Projects = () => {
   })
 
   return (
-    <section id="projects" className="py-16 sm:py-20 border-t border-slate-200/80 dark:border-slate-800/80 relative">
-      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+    <section id="projects" className="py-16 sm:py-20 border-t border-slate-200/80 dark:border-zinc-800/80 relative bg-slate-50/30 dark:bg-[#09090b]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200/80 dark:border-blue-800/80 text-blue-700 dark:text-blue-300 text-xs font-semibold font-mono mb-2 sm:mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 dark:bg-orange-500/15 border border-orange-500/30 text-orange-600 dark:text-orange-400 text-xs font-semibold font-mono mb-2 sm:mb-3">
               <FolderGit2 size={12} />
               <span>Production AI & Systems</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-              Featured <span className="text-blue-600 dark:text-blue-500">Engineering Work</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+              Featured <span className="text-orange-500">Engineering Work</span>
             </h2>
           </div>
           <Link 
             to="/archive"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors group"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 transition-colors group"
           >
             <span>View All 14+ Repositories</span>
             <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -49,15 +49,15 @@ const Projects = () => {
         </div>
 
         {/* Quick Category Filter Pills */}
-        <div className="flex items-center gap-1.5 sm:gap-2 mb-8 overflow-x-auto pb-1 scrollbar-none">
+        <div className="flex items-center gap-2 mb-8 overflow-x-auto pb-1 scrollbar-none">
           {filterCategories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveFilter(cat)}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors shrink-0 ${
+              className={`px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all shrink-0 cursor-pointer ${
                 activeFilter === cat
-                  ? 'bg-blue-600 text-white shadow-2xs font-semibold'
-                  : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
+                  ? 'bg-orange-500 text-white shadow-md shadow-orange-500/20 font-semibold'
+                  : 'bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:border-zinc-700'
               }`}
             >
               {cat}
@@ -66,14 +66,14 @@ const Projects = () => {
         </div>
 
         {/* Project Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {displayedProjects.map((project) => (
             <div 
               key={project.id} 
-              className="card-clean rounded-xl overflow-hidden flex flex-col justify-between group hover:-translate-y-1.5 hover:shadow-lg hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300"
+              className="card-obsidian rounded-2xl overflow-hidden flex flex-col justify-between group hover:-translate-y-1.5 hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-zinc-800/90"
             >
               {/* Media Container */}
-              <div className="relative w-full aspect-[16/9] overflow-hidden bg-slate-100 dark:bg-slate-800 border-b border-slate-100 dark:border-slate-800">
+              <div className="relative w-full aspect-[16/9] overflow-hidden bg-slate-100 dark:bg-zinc-950 border-b border-slate-100 dark:border-zinc-800">
                 <img 
                   src={project.image} 
                   alt={project.title}
@@ -86,13 +86,13 @@ const Projects = () => {
                 />
                 
                 {/* Top Badges */}
-                <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between pointer-events-none">
-                  <span className="px-2.5 py-0.5 rounded-md bg-white/95 dark:bg-slate-900/95 backdrop-blur-md text-slate-800 dark:text-slate-200 text-[10px] font-mono font-bold uppercase tracking-wider shadow-xs">
+                <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+                  <span className="px-2.5 py-0.5 rounded-full bg-white/95 dark:bg-zinc-950/90 backdrop-blur-md text-slate-800 dark:text-zinc-200 text-[10px] font-mono font-bold uppercase tracking-wider border border-slate-200/50 dark:border-zinc-800/80 shadow-xs">
                     {project.category}
                   </span>
                   
                   {project.stars !== undefined && project.stars > 0 && (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-500 text-white text-[10px] font-mono font-bold shadow-xs">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-mono font-bold shadow-xs">
                       <Star size={10} fill="white" />
                       <span>{project.stars}</span>
                     </span>
@@ -103,11 +103,11 @@ const Projects = () => {
               {/* Content Box */}
               <div className="p-5 sm:p-6 flex flex-col justify-between flex-grow">
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight mb-2 group-hover:text-orange-500 dark:group-hover:text-orange-400 transition-colors">
                     {project.title}
                   </h3>
                   
-                  <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal line-clamp-3">
+                  <p className="text-slate-600 dark:text-zinc-400 text-xs sm:text-sm leading-relaxed mb-4 font-normal line-clamp-3">
                     {project.desc}
                   </p>
 
@@ -116,7 +116,7 @@ const Projects = () => {
                     {project.tags.slice(0, 4).map(tag => (
                       <span 
                         key={tag} 
-                        className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded-md text-[10px] font-mono text-slate-600 dark:text-slate-300"
+                        className="px-2.5 py-0.5 bg-slate-100 dark:bg-zinc-800/80 border border-slate-200/60 dark:border-zinc-700/50 rounded-md text-[10px] font-mono text-slate-600 dark:text-zinc-300"
                       >
                         {tag}
                       </span>
@@ -125,13 +125,13 @@ const Projects = () => {
                 </div>
 
                 {/* Actions Bar */}
-                <div className="pt-3.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3">
+                <div className="pt-3.5 border-t border-slate-100 dark:border-zinc-800/80 flex items-center justify-between gap-3">
                   {project.link ? (
                     <a 
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-mono font-medium transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-zinc-900 hover:bg-slate-200 dark:hover:bg-zinc-800 text-slate-700 dark:text-zinc-300 text-xs font-mono font-medium transition-colors border border-transparent dark:border-zinc-800"
                       title="View GitHub Repository"
                     >
                       <GithubIcon size={13} />
@@ -141,7 +141,7 @@ const Projects = () => {
 
                   <Link 
                     to={`/project/${project.id}`}
-                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-colors shadow-xs"
+                    className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-semibold text-xs transition-all shadow-md shadow-orange-500/20"
                   >
                     <span>Architecture</span>
                     <ArrowUpRight size={13} />
@@ -156,9 +156,9 @@ const Projects = () => {
         <div className="mt-10 text-center">
           <Link 
             to="/archive"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-400 text-slate-800 dark:text-slate-200 font-semibold text-xs sm:text-sm shadow-xs transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 hover:border-orange-500/50 text-slate-800 dark:text-zinc-200 font-semibold text-xs sm:text-sm shadow-sm transition-all"
           >
-            <Sparkles size={14} className="text-blue-600 dark:text-blue-400" />
+            <Sparkles size={14} className="text-orange-500" />
             <span>Search & Filter Complete 14+ Project Archive</span>
             <ArrowRight size={13} />
           </Link>
