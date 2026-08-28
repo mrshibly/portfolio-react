@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import Hero from '../components/Hero'
 import Ticker from '../components/Ticker'
-import Stats from '../components/Stats'
 import Competencies from '../components/Competencies'
 import Projects from '../components/Projects'
 import TechStack from '../components/TechStack'
@@ -33,7 +32,6 @@ const Home = () => {
     <>
       <Hero />
       <Ticker />
-      <Stats />
       <Competencies />
       <Projects />
       <TechStack />
