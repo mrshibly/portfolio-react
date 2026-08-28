@@ -1,0 +1,6 @@
+# Robots.txt for Md. Mahmudur Rahman Portfolio (https://mrshibly.onrender.com)
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://mrshibly.onrender.com/sitemap.xml

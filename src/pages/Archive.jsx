@@ -11,6 +11,11 @@ const Archive = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0)
+    document.title = 'Systems Architecture & Project Archive | Md. Mahmudur Rahman'
+    const metaDesc = document.querySelector('meta[name="description"]')
+    if (metaDesc) {
+      metaDesc.setAttribute('content', 'Explore all 13+ production AI systems, bioacoustic transformers, RAG microservices, and automation pipelines engineered by Md. Mahmudur Rahman.')
+    }
   }, [])
 
   const categories = ['All', ...new Set(projects.map(p => p.category))]

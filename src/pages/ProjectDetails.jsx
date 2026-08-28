@@ -14,6 +14,12 @@ const ProjectDetails = () => {
     window.scrollTo(0, 0)
     if (!project) {
       navigate('/archive')
+    } else {
+      document.title = `${project.title} | Md. Mahmudur Rahman`
+      const metaDesc = document.querySelector('meta[name="description"]')
+      if (metaDesc) {
+        metaDesc.setAttribute('content', `${project.title}: ${project.tagline || project.desc}`)
+      }
     }
   }, [project, navigate])
 

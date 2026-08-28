@@ -16,6 +16,12 @@ const Home = () => {
   const location = useLocation()
 
   useEffect(() => {
+    document.title = 'Md. Mahmudur Rahman | Backend, AI & Automation Engineer'
+    const metaDesc = document.querySelector('meta[name="description"]')
+    if (metaDesc) {
+      metaDesc.setAttribute('content', 'Official portfolio of Md. Mahmudur Rahman — Backend, AI & Automation Engineer. Specializing in high-concurrency Python/FastAPI microservices, autonomous multi-agent reasoning swarms, production RAG pipelines, and n8n enterprise workflows.')
+    }
+
     if (location.hash) {
       setTimeout(() => {
         const element = document.querySelector(location.hash)
