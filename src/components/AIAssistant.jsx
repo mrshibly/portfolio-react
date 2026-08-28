@@ -51,7 +51,7 @@ const getAIResponse = (rawQuery) => {
     return `Contact Information:\n• Primary Email: mahmudurrahman858@gmail.com\n• Academic Email: rahman15-5347@diu.edu.bd\n• Phone / WhatsApp: +8801517835859\n• LinkedIn: https://linkedin.com/in/mrshibly\n• GitHub: https://github.com/mrshibly\n\nHe is open to high-impact AI Engineering roles, contract architecture, and consultations.`;
   }
 
-  return `I am Mahmudur Rahman's Interactive AI Assistant. Mahmudur is an AI Systems Architect specializing in autonomous multi-agent workflows, FastAPI microservices, and RAG pipelines.\n\nFeel free to ask me about his Projects (PhantomAPI, APEX Lab, Song-Automation, LlamaOCR), NASA and Google Awards, Technical Skills, Resume, or Contact details.`;
+  return `I am Mahmudur Rahman's Interactive AI Assistant. Mahmudur is a Backend, AI & Automation Engineer specializing in autonomous multi-agent workflows, FastAPI microservices, AST bioacoustics, and RAG pipelines.\n\nFeel free to ask me about his Projects (Bioacoustic AST XAI, Song-Automation, Autonomous Research Swarms, Lumina Analyst, RAG Assistant API, PhantomAPI, BanglaSupport, ERAAO), NASA and Google Awards, Technical Skills, Resume, or Contact details.`;
 };
 
 const quickSuggestions = [

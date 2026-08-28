@@ -1,7 +1,7 @@
 {
   "name": "cv",
   "version": "1.0.0",
-  "description": "Md. Mahmudur Rahman - AI Systems Architect Portfolio",
+  "description": "Md. Mahmudur Rahman - Backend, AI & Automation Engineer Portfolio",
   "main": "server/index.js",
   "type": "module",
   "scripts": {
