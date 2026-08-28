@@ -173,6 +173,19 @@ const Archive = () => {
 
               {/* Actions */}
               <div className="flex items-center gap-2 w-full md:w-auto justify-end shrink-0 pt-2.5 md:pt-0 border-t md:border-t-0 border-slate-100 dark:border-zinc-800">
+                {project.liveDemo && (
+                  <a
+                    href={project.liveDemo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-semibold transition-colors border border-emerald-500/25"
+                    title="Launch Live Application"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>Live</span>
+                  </a>
+                )}
+
                 {project.link && (
                   <a
                     href={project.link}

@@ -125,19 +125,33 @@ const Projects = () => {
                 </div>
 
                 {/* Actions Bar */}
-                <div className="pt-3.5 border-t border-slate-100 dark:border-zinc-800/80 flex items-center justify-between gap-3">
-                  {project.link ? (
-                    <a 
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-zinc-900 hover:bg-slate-200 dark:hover:bg-zinc-800 text-slate-700 dark:text-zinc-300 text-xs font-mono font-medium transition-colors border border-transparent dark:border-zinc-800"
-                      title="View GitHub Repository"
-                    >
-                      <GithubIcon size={13} />
-                      <span>GitHub</span>
-                    </a>
-                  ) : <div />}
+                <div className="pt-3.5 border-t border-slate-100 dark:border-zinc-800/80 flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    {project.link && (
+                      <a 
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-100 dark:bg-zinc-900 hover:bg-slate-200 dark:hover:bg-zinc-800 text-slate-700 dark:text-zinc-300 text-xs font-mono font-medium transition-colors border border-transparent dark:border-zinc-800"
+                        title="View GitHub Repository"
+                      >
+                        <GithubIcon size={13} />
+                        <span>Code</span>
+                      </a>
+                    )}
+                    {project.liveDemo && (
+                      <a 
+                        href={project.liveDemo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-semibold transition-colors border border-emerald-500/25"
+                        title="Launch Live Application"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <span>Live</span>
+                      </a>
+                    )}
+                  </div>
 
                   <Link 
                     to={`/project/${project.id}`}

@@ -24,43 +24,95 @@ const defaultData = {
   ],
   projects: [
     {
-      id: "llamaocr",
-      title: "LlamaOCR",
-      category: "Document Intelligence",
-      desc: "An advanced OCR pipeline for structured data extraction from handwritten and digital documents using Llama 3.3 and OpenCV.",
-      tags: ["Llama 3.3", "OpenCV", "Python", "OCR"],
-      image: "https://images.unsplash.com/photo-1562813733-b31f71025d54?q=80&w=2000&auto=format&fit=crop",
-      link: "https://github.com/mrshibly/LlamaOCR-Pipeline",
-      featured: true
+      id: "bioacoustic-pneumonia-hear-xai",
+      title: "Bioacoustic Pneumonia & Respiratory Disease Detection via AST & XAI",
+      category: "Bioacoustic AI / Healthcare ML",
+      desc: "Clinician-interpretable bioacoustic diagnostic framework using Audio Spectrogram Transformers and Explainable AI (Grad-CAM) on ICBHI 2017 benchmark with 0% patient data leakage.",
+      tags: ["Audio Spectrogram Transformer", "PyTorch", "Explainable AI (Grad-CAM)", "SMOTE", "ICBHI Benchmark"],
+      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/bioacoustic-pneumonia-hear-xai",
+      featured: true,
+      stars: 2
+    },
+    {
+      id: "song-automation-n8n",
+      title: "Song-Automation-N8N",
+      category: "Workflow Automation",
+      desc: "Asynchronous pipeline orchestrating Salla store webhooks, Claude 3.5 Sonnet lyric generation, Suno V4 audio synthesis, Flux image generation, and custom FastAPI/Whisper video rendering microservice.",
+      tags: ["n8n", "FastAPI", "Whisper", "Claude 3.5", "Suno AI", "Telegram Bot"],
+      image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/Song-Automation-N8N",
+      featured: true,
+      stars: 1
+    },
+    {
+      id: "autonomous-research-agent",
+      title: "Autonomous AI Research Agent",
+      category: "Multi-Agent Systems",
+      desc: "Multi-agent system coordinating Planner, Search, Paper (PDF parsing), Summarizer, Critic, and Writer agents. Implements Hybrid RAG (FAISS + BM25) and WebSockets live streaming.",
+      tags: ["Multi-Agent", "LangChain", "FAISS", "FastAPI", "WebSockets", "BM25 Hybrid RAG"],
+      image: "https://images.unsplash.com/photo-1507146426996-ef05306b995a?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/autonomous-research-agent",
+      liveDemo: "https://huggingface.co/spaces/mrshibly/autonomous-research-agent",
+      featured: true,
+      stars: 3
+    },
+    {
+      id: "data-analyst-agent",
+      title: "Lumina Analyst — Autonomous AI Data Analyst",
+      category: "Autonomous AI Agents",
+      desc: "Autonomous AI data analyst featuring AST-sandboxed Python execution, Scikit-Learn linear regression & Isolation Forest anomaly detection, Groq multi-model failover, and executive PDF reporting.",
+      tags: ["FastAPI", "Python", "React 19", "TypeScript", "Scikit-Learn", "Plotly", "Groq"],
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/data-analyst-agent",
+      featured: true,
+      stars: 2
+    },
+    {
+      id: "rag-assistant-fastapi",
+      title: "Mini AI Assistant (Production RAG & Tool Calling)",
+      category: "Production RAG / Microservices",
+      desc: "High-throughput FastAPI microservice with document ingestion (PDF, Markdown), fastembed BGE-small embeddings, persistent ChromaDB collections, conversational memory, and order/product tool calling.",
+      tags: ["FastAPI", "ChromaDB", "FastEmbed", "Groq Llama-3.3", "LangChain", "Docker"],
+      image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/rag-assistant-fastapi",
+      liveDemo: "https://rag-assistant-fastapi.onrender.com/docs",
+      featured: true,
+      stars: 2
     },
     {
       id: "phantomapi",
-      title: "PhantomAPI",
+      title: "PhantomAPI — Reverse AI Gateway",
       category: "AI Infrastructure",
-      desc: "An innovative bridge that transforms ChatGPT's free web interface into an OpenAI-compatible API, enabling free AI automation for n8n agents.",
-      tags: ["FastAPI", "Playwright", "Python", "API"],
-      image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2000&auto=format&fit=crop",
+      desc: "An innovative bridge that transforms ChatGPT's free web interface into an OpenAI-compatible API, enabling free AI automation for n8n agents with real-time SSE streaming.",
+      tags: ["FastAPI", "Playwright", "Python", "Docker", "SSE Streaming", "n8n"],
+      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
       link: "https://github.com/mrshibly/PhantomAPI",
-      featured: true
+      featured: true,
+      stars: 8
     },
     {
-      id: "research-agent",
-      title: "Autonomous Research Agent",
-      category: "Multi-Agent Systems",
-      desc: "A multi-agent system built with LangChain that autonomously searches academic sources and analyzes PDFs to generate cited research reports.",
-      tags: ["LangChain", "Multi-Agent", "Research", "Python"],
-      image: "https://images.unsplash.com/photo-1507146426996-ef05306b995a?q=80&w=2000&auto=format&fit=crop",
-      link: "https://github.com/mrshibly/autonomous-research-agent",
-      featured: true
+      id: "banglasupport-llm",
+      title: "BanglaSupport-LLM (QLoRA Domain Fine-Tuning)",
+      category: "LLM Fine-Tuning & NLP",
+      desc: "Instruction fine-tuning on 289K curated Bangla datasets using Unsloth (4-bit NF4). Evaluated across BLEU-4, ROUGE-L, and BERTScore with Document RAG and agentic SQLite tool calling.",
+      tags: ["Unsloth (QLoRA)", "Qwen", "FastAPI", "ChromaDB", "React", "BERTScore"],
+      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/BanglaSupport-LLM",
+      featured: true,
+      stars: 2
     },
     {
-      id: "bd-insight",
-      title: "BD-Insight",
-      category: "NLP / RAG",
-      desc: "A domain-specific RAG system tailored for the Bangla language, utilizing FAISS and Flan-T5 for deep document analysis.",
-      tags: ["FAISS", "Flan-T5", "Bangla", "RAG"],
-      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2000&auto=format&fit=crop",
-      featured: true
+      id: "eraao",
+      title: "ERAAO — Applied AI & Cybersecurity Platform",
+      category: "Full-Stack SaaS",
+      desc: "Enterprise-grade Applied AI and Offensive Cybersecurity Learning Academy & B2B Consulting Platform built with Next.js 16 App Router, FastAPI, PostgreSQL 16, and Redis 7 rate-limiting.",
+      tags: ["Next.js 16", "FastAPI", "PostgreSQL 16", "Redis 7", "Python 3.12", "Argon2"],
+      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/ERAAO",
+      liveDemo: "https://eraao.com",
+      featured: true,
+      stars: 2
     }
   ],
   stats: [

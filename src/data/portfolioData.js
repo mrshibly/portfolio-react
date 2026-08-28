@@ -29,12 +29,59 @@ export const portfolioData = {
   ],
   projects: [
     {
+      id: "bioacoustic-pneumonia-hear-xai",
+      title: "Bioacoustic Pneumonia & Respiratory Disease Detection via AST & XAI",
+      category: "Bioacoustic AI / Healthcare ML",
+      tagline: "Clinician-interpretable respiratory diagnosis using Audio Spectrogram Transformers and Explainable AI on ICBHI benchmark",
+      desc: "A clinician-interpretable bioacoustic diagnostic framework processing auscultation audio and cough sounds to classify respiratory pathologies (Normal, Crackle, Wheeze, Both) under strict patient-aware 5-fold cross-validation (0% data leakage). Reaches 58.65% ICBHI Score (61.99% peak) with Grad-CAM spectrogram heatmaps.",
+      tags: ["Audio Spectrogram Transformer", "PyTorch", "Explainable AI (Grad-CAM)", "SMOTE", "Librosa", "ICBHI Benchmark"],
+      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/bioacoustic-pneumonia-hear-xai",
+      featured: true,
+      stars: 2,
+      metrics: "58.65% ICBHI Score (61.99% Peak) · 0% Data Leakage",
+      highlights: [
+        "Audio Spectrogram Transformer (AST) 768-dim embeddings fused with 256-dim Mel/MFCC features",
+        "Patient-aware 5-fold stratified group cross-validation protocol eliminating all inter-patient data leakage",
+        "Nelder-Mead decision threshold optimization with Grad-CAM spectrogram saliency heatmaps for clinician validation"
+      ],
+      mermaid: `flowchart TD
+    A["Raw ICBHI Respiratory Audio Files"] --> B["Audio Preprocessing & Denoising"]
+    B --> B1["50Hz - 4000Hz Bandpass Filter"]
+    B --> B2["Spectral Gating Noise Reduction"]
+    B --> B3["VAD & Segmentation"]
+    
+    B3 --> C1["Audio Spectrogram Transformer AST"]
+    B3 --> C2["Multi-Resolution Mel-Spectrogram & MFCC Stats"]
+    
+    C1 --> D1["768-dim Bioacoustic Embeddings"]
+    C2 --> D2["256-dim Multi-View Feature Vectors"]
+    
+    D1 & D2 --> E["Fused Bioacoustic Representation Matrix 1024-dim"]
+    
+    E --> F["Patient-Aware 5-Fold Stratified Group Split"]
+    F --> G["SMOTE Synthetic Feature Resampling"]
+    G --> H["Deep Residual Adapter Classifier Net"]
+    
+    H --> I["Nelder-Mead Decision Threshold Optimization"]
+    I --> J["Final Clinical Prediction: Normal / Crackle / Wheeze / Both"]
+    
+    J --> K1["Grad-CAM Spectrogram Heatmaps"]
+    J --> K2["t-SNE Embedding Space Visualization"]`,
+      architectureSteps: [
+        { node: "Audio Denoising", desc: "Applies 50Hz-4000Hz bandpass and spectral gating noise reduction" },
+        { node: "Feature Fusion", desc: "Fuses AST 768-dim global embeddings with 256-dim Mel/MFCC statistics" },
+        { node: "Patient-Aware Split", desc: "Strict 5-fold grouping preventing cross-fold patient leakage" },
+        { node: "XAI Saliency", desc: "Generates Grad-CAM frequency-time heatmaps for doctor validation" }
+      ]
+    },
+    {
       id: "song-automation-n8n",
       title: "Song-Automation-N8N",
       category: "Workflow Automation",
       tagline: "Enterprise asynchronous AI music, lyrics & video generation pipeline",
       desc: "An asynchronous pipeline orchestrating Salla store webhooks, Claude 3.5 Sonnet lyric generation, Suno V4 audio synthesis, Flux image generation, and a custom FastAPI/Whisper video rendering microservice with Telegram review gates.",
-      tags: ["n8n", "FastAPI", "Whisper", "Claude 3.5", "Suno AI", "Webhooks"],
+      tags: ["n8n", "FastAPI", "Whisper", "Claude 3.5", "Suno AI", "Telegram Bot"],
       image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1200&auto=format&fit=crop",
       link: "https://github.com/mrshibly/Song-Automation-N8N",
       featured: true,
@@ -46,12 +93,6 @@ export const portfolioData = {
         "Custom video rendering microservice synchronizing subtitle typography with Whisper audio stamps"
       ],
       mermaid: `flowchart TD
-    classDef intake fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
-    classDef ai fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
-    classDef micro fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
-    classDef hitl fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
-    classDef delivery fill:#ffebee,stroke:#c62828,stroke-width:2px;
-
     subgraph Intake ["1. Order Intake & DB Synchronization"]
         A["Salla Store Webhook"] --> B["Signature Verification & Parsing"]
         B --> C["Supabase Idempotency Check"]
@@ -80,13 +121,7 @@ export const portfolioData = {
     subgraph Delivery ["5. Automated Fulfillment"]
         L -- "Approve" --> N["Update Supabase Status"]
         N --> O["Karzoun WhatsApp API\\n(Direct Customer Delivery)"]
-    end
-
-    class A,B,C,D intake;
-    class E,F,G,H ai;
-    class I,J,K micro;
-    class L,M hitl;
-    class N,O delivery;`,
+    end`,
       architectureSteps: [
         { node: "Salla Webhook", desc: "Captures new customer song dedication and thematic order" },
         { node: "n8n Orchestrator", desc: "Dispatches Claude 3.5 for lyrics and Suno V4 for audio stems" },
@@ -95,8 +130,138 @@ export const portfolioData = {
       ]
     },
     {
+      id: "autonomous-research-agent",
+      title: "Autonomous AI Research Agent",
+      category: "Multi-Agent Systems",
+      tagline: "Multi-agent swarm that autonomously investigates topics, parses academic papers, and synthesizes cited reports",
+      desc: "A production-grade multi-agent research system that coordinates Planner, Search, Paper (PDF parsing), Summarizer, Critic, and Writer agents. Implements Hybrid RAG (SentenceTransformers + FAISS + BM25 with Reciprocal Rank Fusion) and WebSockets live streaming.",
+      tags: ["Multi-Agent", "LangChain", "FAISS", "FastAPI", "WebSockets", "BM25 Hybrid RAG"],
+      image: "https://images.unsplash.com/photo-1507146426996-ef05306b995a?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/autonomous-research-agent",
+      liveDemo: "https://huggingface.co/spaces/mrshibly/autonomous-research-agent",
+      featured: true,
+      stars: 3,
+      metrics: "Live on HuggingFace Spaces · Multi-Agent Critic Loop",
+      highlights: [
+        "6-agent collaborative swarm executing automated literature reviews and structured extraction",
+        "Hybrid RAG engine combining dense vector embeddings (FAISS) and BM25 sparse retrieval via RRF",
+        "Real-time WebSockets streaming timeline providing interactive visibility into agent reasoning states"
+      ],
+      mermaid: `flowchart TD
+    subgraph Swarm ["1. Multi-Agent Planning & Discovery"]
+        A["Planner Agent"] -->|Research Queries| B["Search Agent (Academic Sources)"]
+        B -->|Paper URLs & DOIs| C["Paper Agent (PDF Ingestion & OCR)"]
+    end
+
+    subgraph Hybrid_RAG ["2. Hybrid Dense + Sparse Retrieval"]
+        C -->|Extracted Text| D1["FAISS Vector Store (SentenceTransformers)"]
+        C -->|Raw Tokens| D2["BM25 Sparse Keyword Index"]
+        D1 & D2 --> D3["Reciprocal Rank Fusion (RRF)"]
+    end
+
+    subgraph Synthesis ["3. LLM Reasoning & Critic Loop"]
+        D3 --> E["Summarizer Agent (Technical Insights)"]
+        E --> F["Critic Agent (Factual & Citation Verification)"]
+        F -- "Revision Needed" --> G["Writer Agent (Report Drafting)"]
+        G --> F
+        F -- "Passed Validation" --> H["Final Research Report with Citations"]
+    end`,
+      architectureSteps: [
+        { node: "Planner & Search", desc: "Formulates search queries and queries academic repositories" },
+        { node: "PDF Ingestion", desc: "Extracts full text and tabular data from academic papers" },
+        { node: "Hybrid RAG (FAISS + BM25)", desc: "Ranks findings using reciprocal rank fusion" },
+        { node: "Critic Loop", desc: "Audits citation accuracy before generating structured report" }
+      ]
+    },
+    {
+      id: "data-analyst-agent",
+      title: "Lumina Analyst — Autonomous AI Data Analyst",
+      category: "Autonomous AI Agents",
+      tagline: "Autonomous data analyst agent for predictive ML modeling, interactive Plotly studio, and executive reporting",
+      desc: "A high-performance autonomous AI data analyst featuring an AST-sandboxed Python execution environment, Scikit-Learn linear regression & Isolation Forest anomaly detection, automatic Groq multi-model rate-limit failover, and one-click executive PDF report generation.",
+      tags: ["FastAPI", "Python", "React 19", "TypeScript", "Scikit-Learn", "Plotly", "Groq"],
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/data-analyst-agent",
+      featured: true,
+      stars: 2,
+      metrics: "17 Automated Test Suites · Zero-Downtime Multi-Model Failover",
+      highlights: [
+        "AST-sandboxed Python code execution sandbox preventing unsafe system operations during pandas analysis",
+        "Multi-model failover engine automatically rotating between Llama 3.3 70B, Mixtral 8x7B, and Llama 3.1 8B",
+        "Interactive Plotly chart studio with 1-click executive PDF export containing KPI summaries"
+      ],
+      mermaid: `flowchart TD
+    User["User Browser UI (React 19 / TS)"] -->|HTTP / SSE Stream| API["FastAPI Backend Gateway"]
+    API --> Orchestrator["Agent Orchestrator"]
+    Orchestrator --> LLM["Multi-Model Groq / OpenAI Engine (Auto-Failover)"]
+    
+    LLM --> Router["Tool Router & Function Calling"]
+    
+    subgraph Sandboxes ["Specialized Tool Sandboxes"]
+        Router --> T1["File Loader (CSV / Excel / Parquet)"]
+        Router --> T2["AST-Sandboxed Python Executor"]
+        Router --> T3["Dynamic Plotly Chart Studio"]
+        Router --> T4["AI Data Imputation & Cleaning"]
+        Router --> T5["Predictive ML (Regression & Isolation Forest)"]
+    end
+    
+    T1 & T2 & T3 & T4 & T5 --> Synth["Results & Interactive Payload Synthesis"]
+    Synth --> Frontend["Frontend Rendering (Plotly + KPI Cards + PDF Export)"]`,
+      architectureSteps: [
+        { node: "FastAPI Gateway", desc: "Handles multipart dataset uploads and SSE streaming responses" },
+        { node: "Failover Engine", desc: "Rotates models across Groq endpoints on rate limit triggers" },
+        { node: "Python AST Sandbox", desc: "Executes mathematical and dataframe operations securely" },
+        { node: "PDF Exporter", desc: "Compiles styled executive summary reports with embedded charts" }
+      ]
+    },
+    {
+      id: "rag-assistant-fastapi",
+      title: "Mini AI Assistant (Production RAG & Tool Calling)",
+      category: "Production RAG / Microservices",
+      tagline: "Production FastAPI RAG assistant with ChromaDB, FastEmbed, Groq LLM, and dynamic tool calling",
+      desc: "High-throughput FastAPI microservice with document ingestion (PDF, Markdown), fastembed BGE-small embeddings, persistent ChromaDB collections, conversational session memory, and automatic order/product tool calling.",
+      tags: ["FastAPI", "ChromaDB", "FastEmbed", "Groq Llama-3.3", "LangChain", "Docker"],
+      image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/rag-assistant-fastapi",
+      liveDemo: "https://rag-assistant-fastapi.onrender.com/docs",
+      featured: true,
+      stars: 2,
+      metrics: "Live on Render · Sub-200ms Embedding Retrieval",
+      highlights: [
+        "ONNX-quantized FastEmbed (BGE-small-en-v1.5) executing high-speed vector embeddings without PyTorch overhead",
+        "Dual pipeline architecture supporting both knowledge-grounded RAG and deterministic tool invocation",
+        "Full OpenAPI interactive documentation and health monitoring endpoints"
+      ],
+      mermaid: `flowchart TD
+    subgraph Ingestion ["1. Document Ingestion Pipeline"]
+        I1["Upload Document (PDF / TXT / MD)"] --> I2["PyPDF2 / Text Extract"]
+        I2 --> I3["RecursiveCharacterTextSplitter"]
+        I3 --> I4["FastEmbed BGE-small Embeddings"]
+        I4 --> I5["ChromaDB Vector Collection"]
+    end
+
+    subgraph Retrieval ["2. Chat & Retrieval Pipeline"]
+        C1["User Message (ChatRequest)"] --> C2["Load Session Memory (MemoryService)"]
+        C2 --> C3["Retrieve Semantic Context (ChromaDB)"]
+        C3 --> C4["Groq Llama-3.3-70B Orchestrator"]
+        
+        C4 --> B1["Tool Calling (Orders / Products DB)"]
+        C4 --> B2["RAG Contextual Synthesis"]
+        C4 --> B3["Direct Knowledge Response"]
+        
+        B1 & B2 & B3 --> M1["Update Conversation Memory"]
+        M1 --> R1["Return Response Payload (ChatResponse)"]
+    end`,
+      architectureSteps: [
+        { node: "FastEmbed ONNX", desc: "Generates vector embeddings locally with zero PyTorch dependency" },
+        { node: "ChromaDB Storage", desc: "Persists document chunks into collections for sub-second retrieval" },
+        { node: "Memory Service", desc: "Maintains conversational session state across turns" },
+        { node: "Tool Router", desc: "Executes real-time order/product database lookups via LLM function calling" }
+      ]
+    },
+    {
       id: "phantomapi",
-      title: "PhantomAPI",
+      title: "PhantomAPI — Reverse AI Gateway",
       category: "AI Infrastructure",
       tagline: "OpenAI-compatible API gateway bridge powered by FastAPI & Playwright",
       desc: "A production reverse-engineered bridge transforming ChatGPT's web session interface into a full OpenAI-compatible API gateway. Built to enable zero-cost local LLM integration for n8n automations, multi-agent swarms, and client applications.",
@@ -112,11 +277,6 @@ export const portfolioData = {
         "Integrated rate limiting and proxy rotation to guarantee high availability"
       ],
       mermaid: `flowchart TD
-    classDef client fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
-    classDef gw fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
-    classDef worker fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
-    classDef stream fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
-
     subgraph ClientLayer ["1. Client Requests"]
         C1["n8n Agent"] --> API["POST /v1/chat/completions"]
         C2["Custom AI App"] --> API
@@ -138,12 +298,7 @@ export const portfolioData = {
         DOM --> SSE["Token Mutation Observer"]
         SSE --> StreamOut["Server-Sent Events (SSE) Stream"]
         StreamOut --> C1
-    end
-
-    class C1,C2,API client;
-    class V,Q gw;
-    class P1,P2,DOM worker;
-    class SSE,StreamOut stream;`,
+    end`,
       architectureSteps: [
         { node: "Client / Agent", desc: "Sends standard OpenAI POST /v1/chat/completions payload" },
         { node: "FastAPI Gateway", desc: "Validates schema, checks token cache, manages rate limits" },
@@ -152,310 +307,293 @@ export const portfolioData = {
       ]
     },
     {
-      id: "apex-hybrid-ai-lab",
-      title: "APEX Hybrid AI Lab",
-      category: "Multi-Agent Systems",
-      tagline: "Local-first autonomous multi-agent platform with self-healing execution loops",
-      desc: "A local-first multi-agent orchestration architecture featuring a central routing engine, conversational memory retention, and specialized task agents powered by local LLMs (Gemma/Ollama) with Telegram bot integrations.",
-      tags: ["Python", "Multi-Agent", "Ollama", "Local LLMs", "Telegram API", "LangGraph"],
-      image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop",
-      link: "https://github.com/mrshibly/APEX-Hybrid-AI-Lab",
-      featured: true,
-      stars: 1,
-      metrics: "Sub-Second Local Agent Routing & Recovery",
-      highlights: [
-        "Master routing orchestrator dynamically delegating user intents to specialized worker nodes",
-        "Self-healing execution loops with automated fallback retries on failed tool executions",
-        "Stateful conversational memory layer preserving context across complex multi-turn sessions"
-      ],
-      mermaid: `flowchart TD
-    classDef input fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
-    classDef router fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
-    classDef agents fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
-    classDef loop fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
-
-    subgraph InputChannel ["1. Inbound Intent"]
-        T["Telegram Bot"] --> R["Master Intent Router"]
-        CLI["Local CLI"] --> R
-    end
-
-    subgraph MemoryContext ["2. Context & Memory"]
-        R <--> Mem["Stateful SQLite Memory"]
-    end
-
-    subgraph SwarmNodes ["3. Specialized Worker Agents"]
-        R --> A1["Coding Agent (DeepSeek-Coder)"]
-        R --> A2["Research Agent (Llama 3.3)"]
-        R --> A3["Automation Agent (Ollama Local)"]
-    end
-
-    subgraph SelfHealing ["4. Validation & Self-Healing Loop"]
-        A1 & A2 & A3 --> Critic["Self-Healing Critic Node"]
-        Critic -- "Error Detected" --> Retry["Auto-Correct Parameter Injection"]
-        Retry --> R
-        Critic -- "Verified Output" --> Out["Response Dispatch"]
-    end
-
-    class T,CLI input;
-    class R,Mem router;
-    class A1,A2,A3 agents;
-    class Critic,Retry,Out loop;`,
-      architectureSteps: [
-        { node: "User Input (Telegram/CLI)", desc: "Captures natural language commands & operational goals" },
-        { node: "Master Intent Router", desc: "Evaluates task complexity and decomposes into sub-goals" },
-        { node: "LangGraph Swarm Nodes", desc: "Specialized worker agents execute parallel tool calls" },
-        { node: "Self-Healing Critic", desc: "Verifies outputs, auto-corrects errors before user dispatch" }
-      ]
-    },
-    {
       id: "banglasupport-llm",
-      title: "BanglaSupport-LLM",
-      category: "Domain LLM / Fine-Tuning",
-      tagline: "Fine-tuned Qwen3-8B model with QLoRA & RAG for Bengali e-commerce customer care",
-      desc: "An end-to-end specialized customer support model fine-tuned on Bengali e-commerce interaction corpora using QLoRA. Integrates policy retrieval (RAG), agentic function calling, and a streaming FastAPI backend.",
-      tags: ["PyTorch", "QLoRA", "Qwen3", "HuggingFace", "FastAPI", "Bengali NLP"],
-      image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1200&auto=format&fit=crop",
+      title: "BanglaSupport-LLM (QLoRA Domain Fine-Tuning)",
+      category: "LLM Fine-Tuning & NLP",
+      tagline: "QLoRA fine-tuned Qwen2.5/3-8B model with RAG and agentic SQLite tool calling for Bangla e-commerce",
+      desc: "Comprehensive domain-specific instruction fine-tuning on 289K curated Bangla datasets using Unsloth (4-bit NF4). Evaluated across BLEU-4, ROUGE-L, and BERTScore with Document RAG vs Fine-Tuning benchmark analysis and SSE streamed React UI.",
+      tags: ["Unsloth (QLoRA)", "Qwen", "FastAPI", "ChromaDB", "React", "BERTScore"],
+      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop",
       link: "https://github.com/mrshibly/BanglaSupport-LLM",
       featured: true,
-      stars: 1,
-      metrics: "Published on Hugging Face Hub",
+      stars: 2,
+      metrics: "289K Fine-Tuning Pairs · 4-Bit NF4 Quantization",
       highlights: [
-        "Custom parameter-efficient fine-tuning (PEFT / QLoRA) on multi-turn Bengali support datasets",
-        "Hybrid RAG policy verification preventing hallucination in return and warranty answers",
-        "Streaming response generation with sub-150ms time-to-first-token inference"
+        "End-to-end dataset curation pipeline with NFC Unicode normalization and MinHash LSH deduplication",
+        "Comparative benchmark across BLEU-4, ROUGE-L, and BERTScore for Base vs Fine-Tuned vs Fine-Tuned+RAG",
+        "Agentic tool-calling workflow with SQLite order status lookup and real-time SSE streaming"
       ],
       mermaid: `flowchart TD
-    classDef query fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
-    classDef rag fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
-    classDef model fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
-    classDef output fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
-
-    subgraph QueryIn ["1. Query Ingestion"]
-        Q["Customer Query (Bangla/Banglish)"] --> V["Vector Embedding (bge-m3)"]
+    subgraph DataPrep ["Phase 1: Dataset Pipeline"]
+        A1["Bangla-Instruct 342K"] --> A3["Support Intent Filter"]
+        A2["Aya Dataset Bengali"] --> A3
+        A3 --> A4["NFC Normalization & Dedup"]
+        A4 --> A5["Train / Val / Test Split 289K"]
     end
 
-    subgraph RAGLayer ["2. Policy Retrieval & Grounding"]
-        V --> FAISS["FAISS Index (E-Commerce Policies)"]
-        FAISS --> Context["Context Augmentation Engine"]
+    subgraph Training ["Phase 2: QLoRA Fine-Tuning"]
+        A5 --> B1["Qwen3-8B Base Model"]
+        B1 --> B2["Unsloth + SFTTrainer 4-bit NF4"]
+        B2 --> B3["Merged Model Safetensors / GGUF"]
     end
 
-    subgraph Inference ["3. QLoRA Adapter Inference"]
-        Context --> LLM["Qwen3-8B Base Model"]
-        LLM <--> LoRA["Fine-Tuned QLoRA Weights"]
+    subgraph Eval ["Phase 3: Multi-Metric Evaluation"]
+        B3 --> C1["BLEU / ROUGE-L"]
+        B3 --> C2["BERTScore bangla-bert-base"]
+        B3 --> C3["LLM-as-a-Judge 1-5 Scale"]
     end
 
-    subgraph Streaming ["4. Sub-150ms Delivery"]
-        LoRA --> API["FastAPI SSE Response"]
-        API --> Client["Customer Chat Widget"]
-    end
-
-    class Q,V query;
-    class FAISS,Context rag;
-    class LLM,LoRA model;
-    class API,Client output;`,
+    subgraph Serving ["Phase 4: RAG, Agent & UI Serving"]
+        B3 --> D1["FastAPI SSE Server"]
+        D2["ChromaDB Policy Vector Store"] --> D1
+        D3["SQLite Order DB Tools"] --> D1
+        D1 --> D4["Glassmorphic React UI (Hind Siliguri)"]
+    end`,
       architectureSteps: [
-        { node: "Customer Query", desc: "Receives raw Bengali/Banglish e-commerce support inquiry" },
-        { node: "Dense Vector Retrieval", desc: "FAISS searches merchant return policies and order database" },
-        { node: "QLoRA Adapter Weights", desc: "Qwen3-8B fine-tuned base applies localized tone and empathy" },
-        { node: "FastAPI Stream", desc: "Streams tokenized customer response with sub-150ms latency" }
+        { node: "Dataset Pipeline", desc: "Cleans 342K records with NFC normalization and MinHash deduplication" },
+        { node: "Unsloth QLoRA", desc: "Fine-tunes Qwen3-8B in 4-bit NF4 with optimized memory allocation" },
+        { node: "Benchmark Eval", desc: "Compares BLEU-4, ROUGE-L, and BERTScore against base model" },
+        { node: "SSE Serving", desc: "Serves streamed Bengali responses from FastAPI backend" }
       ]
     },
     {
-      id: "eraao-platform",
-      title: "ERAAO SaaS Platform",
-      category: "Full Stack & SaaS",
-      tagline: "Production-grade platform for AI development, cybersecurity, and LMS",
-      desc: "A production SaaS-ready platform engineered with FastAPI backend microservices and modern Next.js frontend, providing cybersecurity assessments, AI engineering services, and structured learning management.",
-      tags: ["FastAPI", "Next.js", "Python", "TypeScript", "PostgreSQL", "Tailwind CSS"],
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+      id: "eraao",
+      title: "ERAAO — Applied AI & Cybersecurity Platform",
+      category: "Full-Stack SaaS",
+      tagline: "Applied Artificial Intelligence and Offensive Cybersecurity Academy & B2B Consulting Platform",
+      desc: "Enterprise-grade Applied AI and Offensive Cybersecurity Learning Academy & B2B Consulting Platform. Built with Next.js 16 (App Router & Turbopack), FastAPI (Python 3.12), PostgreSQL 16, Redis 7 for rate-limiting, and AI assistant security guardrails.",
+      tags: ["Next.js 16", "FastAPI", "PostgreSQL 16", "Redis 7", "Python 3.12", "Argon2"],
+      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200&auto=format&fit=crop",
       link: "https://github.com/mrshibly/ERAAO",
+      liveDemo: "https://eraao.com",
       featured: true,
-      stars: 0,
-      metrics: "Live at eraao.com",
+      stars: 2,
+      metrics: "Live Production on eraao.com · Next.js 16 + FastAPI",
       highlights: [
-        "Modular FastAPI architecture featuring JWT auth, role-based access control, and PostgreSQL ORM",
-        "Interactive course delivery interface with automated progress tracking and quiz verification",
-        "High-performance REST API endpoints designed for sub-50ms query response times"
+        "Interactive student portal with cryptographic credential ledger verification (/verify/[id])",
+        "AI chatbot assistant with strict prompt injection defense, length sanitization, and grounding guardrails",
+        "Full administrative operations center with role elevation and enterprise cybersecurity booking schedules"
       ],
+      mermaid: `flowchart TD
+    subgraph Frontend ["Client Layer (Vercel)"]
+        UI["Next.js 16 (App Router + Turbopack)"]
+        UI --> SP["Student Portal & Course Vault"]
+        UI --> Admin["Admin Operations Center"]
+        UI --> AI["AI Chatbot with Security Guardrails"]
+    end
+
+    subgraph Backend ["Backend API Layer (Render)"]
+        UI -->|HTTPS / JWT| API["FastAPI Application Server (Python 3.12)"]
+        API --> Auth["Argon2 Security & Password Hashing"]
+        API --> Redis["Redis 7 (Rate Limiting & Lockout Guard)"]
+        API --> ORM["Async SQLAlchemy 2.0 + Alembic"]
+    end
+
+    subgraph Data ["Data Persistence Layer"]
+        ORM --> DB[("PostgreSQL 16 Relational Database")]
+    end`,
       architectureSteps: [
-        { node: "Next.js 14 Frontend", desc: "Server-side rendered dashboard with Tailwind CSS & Lucide" },
-        { node: "FastAPI REST API", desc: "JWT authenticated endpoints with Pydantic validation" },
-        { node: "PostgreSQL & Redis", desc: "Indexed relational tables with Redis query caching" },
-        { node: "LMS Progress Engine", desc: "Automated module grading, certification generation & analytics" }
+        { node: "Next.js 16 UI", desc: "High-performance student catalog, dashboard, and whitepaper portals" },
+        { node: "FastAPI Backend", desc: "Async Python microservices with role-based JWT authentication" },
+        { node: "Redis 7 Gate", desc: "Provides IP-based sliding window rate-limiting and session cache" },
+        { node: "PostgreSQL 16", desc: "Relational database with automated Alembic schema migrations" }
       ]
     },
     {
-      id: "autonomous-research-agent",
-      title: "Autonomous Research Agent",
-      category: "Multi-Agent Systems",
-      tagline: "Autonomous literature review and academic synthesis swarm",
-      desc: "A hierarchical multi-agent research assistant built with LangChain and LangGraph. It queries academic sources (arXiv, PubMed), analyzes multi-page PDF papers, extracts verified citations, and compiles structured markdown monographs in under 3 minutes.",
-      tags: ["LangChain", "LangGraph", "FAISS", "BM25", "Python", "RAG"],
-      image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=1200&auto=format&fit=crop",
-      link: "https://github.com/mrshibly/autonomous-research-agent",
-      featured: true,
+      id: "ilmai",
+      title: "IlmAI: Scholarly AI Research Engine",
+      category: "Semantic Search & NLP",
+      tagline: "Scholarly research platform with PostgreSQL pgvector neural semantic search and comparative analysis",
+      desc: "Scholarly intelligence platform featuring Next.js 15, FastAPI, Groq Llama 3.3 70B, SentenceTransformers, and PostgreSQL pgvector neural embeddings for cross-madhhab analysis and academic report export.",
+      tags: ["Next.js 15", "FastAPI", "PostgreSQL pgvector", "Groq Llama 3.3", "SentenceTransformers"],
+      image: "https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/IlmAI",
+      featured: false,
       stars: 1,
-      metrics: "Reduces 10+ Hours of Literature Review into 3 Minutes",
+      metrics: "PostgreSQL pgvector · Comparative Reasoning Engine",
       highlights: [
-        "Hierarchical agent layout with dedicated Researcher, Critic, and Synthesizer sub-agents",
-        "Automated citation validation against DOI and academic repository indexes",
-        "Hybrid dense-sparse retrieval combining SentenceTransformers and BM25 search"
+        "Neural semantic search understanding conceptual meanings of complex historical texts",
+        "Comparative analysis mode generating side-by-side legal scholarship breakdowns",
+        "One-click scholarly digital whitepaper exporter with academic citation standards"
       ],
+      mermaid: `flowchart TD
+    subgraph Client ["Client Layer (Next.js 15)"]
+        UI["Next.js Web App"] --> Chat["Chat Interface"]
+        UI --> Search["Semantic Search Engine"]
+        UI --> Export["Whitepaper Exporter"]
+    end
+
+    subgraph Server ["API Layer (FastAPI)"]
+        Chat & Search --> API["FastAPI Server"]
+        API --> Auth["JWT Session Management"]
+    end
+
+    subgraph Intelligence ["Intelligence & Vector DB Layer"]
+        API --> Groq["Groq API (Llama 3.3 70B)"]
+        API --> Embed["SentenceTransformers / Gemini Embeddings"]
+        Embed --> DB[("PostgreSQL Database (pgvector Enabled)")]
+    end`,
       architectureSteps: [
-        { node: "Research Query", desc: "User inputs complex technical or scientific research prompt" },
-        { node: "Paper Ingestion Agent", desc: "Queries arXiv/PubMed APIs and extracts PDF structural text" },
-        { node: "Hybrid Search (FAISS+BM25)", desc: "Dense semantic + keyword lookup identifies relevant findings" },
-        { node: "Critic & Synthesizer", desc: "Audits DOI citations and compiles structured markdown paper" }
-      ]
-    },
-    {
-      id: "llamaocr-pipeline",
-      title: "LlamaOCR Pipeline",
-      category: "Computer Vision & OCR",
-      tagline: "Vision-LLM document intelligence engine with OpenCV preprocessing",
-      desc: "A high-precision document extraction engine utilizing Llama 3.3 Vision and OpenCV. Digitizes complex handwritten forms, invoices, and multi-column academic papers into validated JSON schemas with 99.2% extraction accuracy.",
-      tags: ["Llama 3.3", "OpenCV", "FastAPI", "Python", "Computer Vision"],
-      image: "https://images.unsplash.com/photo-1618042164219-62c820f10723?q=80&w=1200&auto=format&fit=crop",
-      link: "https://github.com/mrshibly/LlamaOCR-Pipeline",
-      featured: false,
-      stars: 0,
-      metrics: "99.2% Extraction Accuracy on Unstructured Forms",
-      highlights: [
-        "Adaptive thresholding and deskew preprocessing pipeline using OpenCV",
-        "Deterministic JSON schema enforcement for zero-format degradation",
-        "Asynchronous batch PDF ingestion queue for enterprise throughput"
-      ],
-      architectureSteps: [
-        { node: "Document Upload", desc: "Receives scanned PDF / handwritten form image" },
-        { node: "OpenCV Preprocessor", desc: "Applies adaptive thresholding, deskew, and contrast enhancement" },
-        { node: "Llama 3.3 Vision", desc: "Extracts tabular structures, key-values, and signatures" },
-        { node: "JSON Schema Validator", desc: "Enforces strict Pydantic model types for ERP ingestion" }
-      ]
-    },
-    {
-      id: "lexdraft",
-      title: "LexDraft Legal RAG",
-      category: "NLP / RAG",
-      tagline: "High-precision Legal RAG with page-aware grounding & OCR loop",
-      desc: "A specialized legal intelligence engine with page-aware citation grounding, automated OCR pipelines, and an active feedback loop that adapts to operator edits and jurisdiction guidelines.",
-      tags: ["ChromaDB", "Python", "RAG", "FastAPI", "Docker", "Tesseract"],
-      image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=1200&auto=format&fit=crop",
-      link: "https://github.com/mrshibly/LexDraft",
-      featured: false,
-      stars: 0,
-      metrics: "Exact Page-Grounded Legal Citation Search",
-      highlights: [
-        "Page-level chunking and metadata preservation for audit-ready citations",
-        "OCR fallback layer for legacy scanned court rulings and contractual deeds",
-        "Operator preference feedback loop adapting ranking weights over time"
-      ]
-    },
-    {
-      id: "real-time-analytics-pipeline",
-      title: "Real-Time Analytics Pipeline",
-      category: "Distributed Systems",
-      tagline: "High-throughput event ingestion engine processing 50M+ events/day",
-      desc: "A scalable real-time analytics and personalization pipeline designed to handle over 50M events/day. Features Redis Streams event queues, SQLite/ClickHouse storage, identity resolution, and GDPR-compliant automated purges.",
-      tags: ["FastAPI", "Redis Streams", "ClickHouse", "System Design", "Python"],
-      image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=1200&auto=format&fit=crop",
-      link: "https://github.com/mrshibly/Real-Time-Analytics-Pipeline",
-      featured: false,
-      stars: 0,
-      metrics: "Engineered for 50M+ Events/Day Throughput",
-      highlights: [
-        "Asynchronous Redis Stream worker consumers preventing bottlenecks during traffic spikes",
-        "Cross-device user identity resolution and stitching logic",
-        "Automated GDPR data lifecycle policies and partition purges"
+        { node: "Semantic Search", desc: "Indexes classical manuscripts with pgvector high-dimensional embeddings" },
+        { node: "Comparative Analysis", desc: "Extracts rulings across schools of jurisprudence side-by-side" },
+        { node: "Llama 3.3 Inference", desc: "Generates grounded scholarly summaries via Groq acceleration" }
       ]
     },
     {
       id: "minigpt-from-scratch",
-      title: "MiniGPT from Scratch",
-      category: "Deep Learning Research",
-      tagline: "PyTorch decoder-only Transformer language model built from scratch",
-      desc: "A complete from-scratch implementation of a GPT-style decoder-only Transformer in PyTorch. Includes custom Byte-Pair Encoding (BPE) tokenization, multi-head self-attention, mixed-precision training, and text generation routines.",
-      tags: ["PyTorch", "Transformers", "NLP", "Deep Learning", "Python"],
+      title: "MiniGPT-from-Scratch (124M-Parameter Transformer)",
+      category: "Deep Learning & LLM Core",
+      tagline: "From-scratch decoder-only Transformer with FlashAttention-2, RoPE, RMSNorm, and SwiGLU",
+      desc: "High-performance PyTorch implementation of a 124M parameter language model trained on 10 GB FineWeb-Edu. Features SDPA FlashAttention-2 (>110,000 tokens/sec), RoPE positional embeddings, custom BPE tokenizer, and interactive Gradio UI.",
+      tags: ["PyTorch", "FlashAttention-2", "RoPE", "SwiGLU", "Gradio", "CUDA"],
       image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1200&auto=format&fit=crop",
       link: "https://github.com/mrshibly/MiniGPT-from-Scratch",
       featured: false,
-      stars: 0,
-      metrics: "Custom Tokenizer & Multi-Head Self-Attention",
+      stars: 2,
+      metrics: "110,000+ tokens/sec · FineWeb-Edu 10GB Trained",
       highlights: [
-        "Handcrafted multi-head causal self-attention mechanism and positional embeddings",
-        "Mixed-precision (FP16/AMP) training pipeline with gradient accumulation and checkpointing",
-        "Top-k, top-p (nucleus), and temperature sampling generation routines"
+        "Vectorized Multi-Head FlashAttention-2 with PyTorch SDPA achieving 110,000+ tokens/sec throughput",
+        "Modern Llama-style architectural components: Rotary Position Embeddings (RoPE), RMSNorm, and SwiGLU",
+        "Zero-overhead streaming I/O with memory-mapped uint16 binary dataset streams and custom BPE tokenizer"
+      ],
+      mermaid: `flowchart TD
+    subgraph Data ["Data & Tokenization"]
+        D1["10 GB FineWeb-Edu Corpus"] --> D2["Custom Byte-Pair Encoding (BPE)"]
+        D2 --> D3["Memory-Mapped Binary Streams (train.bin / val.bin)"]
+    end
+
+    subgraph Architecture ["Transformer Core (124M Params)"]
+        D3 --> E["Input Embeddings + RoPE (Rotary Embeddings)"]
+        E --> L1["RMSNorm (Pre-Layer Normalization)"]
+        L1 --> L2["Vectorized Multi-Head FlashAttention-2 (SDPA)"]
+        L2 --> L3["Residual Connection + RMSNorm"]
+        L3 --> L4["SwiGLU Feed-Forward Blocks"]
+        L4 --> Out["Output Linear Projection & Softmax"]
+    end
+
+    subgraph Runtime ["Inference & Web Studio"]
+        Out --> G["Gradio Interactive Web UI (Temperature & Top-K)"]
+    end`,
+      architectureSteps: [
+        { node: "Custom BPE", desc: "Trains subword vocabulary and compiles binary uint16 token streams" },
+        { node: "RoPE & RMSNorm", desc: "Integrates modern Llama positional embedding and normalization blocks" },
+        { node: "FlashAttention-2", desc: "Leverages PyTorch SDPA for 110k+ tokens/sec throughput on GPUs" }
       ]
     },
     {
-      id: "dealershipms",
-      title: "DealershipMS",
-      category: "Full Stack & ERP",
-      tagline: "Full-stack management system for distribution businesses",
-      desc: "A robust Dealership Management System designed for regional distribution companies in Bangladesh. Features inventory tracking, billing, ledger reporting, and role-based operational dashboards.",
-      tags: ["FastAPI", "PostgreSQL", "React", "Tailwind CSS", "Python"],
-      image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop",
-      link: "https://github.com/mrshibly/DealershipMS",
+      id: "real-time-analytics-pipeline",
+      title: "Real-Time Personalization Analytics Pipeline",
+      category: "Distributed Systems",
+      tagline: "Distributed tracking pipeline handling 50M+ events/day with AWS Kinesis, Redis identity stitching, and ClickHouse",
+      desc: "Distributed architecture designed for 50M+ daily events with <5s latency. Features AWS Kinesis On-Demand buffer, Redis session identity stitching, ClickHouse columnar OLAP micro-batching, and S3 Parquet archiving.",
+      tags: ["AWS Kinesis", "Redis", "ClickHouse", "Fastify", "Docker", "Event-Driven"],
+      image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/Real-Time-Analytics-Pipeline",
       featured: false,
-      stars: 0,
-      metrics: "Production Inventory & Financial Ledger",
+      stars: 2,
+      metrics: "50M+ Events/Day · <5-Second End-to-End Latency",
       highlights: [
-        "Relational schema optimized with PostgreSQL indexes for fast ledger calculations",
-        "Comprehensive inventory aging, consignment tracking, and purchase order flows",
-        "Clean responsive management interface built with React and Tailwind CSS"
+        "Ingress gateway built with Fastify handling 10k req/sec on AWS ECS Fargate behind ALB",
+        "Real-time anonymous-to-user identity stitching in Redis with state merge and sub-millisecond lookups",
+        "Columnar OLAP storage in ClickHouse with micro-batch inserts achieving 5x-10x compression"
+      ],
+      mermaid: `flowchart TD
+    SDK["JS SDK on Client Website"] -->|HTTP POST / sendBeacon| ALB["AWS Application Load Balancer"]
+    ALB --> Ingress["Ingress Gateway: Fastify on ECS Fargate"]
+    Ingress --> Queue[("AWS Kinesis Data Streams")]
+    
+    Queue --> StreamProcessor["Stream Processor: Python on ECS Fargate"]
+    
+    StreamProcessor -->|Identity Stitching & Session Profile| Redis[("AWS ElastiCache Redis Cluster")]
+    StreamProcessor -->|Trigger Webhook| PersEngine["Personalization Engine"]
+    StreamProcessor -->|Micro-Batch Inserts| ClickHouse[("ClickHouse Cloud OLAP")]
+    
+    Queue -->|Auto-Archive Raw Events| Firehose["Kinesis Data Firehose"]
+    Firehose -->|Parquet Files| S3[("Amazon S3 Raw Data Lake")]
+    
+    ClickHouse --> Dashboard["Analytics Dashboard & Frontend UI"]
+    S3 --> DWH[("Snowflake / BigQuery External Tables")]`,
+      architectureSteps: [
+        { node: "Ingress Gateway", desc: "Fastify on ECS Fargate buffers incoming tracking payloads into Kinesis" },
+        { node: "Identity Stitching", desc: "Merges anonymous browsing sessions with registered accounts in Redis" },
+        { node: "ClickHouse OLAP", desc: "Micro-batches events into columnar partitions for sub-second analytical queries" }
       ]
     },
     {
-      id: "bioacoustic-pneumonia-xai",
-      title: "Bioacoustic Pneumonia XAI",
-      category: "Healthcare AI / Research",
-      tagline: "Explainable AI foundation model for respiratory sound classification",
-      desc: "Non-invasive respiratory anomaly classification and explainable acoustic AI model evaluated on the ICBHI 2017 benchmark dataset for clinical diagnostic assistance.",
-      tags: ["PyTorch", "Bioacoustics", "XAI", "Signal Processing", "Python"],
-      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
-      link: "https://github.com/mrshibly/bioacoustic-pneumonia-hear-xai",
+      id: "lexdraft",
+      title: "LexDraft: AI Legal Document Processing & Grounded Drafting",
+      category: "Document AI",
+      tagline: "Adaptive legal document ingestion, citation-grounded drafting, and human-in-the-loop preference learning",
+      desc: "Intelligent legal processing system with OpenCV conditioning, OCR extraction, source page-level citations, and semantic preference learning loop that auto-applies operator edit patterns to future drafts.",
+      tags: ["FastAPI", "OpenCV", "Tesseract", "Streamlit", "OpenRouter", "RAG"],
+      image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/LexDraft",
       featured: false,
       stars: 1,
-      metrics: "Benchmarked on ICBHI 2017 Dataset",
+      metrics: "Self-Improving Human-in-the-Loop Preference Engine",
       highlights: [
-        "Spectrogram feature extraction and audio augmentation pipeline",
-        "Integrated Grad-CAM heatmaps explaining model decision boundaries to clinicians",
-        "Robust classification performance across noisy clinical recordings"
+        "Adaptive ingestion pipeline processing native PDFs, scanned legal documents, and handwritten annotations",
+        "Strictly grounded drafting where every statement is verified with source page-level citations ([1], [2])",
+        "Semantic preference engine capturing human operator edits to continuously improve future generation quality"
+      ],
+      mermaid: `flowchart TD
+    subgraph Ingestion ["1. Document Conditioning & OCR"]
+        Doc["Legal PDF / Scanned Document"] --> CV["OpenCV Image Preprocessing"]
+        CV --> OCR["Tesseract / Poppler Extraction"]
+        OCR --> Chunker["Citation Anchor Parser"]
+    end
+
+    subgraph Drafting ["2. Grounded Drafting Engine"]
+        Chunker --> RAG["Semantic Context Retriever"]
+        RAG --> LLM["Drafting LLM (OpenRouter API)"]
+        LLM --> Draft["Grounded Legal Draft with Page Citations [1] [2]"]
+    end
+
+    subgraph Learning ["3. Human-in-the-Loop Feedback Loop"]
+        Draft --> Operator["Legal Operator Review & Edits"]
+        Operator --> Diff["Semantic Diff Analyzer"]
+        Diff --> Rules["Preference Rule Extractor"]
+        Rules --> Memory[("Learned Style & Drafting Memory")]
+        Memory --> LLM
+    end`,
+      architectureSteps: [
+        { node: "OpenCV Preprocessor", desc: "Deskews and enhances contrast on legacy court filings" },
+        { node: "Citation Anchoring", desc: "Maps extracted legal statements to exact page coordinates" },
+        { node: "Learning Loop", desc: "Analyzes human operator diffs to update future generation rules" }
       ]
     },
     {
-      id: "humanizer",
-      title: "Humanizer Framework",
-      category: "Prompt Engineering / Skills",
-      tagline: "Advanced AI text humanization & prompt engineering framework",
-      desc: "A comprehensive framework incorporating 45+ stylistic patterns, perplexity/burstiness engineering, and multi-pass self-auditing routines for LLM and agent writing systems.",
-      tags: ["Prompt Engineering", "LLMs", "Agent Skills", "Claude Code"],
-      image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=1200&auto=format&fit=crop",
-      link: "https://github.com/mrshibly/Humanizer",
+      id: "setuops-website",
+      title: "SETU Ops — Official Agency Platform",
+      category: "Workflow Automation",
+      tagline: "Official platform for SETU Ops, Bangladesh's AI automation agency",
+      desc: "Official web platform for SETU Ops, Bangladesh's AI automation agency. High-conversion web experience showcasing AI chatbots, inventory/ERP sync, and enterprise workflow integrations.",
+      tags: ["React", "TailwindCSS", "Automation", "CRM Sync"],
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+      link: "https://github.com/mrshibly/setuops-website",
+      liveDemo: "https://setuops.xyz",
       featured: false,
       stars: 1,
-      metrics: "45+ Curated Stylistic Patterns & Rules",
+      metrics: "Live Production on setuops.xyz",
       highlights: [
-        "Perplexity and burstiness optimization for natural linguistic cadence",
-        "Cross-agent skills integration for Claude Code, OpenCode, and Antigravity environments",
-        "Multi-stage self-audit protocol filtering out robotic boilerplate"
-      ]
-    },
-    {
-      id: "stayease-agent",
-      title: "StayEase Conversational AI",
-      category: "Conversational AI",
-      tagline: "Conversational booking assistant for short-term rentals",
-      desc: "An intelligent rental assistant developed with FastAPI and LangChain, supporting live unit queries, automated reservation booking, and local recommendation lookups in Bangladesh.",
-      tags: ["FastAPI", "LangChain", "PostgreSQL", "Python"],
-      image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1200&auto=format&fit=crop",
-      link: "https://github.com/mrshibly/StayEase",
-      featured: false,
-      stars: 0,
-      metrics: "Natural Language Property Search & Booking",
-      highlights: [
-        "Contextual tool-calling interface checking database availability in real time",
-        "Multi-lingual prompt handling for English and localized terminology",
-        "FastAPI backend with structured JSON schema responses"
+        "High-conversion enterprise AI agency portfolio with interactive service architecture showcases",
+        "Integrated WhatsApp & multi-channel CRM lead automation triggers",
+        "Modern responsive dark/light UI built with React and TailwindCSS"
+      ],
+      mermaid: `flowchart TD
+    Visitor["Enterprise Client"] --> Web["SETU Ops Platform (setuops.xyz)"]
+    Web --> Bot["Interactive AI Assistant & Lead Qualifier"]
+    Bot --> Webhook["n8n Webhook Gateway"]
+    
+    subgraph Automations ["SETU Automated Bridges"]
+        Webhook --> CRM["HubSpot / CRM Lead Enrichment"]
+        Webhook --> Notify["Telegram / WhatsApp Instant Alert"]
+        Webhook --> Calendar["Cal.com / Google Calendar Booking"]
+    end`,
+      architectureSteps: [
+        { node: "Lead Qualification", desc: "Interactive AI assistant captures visitor intent and requirements" },
+        { node: "n8n Webhook", desc: "Triggers multi-channel notification and CRM record creation" },
+        { node: "Calendar Sync", desc: "Automates client discovery call scheduling without manual coordination" }
       ]
     }
   ],

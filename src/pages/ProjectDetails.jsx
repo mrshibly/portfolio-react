@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { ArrowLeft, CheckCircle2, Cpu, Sparkles, ArrowUpRight, Star, Workflow, Network, Layers } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, Cpu, Sparkles, ArrowUpRight, Star, Workflow, Network, Layers, ExternalLink } from 'lucide-react'
 import { GithubIcon } from '../components/icons/GithubIcon'
 import { portfolioData } from '../data/portfolioData'
 import MermaidViewer from '../components/MermaidViewer'
@@ -87,12 +87,24 @@ const ProjectDetails = () => {
 
             {/* Actions */}
             <div className="flex flex-col sm:flex-row flex-wrap gap-3 mb-6 w-full">
+              {project.liveDemo && (
+                <a 
+                  href={project.liveDemo} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-full font-semibold text-xs sm:text-sm shadow-md shadow-orange-500/25 transition-all"
+                >
+                  <ExternalLink size={14} />
+                  <span>Launch Live Demo</span>
+                  <ArrowUpRight size={13} />
+                </a>
+              )}
               {project.link && (
                 <a 
                   href={project.link} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-full font-semibold text-xs sm:text-sm shadow-md shadow-orange-500/25 transition-all"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-100 dark:bg-zinc-900 hover:bg-slate-200 dark:hover:bg-zinc-800 text-slate-800 dark:text-zinc-200 border border-slate-200 dark:border-zinc-700/80 rounded-full font-semibold text-xs sm:text-sm transition-all"
                 >
                   <GithubIcon size={14} />
                   <span>View GitHub Repository</span>
