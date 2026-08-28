@@ -38,7 +38,7 @@ export const portfolioData = {
       image: "https://raw.githubusercontent.com/mrshibly/bioacoustic-pneumonia-hear-xai/main/results/figures/fig2_gradcam_spectrogram.png",
       link: "https://github.com/mrshibly/bioacoustic-pneumonia-hear-xai",
       featured: true,
-      stars: 2,
+      stars: 1,
       metrics: "58.65% ICBHI Score (61.99% Peak) · 0% Data Leakage",
       highlights: [
         "Audio Spectrogram Transformer (AST) 768-dim embeddings fused with 256-dim Mel/MFCC features",
@@ -140,7 +140,7 @@ export const portfolioData = {
       link: "https://github.com/mrshibly/autonomous-research-agent",
       liveDemo: "https://huggingface.co/spaces/mrshibly/autonomous-research-agent",
       featured: true,
-      stars: 3,
+      stars: 1,
       metrics: "Live on HuggingFace Spaces · Multi-Agent Critic Loop",
       highlights: [
         "6-agent collaborative swarm executing automated literature reviews and structured extraction",
@@ -183,7 +183,7 @@ export const portfolioData = {
       image: "https://raw.githubusercontent.com/mrshibly/data-analyst-agent/main/frontend/src/assets/hero.png",
       link: "https://github.com/mrshibly/data-analyst-agent",
       featured: true,
-      stars: 2,
+      stars: 0,
       metrics: "17 Automated Test Suites · Zero-Downtime Multi-Model Failover",
       highlights: [
         "AST-sandboxed Python code execution sandbox preventing unsafe system operations during pandas analysis",
@@ -225,7 +225,7 @@ export const portfolioData = {
       link: "https://github.com/mrshibly/rag-assistant-fastapi",
       liveDemo: "https://rag-assistant-fastapi.onrender.com/docs",
       featured: true,
-      stars: 2,
+      stars: 0,
       metrics: "Live on Render · Sub-200ms Embedding Retrieval",
       highlights: [
         "ONNX-quantized FastEmbed (BGE-small-en-v1.5) executing high-speed vector embeddings without PyTorch overhead",
@@ -316,7 +316,7 @@ export const portfolioData = {
       image: "https://raw.githubusercontent.com/mrshibly/BanglaSupport-LLM/main/assets/image.png",
       link: "https://github.com/mrshibly/BanglaSupport-LLM",
       featured: true,
-      stars: 2,
+      stars: 1,
       metrics: "289K Fine-Tuning Pairs · 4-Bit NF4 Quantization",
       highlights: [
         "End-to-end dataset curation pipeline with NFC Unicode normalization and MinHash LSH deduplication",
@@ -367,7 +367,7 @@ export const portfolioData = {
       link: "https://github.com/mrshibly/ERAAO",
       liveDemo: "https://eraao.com",
       featured: true,
-      stars: 2,
+      stars: 0,
       metrics: "Live Production on eraao.com · Next.js 16 + FastAPI",
       highlights: [
         "Interactive student portal with cryptographic credential ledger verification (/verify/[id])",
@@ -409,7 +409,7 @@ export const portfolioData = {
       image: "https://raw.githubusercontent.com/mrshibly/IlmAI/main/assets/landing_page.png",
       link: "https://github.com/mrshibly/IlmAI",
       featured: false,
-      stars: 1,
+      stars: 0,
       metrics: "PostgreSQL pgvector · Comparative Reasoning Engine",
       highlights: [
         "Neural semantic search understanding conceptual meanings of complex historical texts",
@@ -449,7 +449,7 @@ export const portfolioData = {
       image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1200&auto=format&fit=crop",
       link: "https://github.com/mrshibly/MiniGPT-from-Scratch",
       featured: false,
-      stars: 2,
+      stars: 0,
       metrics: "110,000+ tokens/sec · FineWeb-Edu 10GB Trained",
       highlights: [
         "Vectorized Multi-Head FlashAttention-2 with PyTorch SDPA achieving 110,000+ tokens/sec throughput",
@@ -490,7 +490,7 @@ export const portfolioData = {
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
       link: "https://github.com/mrshibly/Real-Time-Analytics-Pipeline",
       featured: false,
-      stars: 2,
+      stars: 0,
       metrics: "50M+ Events/Day · <5-Second End-to-End Latency",
       highlights: [
         "Ingress gateway built with Fastify handling 10k req/sec on AWS ECS Fargate behind ALB",
@@ -529,7 +529,7 @@ export const portfolioData = {
       image: "https://raw.githubusercontent.com/mrshibly/LexDraft/main/sample_docs/handwritten_notes.png",
       link: "https://github.com/mrshibly/LexDraft",
       featured: false,
-      stars: 1,
+      stars: 0,
       metrics: "Self-Improving Human-in-the-Loop Preference Engine",
       highlights: [
         "Adaptive ingestion pipeline processing native PDFs, scanned legal documents, and handwritten annotations",
@@ -573,7 +573,7 @@ export const portfolioData = {
       link: "https://github.com/mrshibly/setuops-website",
       liveDemo: "https://setuops.xyz",
       featured: false,
-      stars: 1,
+      stars: 0,
       metrics: "Live Production on setuops.xyz",
       highlights: [
         "High-conversion enterprise AI agency portfolio with interactive service architecture showcases",

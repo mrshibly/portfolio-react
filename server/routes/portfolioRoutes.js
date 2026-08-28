@@ -32,7 +32,7 @@ const defaultData = {
       image: "https://raw.githubusercontent.com/mrshibly/bioacoustic-pneumonia-hear-xai/main/results/figures/fig2_gradcam_spectrogram.png",
       link: "https://github.com/mrshibly/bioacoustic-pneumonia-hear-xai",
       featured: true,
-      stars: 2
+      stars: 1
     },
     {
       id: "song-automation-n8n",
@@ -55,7 +55,7 @@ const defaultData = {
       link: "https://github.com/mrshibly/autonomous-research-agent",
       liveDemo: "https://huggingface.co/spaces/mrshibly/autonomous-research-agent",
       featured: true,
-      stars: 3
+      stars: 1
     },
     {
       id: "data-analyst-agent",
@@ -66,7 +66,7 @@ const defaultData = {
       image: "https://raw.githubusercontent.com/mrshibly/data-analyst-agent/main/frontend/src/assets/hero.png",
       link: "https://github.com/mrshibly/data-analyst-agent",
       featured: true,
-      stars: 2
+      stars: 0
     },
     {
       id: "rag-assistant-fastapi",
@@ -78,7 +78,7 @@ const defaultData = {
       link: "https://github.com/mrshibly/rag-assistant-fastapi",
       liveDemo: "https://rag-assistant-fastapi.onrender.com/docs",
       featured: true,
-      stars: 2
+      stars: 0
     },
     {
       id: "phantomapi",
@@ -100,7 +100,7 @@ const defaultData = {
       image: "https://raw.githubusercontent.com/mrshibly/BanglaSupport-LLM/main/assets/image.png",
       link: "https://github.com/mrshibly/BanglaSupport-LLM",
       featured: true,
-      stars: 2
+      stars: 1
     },
     {
       id: "eraao",
@@ -112,7 +112,7 @@ const defaultData = {
       link: "https://github.com/mrshibly/ERAAO",
       liveDemo: "https://eraao.com",
       featured: true,
-      stars: 2
+      stars: 0
     }
   ],
   stats: [
